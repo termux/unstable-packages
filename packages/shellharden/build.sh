@@ -1,5 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/anordal/shellharden
 TERMUX_PKG_DESCRIPTION="The corrective bash syntax highlighter"
+TERMUX_PKG_LICENSE="MPL-2.0"
 TERMUX_PKG_VERSION=4.0
 TERMUX_PKG_SRCURL=https://github.com/anordal/shellharden/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=91660e4908bd07105f091a62e6f77bc9ed42045096b38abe31503cd2609cb7a0
