@@ -1,7 +1,6 @@
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-
 TERMUX_PKG_HOMEPAGE=https://restic.net/
 TERMUX_PKG_DESCRIPTION="Fast, secure, efficient backup program"
+TERMUX_PKG_LICENSES="BSD"
 TERMUX_PKG_VERSION=0.9.3
 TERMUX_PKG_SRCURL=https://github.com/restic/restic/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=b95a258099aee9a56e620ccebcecabc246ee7f8390e3937ccedadd609c6d2dd0
