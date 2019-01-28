@@ -101,14 +101,14 @@ build-x86_64:
 ## Submit build packages to repository.
 ## This should be executed Only if performing
 ## builds on branch "master".
-#upload-packages:
-#  stage: deploy
-#  only:
-#    - master@xeffyr/unstable-packages
-#  script:
-#    - bash ./scripts/gitlab-ci-upload.sh
-#  retry:
-#    max: 2
-#    when:
-#      - runner_system_failure
-#      - unknown_failure
+upload-packages:
+  stage: deploy
+  only:
+    - master@xeffyr/unstable-packages
+  script:
+    - bash ./scripts/gitlab-ci-upload.sh
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - unknown_failure
