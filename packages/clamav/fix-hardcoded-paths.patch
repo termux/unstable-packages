@@ -1,3 +1,27 @@
+diff -uNr clamav-0.100.2/clamd/others.c clamav-0.100.2.mod/clamd/others.c
+--- clamav-0.100.2/clamd/others.c	2018-09-19 22:29:07.000000000 +0300
++++ clamav-0.100.2.mod/clamd/others.c	2018-10-19 13:07:07.507843259 +0300
+@@ -170,7 +170,7 @@
+     pid = fork ();
+     if (pid == 0)
+     {                           /* child */
+-        exit (execle ("/bin/sh", "sh", "-c", buffer_cmd, NULL, env));
++        exit (execle ("@TERMUX_PREFIX@/bin/sh", "sh", "-c", buffer_cmd, NULL, env));
+     }
+     else if (pid > 0)
+     {                           /* parent */
+diff -uNr clamav-0.100.2/libclamav/others_common.c clamav-0.100.2.mod/libclamav/others_common.c
+--- clamav-0.100.2/libclamav/others_common.c	2018-09-19 22:29:07.000000000 +0300
++++ clamav-0.100.2.mod/libclamav/others_common.c	2018-10-19 13:03:39.917694079 +0300
+@@ -434,7 +434,7 @@
+ #ifdef _WIN32
+ #define P_tmpdir "C:\\"
+ #else
+-#define P_tmpdir "/tmp"
++#define P_tmpdir "@TERMUX_PREFIX@/tmp"
+ #endif /* _WIN32 */
+ #endif /* P_tmpdir */
+ 
 diff -uNr clamav-0.100.2/shared/optparser.c clamav-0.100.2.mod/shared/optparser.c
 --- clamav-0.100.2/shared/optparser.c	2018-09-19 22:29:07.000000000 +0300
 +++ clamav-0.100.2.mod/shared/optparser.c	2018-10-19 13:06:40.016861021 +0300
