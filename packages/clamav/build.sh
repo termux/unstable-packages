@@ -1,6 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://www.clamav.net/
 TERMUX_PKG_DESCRIPTION="Anti-virus toolkit for Unix"
 TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=0.100.2
 TERMUX_PKG_SRCURL=https://www.clamav.net/downloads/production/clamav-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=4a2e4f0cd41e62adb5a713b4a1857c49145cd09a69957e6d946ecad575206dd6
