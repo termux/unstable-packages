@@ -1,7 +1,6 @@
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-
 TERMUX_PKG_HOMEPAGE=https://github.com/Yawning/obfs4
 TERMUX_PKG_DESCRIPTION="A pluggable transport plugin for Tor"
+TERMUX_PKG_LICENSE="BSD 2-Clause, BSD 3-Clause, GPL-3.0"
 _COMMIT=89c21805c212bcc2f5a0c4ffdadf424cbff1c7c9
 TERMUX_PKG_VERSION=0.0.8-dev
 TERMUX_PKG_SRCURL=https://github.com/Yawning/obfs4/archive/${_COMMIT}.zip
