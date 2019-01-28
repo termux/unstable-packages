@@ -1,5 +1,7 @@
 # Repository for new/unstable packages
 
+[![pipeline status](https://gitlab.com/xeffyr/unstable-packages/badges/master/pipeline.svg)](https://gitlab.com/xeffyr/unstable-packages/commits/master)
+
 There are located packages which were requested, but not added to the [main](https://github.com/termux/termux-packages) Termux repository due to various reasons. Packages available here may have lower quality, be unstable or not work at all.
 
 ## Contributing
