@@ -1,0 +1,35 @@
+diff -uNr apg-2.2.3/Makefile apg-2.2.3.mod/Makefile
+--- apg-2.2.3/Makefile	2003-08-07 18:40:30.000000000 +0300
++++ apg-2.2.3.mod/Makefile	2019-01-28 21:11:18.821459195 +0200
+@@ -1,19 +1,19 @@
+ ##################################################################
+ # You can modify CC variable if you have compiler other than GCC
+ # But the code was designed and tested with GCC
+-CC = gcc
++CC ?= gcc
+ 
+ ##################################################################
+ # Compilation flags
+ # You should comment the line below for AIX+native cc
+-FLAGS = -Wall
++FLAGS = -Wall -I@TERMUX_PREFIX@/include
+ 
+ ##################################################################
+ # Libraries
+ #
+ # You should comment the line below ('LIBS= -lcrypt')for QNX RTP
+ # 6.1.0, OpenBSD 2.8 and above, WIN32 (+MinGW)
+-LIBS = -lcrypt
++LIBS = -L@TERMUX_PREFIX@/lib -lcrypt
+ LIBM = -lm
+ # Use lines below for cygwin
+ # LIBS = 
+@@ -39,7 +39,7 @@
+ ##################################################################
+ # Directories
+ # Install dirs
+-INSTALL_PREFIX = /usr/local
++INSTALL_PREFIX = @TERMUX_PREFIX@
+ APG_BIN_DIR = /bin
+ APG_MAN_DIR = /man/man1
+ APGD_BIN_DIR = /sbin
