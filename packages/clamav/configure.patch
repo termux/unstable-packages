@@ -1,7 +1,7 @@
-diff -uNr clamav-0.100.2/configure clamav-0.100.2.mod/configure
---- clamav-0.100.2/configure	2018-09-19 22:29:07.000000000 +0300
-+++ clamav-0.100.2.mod/configure	2018-10-19 13:09:14.015897561 +0300
-@@ -18809,10 +18809,8 @@
+diff -uNr clamav-0.101.1/configure clamav-0.101.1.mod/configure
+--- clamav-0.101.1/configure	2018-12-19 22:48:30.000000000 +0200
++++ clamav-0.101.1.mod/configure	2019-01-28 15:21:17.645153831 +0200
+@@ -22931,10 +22931,8 @@
  fi
  
  
@@ -13,7 +13,7 @@ diff -uNr clamav-0.100.2/configure clamav-0.100.2.mod/configure
  
      vuln=`grep "ZLIB_VERSION \"1.2.0\"" $ZLIB_HOME/include/zlib.h`
      if test -z "$vuln"; then
-@@ -18873,11 +18871,7 @@
+@@ -22995,11 +22993,7 @@
  fi
  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_z_inflateEnd" >&5
  $as_echo "$ac_cv_lib_z_inflateEnd" >&6; }
@@ -26,7 +26,7 @@ diff -uNr clamav-0.100.2/configure clamav-0.100.2.mod/configure
  
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gzopen in -lz" >&5
  $as_echo_n "checking for gzopen in -lz... " >&6; }
-@@ -20873,7 +20867,7 @@
+@@ -24995,7 +24989,7 @@
  
      have_fanotify="no"
      if test "$have_pthreads" = "yes"; then
@@ -35,12 +35,3 @@ diff -uNr clamav-0.100.2/configure clamav-0.100.2.mod/configure
  	TH_SAFE="-thread-safe"
  	if test "$want_fanotify" = "yes"; then
  	    ac_fn_c_check_header_mongrel "$LINENO" "sys/fanotify.h" "ac_cv_header_sys_fanotify_h" "$ac_includes_default"
-@@ -21097,7 +21091,7 @@
- if test "$have_milter" = "yes"; then
- 
-         save_LIBS="$LIBS"
--    CLAMAV_MILTER_LIBS="$CLAMAV_MILTER_LIBS -lpthread"
-+    CLAMAV_MILTER_LIBS="$CLAMAV_MILTER_LIBS"
-     if test -d /usr/lib/libmilter ; then
- 	CLAMAV_MILTER_LIBS="$CLAMAV_MILTER_LIBS -L/usr/lib/libmilter"
-     fi
