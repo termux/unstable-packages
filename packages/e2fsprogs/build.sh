@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=http://e2fsprogs.sourceforge.net
 TERMUX_PKG_DESCRIPTION="EXT 2/3/4 filesystem utilities"
 TERMUX_PKG_LICENSE="GPL-2.0, LGPL-2.0, MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-TERMUX_PKG_VERSION=1.44.4
+TERMUX_PKG_VERSION=1.44.5
 TERMUX_PKG_SRCURL=https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${TERMUX_PKG_VERSION}/e2fsprogs-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=ee03b2f2180614c5ae5f6dd2666f8808de61c3d8b37d22ba86cc6daea25be55a
+TERMUX_PKG_SHA256=ba5eb3069d69160d96818bb9700de9ab5a8458d9add1fd85d427c0000d34c5b9
 TERMUX_PKG_CONFFILES="etc/mke2fs.conf"
 
 ## util-linux provides libblkid
