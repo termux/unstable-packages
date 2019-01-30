@@ -1,6 +1,6 @@
 diff -uNr crunch-3.6/Makefile crunch-3.6.mod/Makefile
 --- crunch-3.6/Makefile	2014-05-03 20:04:11.000000000 +0300
-+++ crunch-3.6.mod/Makefile	2019-01-30 23:12:44.468373760 +0200
++++ crunch-3.6.mod/Makefile	2019-01-31 00:31:33.642061600 +0200
 @@ -28,7 +28,7 @@
  # General variables
  PACKAGE	    = crunch
@@ -10,11 +10,13 @@ diff -uNr crunch-3.6/Makefile crunch-3.6.mod/Makefile
  DISTDIR	    = $(PACKAGE)-$(VERSION)
  DISTFILES   = crunch.c crunch.1 charset.lst
  BINDIR	    = $(PREFIX)/bin
-@@ -38,7 +38,7 @@
+@@ -37,8 +37,8 @@
+ DOCDIR	    = $(PREFIX)/share/doc/$(PACKAGE)
  MANDIR	    = $(PREFIX)/share/man/man1
  
- INSTALL	    = sudo $(shell which install)
+-INSTALL	    = sudo $(shell which install)
 -CC	    = $(shell which gcc)
++INSTALL	    = $(shell which install)
 +CC	    ?= $(shell which gcc)
  LIBFLAGS    = -lm
  THREADFLAGS = -pthread
