@@ -1,0 +1,27 @@
+--- ../configure.orig	2019-01-29 21:20:19.376638203 +0100
++++ ./configure	2019-01-29 21:34:06.933298665 +0100
+@@ -14016,7 +14016,6 @@
+   # Ok, now we have the path, separated by spaces, we can step through it
+   # and add multilib dir if necessary.
+   lt_tmp_lt_search_path_spec=
+-  lt_multi_os_dir=`$CC $CPPFLAGS $CFLAGS $LDFLAGS -print-multi-os-directory 2>/dev/null`
+   for lt_sys_path in $lt_search_path_spec; do
+     if test -d "$lt_sys_path/$lt_multi_os_dir"; then
+       lt_tmp_lt_search_path_spec="$lt_tmp_lt_search_path_spec $lt_sys_path/$lt_multi_os_dir"
+@@ -18819,7 +18818,7 @@
+   $as_echo_n "(cached) " >&6
+ else
+ 
+-  gst_lib_path=
++  gst_lib_path=@TERMUX_PREFIX@/lib
+   if test $GCC = yes; then
+     if $CC -print-multiarch >/dev/null 2>&1; then
+       gst_lib_path=`$CC -print-multiarch $CFLAGS $CPPFLAGS`
+@@ -18846,7 +18845,6 @@
+ 	/usr/lib/libSystem.dylib"
+   esac
+ 
+-  gst_lib_sysroot=`$CC --print-sysroot`
+   for i in $gst_libc_search_path; do
+     if test -f "$gst_lib_sysroot$i"; then
+       oldwd=`pwd`
