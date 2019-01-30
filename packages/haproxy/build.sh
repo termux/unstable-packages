@@ -1,0 +1,9 @@
+TERMUX_PKG_HOMEPAGE=https://www.haproxy.org/
+TERMUX_PKG_DESCRIPTION="The Reliable, High Performance TCP/HTTP Load Balancer"
+TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_VERSION=1.9.1
+TERMUX_PKG_SRCURL=https://haproxy.org/download/${TERMUX_PKG_VERSION%.*}/src/haproxy-$TERMUX_PKG_VERSION.tar.gz
+TERMUX_PKG_SHA256=ad46312fa1e38763863807d2c9304551c28ad91cff83f0c21a36756913c1c8e1
+TERMUX_PKG_EXTRA_MAKE_ARGS="TARGET=generic"
+TERMUX_PKG_BUILD_IN_SRC=yes
