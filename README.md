@@ -4,6 +4,13 @@
 
 There are located packages which were requested, but not added to the [main](https://github.com/termux/termux-packages) Termux repository due to various reasons. Packages available here may have lower quality, be unstable or not work at all.
 
+## How to enable this repository
+To enable this package repository run:
+
+```
+pkg install unstable-repo
+```
+
 ## Contributing
 
 If you wish to request package, submit a bug report or pull request for this project, take a look on our [contributing guide](./CONTRIBUTING.md).
