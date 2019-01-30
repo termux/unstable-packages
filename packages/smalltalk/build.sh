@@ -18,5 +18,6 @@ termux_step_host_build () {
 }
 
 termux_step_pre_configure () {
+	export LD_LIBRARY_PATH=$TERMUX_PKG_HOSTBUILD_DIR/libgst/.libs
 	sed -i "s%@TERMUX_PKG_HOSTBUILD_DIR@%$TERMUX_PKG_HOSTBUILD_DIR%g" $TERMUX_PKG_SRCDIR/Makefile.in
 }
