@@ -24,7 +24,7 @@ before_script:
     python3-pip python3-setuptools python3-sphinx ruby scons texinfo unzip xfonts-utils xmlto
     zip zlib1g-dev > /dev/null
   - env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends libssl-dev:i386
-    zlib1g-dev:i386
+    zlib1g-dev:i386 > /dev/null
   - mkdir -p ${HOME}/lib
   - curl --silent --location --output sdk.zip
     https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REVISION}.zip
