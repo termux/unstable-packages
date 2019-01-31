@@ -12,6 +12,7 @@ variables:
 
 ## Prepare build environment.
 before_script:
+  - dpkg --add-architecture i386
   - apt update > /dev/null
   - apt upgrade -yq > /dev/null
   - env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends build-essential
@@ -22,6 +23,8 @@ before_script:
     lzip m4 openjdk-8-jdk-headless pax-utils pkg-config python-pip python3.7 python3-docutils
     python3-pip python3-setuptools python3-sphinx ruby scons texinfo unzip xfonts-utils xmlto
     zip zlib1g-dev > /dev/null
+  - env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends libssl-dev:i386
+    zlib1g-dev:i386
   - mkdir -p ${HOME}/lib
   - curl --silent --location --output sdk.zip
     https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REVISION}.zip
