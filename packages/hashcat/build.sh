@@ -1,3 +1,8 @@
+## I'm unsure that HashCat will work...
+## Though, it worked on Samsung Galaxy S7 with Android 6
+## ROM, but after update to Android 7 and higher it no longer
+## works.
+
 TERMUX_PKG_HOMEPAGE=https://hashcat.net/hashcat
 TERMUX_PKG_DESCRIPTION="World's fastest and most advanced password recovery utility"
 TERMUX_PKG_LICENSE="MIT"
