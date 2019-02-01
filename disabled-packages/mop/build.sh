@@ -1,3 +1,6 @@
+## Requested in https://github.com/termux/termux-packages/issues/924
+## Package just not working.
+
 TERMUX_PKG_HOMEPAGE=https://github.com/michaeldv/mop
 TERMUX_PKG_DESCRIPTION="Stock market tracker"
 TERMUX_PKG_LICENSE="MIT"
