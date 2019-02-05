@@ -1,6 +1,6 @@
 diff -uNr distcc/src/util.c distcc.mod/src/util.c
 --- distcc/src/util.c	2018-07-27 08:08:55.000000000 +0300
-+++ distcc.mod/src/util.c	2019-02-05 16:09:41.573369259 +0200
++++ distcc.mod/src/util.c	2019-02-05 16:49:03.805286863 +0200
 @@ -39,6 +39,9 @@
  #include <sys/un.h>
  #include <sys/socket.h>
@@ -11,3 +11,12 @@ diff -uNr distcc/src/util.c distcc.mod/src/util.c
  #ifdef HAVE_SYS_RESOURCE_H
  #include <sys/resource.h>
  #endif
+@@ -997,7 +1000,7 @@
+                 if (getsockname(fd, &sockaddr.sa, &l) < 0)
+                         return -errno;
+ 
+-                if (l < sizeof(sa_family_t))
++                if ((unsigned int) l < sizeof(sa_family_t))
+                         return -EINVAL;
+ 
+                 return sockaddr.sa.sa_family == family;
