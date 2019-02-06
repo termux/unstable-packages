@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://racket-lang.org
 TERMUX_PKG_DESCRIPTION="Full-spectrum programming language going beyond Lisp and Scheme"
-TERMUX_PKG_LICENSE="GPL-3.0, LGPL3-3.0"
+TERMUX_PKG_LICENSE="GPL-3.0, LGPL-3.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=7.2
 TERMUX_PKG_SRCURL=https://mirror.racket-lang.org/installers/${TERMUX_PKG_VERSION}/racket-minimal-${TERMUX_PKG_VERSION}-src-builtpkgs.tgz
