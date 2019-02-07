@@ -12,6 +12,7 @@ variables:
 before_script:
   - mkdir -p ./build-data/data/com.termux/files/usr
   - mount --bind ./build-data /data
+  - cp -a ./packages/* ./termux-packages/packages/
 
 ## Common configuration for all build jobs.
 .job_template: &build_job
