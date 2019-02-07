@@ -24,7 +24,7 @@ docker start "$CONTAINER_NAME" > /dev/null 2> /dev/null || {
         --detach \
         --env HOME="$HOME" \
         --name "$CONTAINER_NAME" \
-        --volume "$REPOROOT:$HOME/packages" \
+        --volume "$REPOROOT/termux-packages:$HOME/packages" \
         --tty \
         "$IMAGE_NAME"
     if [ $(id -u) -ne 1000 ] && [ $(id -u) -ne 0 ]; then
