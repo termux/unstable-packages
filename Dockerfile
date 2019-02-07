@@ -12,6 +12,7 @@ ENV ANDROID_SDK_REVISION "4333796"
 ENV ANDROID_SDK_BUILD_TOOLS_VERSION "28.0.3"
 ENV ANDROID_NDK_VERSION "18"
 ENV ANDROID_HOME "/opt/termux/android-sdk"
+ENV NDK "/opt/termux/android-ndk"
 
 # We may need x86 (32bit) packages.
 RUN dpkg --add-architecture i386
@@ -49,9 +50,9 @@ RUN mkdir /data && chown builder:builder /data && \
 
 # Installing Android SDK and NDK.
 RUN curl --fail --retry 3 -L -o sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_REVISION}.zip && \
-    unzip -q sdk.zip -d /opt/termux/android-sdk && rm -f sdk.zip && \
+    unzip -q sdk.zip -d ${ANDROID_HOME} && rm -f sdk.zip && \
     curl --fail --retry 3 -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-Linux-x86_64.zip && \
-    unzip -q ndk.zip && rm -f ndk.zip && mv android-ndk-r18 /opt/termux/android-ndk
+    unzip -q ndk.zip && rm -f ndk.zip && mv android-ndk-r18 ${NDK}
 
 # Installing Android SDK tools.
 RUN mkdir -p /root/.android && echo 'count=0' > /root/.android/repositories.cfg
