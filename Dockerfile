@@ -24,7 +24,7 @@ RUN apt update && env DEBIAN_FRONTEND=noninteractive apt upgrade -yq
 RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     asciidoc asciidoctor autoconf automake bison build-essential curl devscripts \
     docbook-utils docbook-to-man ed flex g++-multilib gawk gettext git gnome-common \
-    gnupg gtk-3-examples gtk-doc-tools gperf help2man intltool libexpat1-dev \
+    gnupg gtk-3-examples gtk-doc-tools gperf help2man intltool jq libexpat1-dev \
     libgdk-pixbuf2.0-dev libgmp-dev libgtk-3-bin libglib2.0-dev libisl-dev \
     libjpeg-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev \
     libssl-dev libtool-bin lzip m4 openjdk-8-jdk-headless pax-utils pkg-config \
