@@ -11,8 +11,15 @@ IMAGE_NAME="xeffyr/termux-extra-packages-builder"
 cd "$REPOROOT"
 
 echo "[*] Setting up repository submodules..."
-git submodule deinit --all --force
-git submodule update --init --recursive
+if [ ! -e "$REPOROOT/termux-packages/build-package.sh" ]; then
+    git submodule update --init --recursive
+else
+    (
+        cd "$REPOROOT/termux-packages"
+        git clean -fdxq
+        git checkout -- .
+    )
+fi
 
 echo "[*] Copying packages to the build environment..."
 cp -a ./packages/* ./termux-packages/packages/
