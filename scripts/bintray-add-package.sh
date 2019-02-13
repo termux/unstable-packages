@@ -49,10 +49,11 @@ BINTRAY_REPO_COMPONENT="main"
 json_metadata_dump() {
     local pkg_licenses
 
-    for license in $(echo "${PACKAGE_METADATA['LICENSES']}" | tr ',' ' '); do
-        pkg_licenses+="\"$license\","
+    SAVEIFS=$IFS; IFS=",";
+    for license in ${PACKAGE_METADATA['LICENSES']}; do
+        pkg_licenses+="\"$(echo "${license}" | sed -r 's/^\s*(\S+(\s+\S+)*)\s*$/\1/')\","
     done
-    pkg_licenses=${pkg_licenses%%,}
+    pkg_licenses=${pkg_licenses%%,}; IFS=$SAVEIFS;
 
 cat << EOF
 {
@@ -119,7 +120,8 @@ upload_package() {
 
         # Discover subpackages.
         for file in $(find "$TERMUX_PACKAGES_BASEDIR/packages/$package_name" -maxdepth 1 -type f -iname \*.subpackage.sh | sort); do
-            debfiles_catalog["${file##.subpackage.sh}_${PACKAGE_METADATA['VERSION_FULL']}_${arch}.deb"]=${arch}
+            file=$(basename "$file")
+            debfiles_catalog["${file%%.subpackage.sh}_${PACKAGE_METADATA['VERSION_FULL']}_${arch}.deb"]=${arch}
         done
 
         unset debfiles
@@ -224,11 +226,6 @@ extract_variable_from_buildsh() {
         set +o noglob
     )
 
-    if [ -z "$extracted_value" ]; then
-        echo "[!] Property '${variable_name}' of package '$package_name' is empty." >&2
-        exit 1
-    fi
-
     echo "$extracted_value"
 }
 
@@ -241,12 +238,32 @@ process_packages() {
 
         if [ -f "$buildsh_path" ]; then
             PACKAGE_METADATA["NAME"]="$package_name"
-            PACKAGE_METADATA["LICENSES"]=$(extract_variable_from_buildsh "TERMUX_PKG_LICENSE" "$buildsh_path")
-            PACKAGE_METADATA["DESCRIPTION"]=$(extract_variable_from_buildsh "TERMUX_PKG_DESCRIPTION" "$buildsh_path")
-            PACKAGE_METADATA["WEBSITE_URL"]=$(extract_variable_from_buildsh "TERMUX_PKG_HOMEPAGE" "$buildsh_path")
-            PACKAGE_METADATA["VERSION"]=$(extract_variable_from_buildsh "TERMUX_PKG_VERSION" "$buildsh_path")
-            PACKAGE_METADATA["REVISION"]=$(extract_variable_from_buildsh "TERMUX_PKG_REVISION" "$buildsh_path")
 
+            PACKAGE_METADATA["LICENSES"]=$(extract_variable_from_buildsh "TERMUX_PKG_LICENSE" "$buildsh_path")
+            if [ -z "${PACKAGE_METADATA['LICENSES']}" ]; then
+                echo "[!] Mandatory field 'TERMUX_PKG_LICENSE' of package '$package_name' is empty." >&2
+                exit 1
+            fi
+
+            PACKAGE_METADATA["DESCRIPTION"]=$(extract_variable_from_buildsh "TERMUX_PKG_DESCRIPTION" "$buildsh_path")
+            if [ -z "${PACKAGE_METADATA['DESCRIPTION']}" ]; then
+                echo "[!] Mandatory field 'TERMUX_PKG_DESCRIPTION' of package '$package_name' is empty." >&2
+                exit 1
+            fi
+
+            PACKAGE_METADATA["WEBSITE_URL"]=$(extract_variable_from_buildsh "TERMUX_PKG_HOMEPAGE" "$buildsh_path")
+            if [ -z "${PACKAGE_METADATA['WEBSITE_URL']}" ]; then
+                echo "[!] Mandatory field 'TERMUX_PKG_HOMEPAGE' of package '$package_name' is empty." >&2
+                exit 1
+            fi
+
+            PACKAGE_METADATA["VERSION"]=$(extract_variable_from_buildsh "TERMUX_PKG_VERSION" "$buildsh_path")
+            if [ -z "${PACKAGE_METADATA['VERSION']}" ]; then
+                echo "[!] Mandatory field 'TERMUX_PKG_VERSION' of package '$package_name' is empty." >&2
+                exit 1
+            fi
+
+            PACKAGE_METADATA["REVISION"]=$(extract_variable_from_buildsh "TERMUX_PKG_REVISION" "$buildsh_path")
             if [ -n "${PACKAGE_METADATA['REVISION']}" ]; then
                 PACKAGE_METADATA["VERSION_FULL"]="${PACKAGE_METADATA['VERSION']}-${PACKAGE_METADATA['REVISION']}"
             else
