@@ -2,7 +2,10 @@
 
 [![pipeline status](https://gitlab.com/xeffyr/unstable-packages/badges/master/pipeline.svg)](https://gitlab.com/xeffyr/unstable-packages/commits/master)
 
-There are located packages which were requested, but not added to the [main](https://github.com/termux/termux-packages) Termux repository due to various reasons. Packages available here may have lower quality, be unstable or not work at all.
+There are located packages which were requested, but not added to the
+[main](https://github.com/termux/termux-packages) Termux repository due
+to various reasons. Packages available here may have lower quality, be
+unstable or not work at all.
 
 ## How to enable this repository
 
@@ -14,7 +17,8 @@ pkg install unstable-repo
 
 ## Building packages manually
 
-You can build all packages manually by using provided docker image. The only requirements are Linux-based host with Docker installed.
+You can build all packages manually by using provided docker image. The
+only requirements are Linux-based host with Docker installed.
 
 1. Clone this repository:
    ```
@@ -31,11 +35,13 @@ You can build all packages manually by using provided docker image. The only req
    ```
    ./build-package.sh -a {arch} {package name}
    ```
-   \- replace `{arch}` with target CPU architecture and `{package name}` with package name you want to build.
+   \- replace `{arch}` with target CPU architecture and `{package name}`
+   with package name you want to build.
 
 ## Contributing
 
-If you wish to request package, submit a bug report or pull request for this project, take a look on our [contributing guide](./CONTRIBUTING.md).
+If you wish to request package, submit a bug report or pull request for
+this project, take a look on our [contributing guide](./CONTRIBUTING.md).
 
 ## External links
 
