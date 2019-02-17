@@ -40,8 +40,11 @@ only requirements are Linux-based host with Docker installed.
 
 ## Contributing
 
-If you wish to request package, submit a bug report or pull request for
-this project, take a look on our [contributing guide](./CONTRIBUTING.md).
+If you wish to submit a bug report or pull request for this project,
+take a look on our [contributing guide](./CONTRIBUTING.md).
+
+Note that we do not accept package requests in [unstable-packages](https://github.com/termux/unstable-packages)
+project.
 
 ## External links
 
