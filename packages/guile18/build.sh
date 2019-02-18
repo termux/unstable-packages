@@ -12,18 +12,17 @@ TERMUX_PKG_HOSTBUILD=yes
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --program-suffix=1.8
---disable-error-on-warning
-"
+--disable-error-on-warning"
 
 termux_step_host_build() {
 	mkdir HOSTBUILDINSTALL
 
 	../src/configure \
-		--prefix=$TERMUX_PKG_HOSTBUILD_DIR/HOSTBUILDINSTALL \
+		--prefix="$TERMUX_PKG_HOSTBUILD_DIR"/HOSTBUILDINSTALL \
 		--program-suffix=1.8 \
 		--disable-error-on-warning
 
-	make -j $TERMUX_MAKE_PROCESSES
+	make -j "$TERMUX_MAKE_PROCESSES"
 	make install
 }
 
@@ -34,11 +33,13 @@ termux_step_pre_configure() {
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --without-threads"
 	fi
 
-	export GUILE_FOR_BUILD=$TERMUX_PKG_HOSTBUILD_DIR/HOSTBUILDINSTALL/bin/guile1.8
-	export LD_LIBRARY_PATH=$TERMUX_PKG_HOSTBUILD_DIR/HOSTBUILDINSTALL/lib
+	export GUILE_FOR_BUILD="$TERMUX_PKG_HOSTBUILD_DIR"/HOSTBUILDINSTALL/bin/guile1.8
+	export LD_LIBRARY_PATH="$TERMUX_PKG_HOSTBUILD_DIR"/HOSTBUILDINSTALL/lib
 }
 
 termux_step_post_make_install() {
-	sed -i '1s/guile/guile1.8/' -i $TERMUX_PREFIX/bin/guile-config1.8
-	mv $TERMUX_PREFIX/share/aclocal/guile.m4 $TERMUX_PREFIX/share/aclocal/guile18.m4
+	sed -i '1s/guile/guile1.8/' -i "$TERMUX_PREFIX"/bin/guile-config1.8
+	mv -f \
+		"$TERMUX_PREFIX"/share/aclocal/guile.m4 \
+		"$TERMUX_PREFIX"/share/aclocal/guile18.m4
 }

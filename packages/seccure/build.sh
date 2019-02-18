@@ -13,12 +13,12 @@ termux_step_make() {
 }
 
 termux_step_make_install() {
-	install -Dm755 seccure-key $TERMUX_PREFIX/bin/seccure-key
-	install -Dm644 seccure.1 $TERMUX_PREFIX/share/man/man1/seccure.1
+	install -Dm700 seccure-key "$TERMUX_PREFIX"/bin/
+	install -Dm600 seccure.1 "$TERMUX_PREFIX"/share/man/man1/
 
 	for i in encrypt decrypt sign verify signcrypt veridec dh; do
-		ln -sfr $TERMUX_PREFIX/bin/seccure-key $TERMUX_PREFIX/bin/seccure-${i}
-		ln -sfr $TERMUX_PREFIX/share/man/man1/seccure.1 $TERMUX_PREFIX/share/man/man1/seccure-${i}.1
+		ln -sfr "$TERMUX_PREFIX"/bin/seccure-key "$TERMUX_PREFIX"/bin/seccure-${i}
+		ln -sfr "$TERMUX_PREFIX"/share/man/man1/seccure.1 "$TERMUX_PREFIX"/share/man/man1/seccure-${i}.1
 	done
 	unset i
 }

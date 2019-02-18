@@ -8,5 +8,5 @@ TERMUX_PKG_SHA256=e87ecf6421573e17ce35879db8328617795258650831affd025fba42f155cd
 TERMUX_PKG_BUILD_DEPENDS="gettext"
 
 termux_step_pre_configure() {
-    CPPFLAGS+=" -I$TERMUX_PREFIX/share/gettext"
+	CPPFLAGS+=" -I$TERMUX_PREFIX/share/gettext"
 }

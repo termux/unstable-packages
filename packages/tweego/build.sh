@@ -10,14 +10,16 @@ termux_step_make() {
 	termux_setup_golang
 
 	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p $GOPATH/src/bitbucket.org/tmedwards
-	ln -sf "$TERMUX_PKG_SRCDIR" $GOPATH/src/bitbucket.org/tmedwards/tweego
+	mkdir -p "$GOPATH"/src/bitbucket.org/tmedwards
+	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/bitbucket.org/tmedwards/tweego
 
-	cd $GOPATH/src/bitbucket.org/tmedwards/tweego
+	cd "$GOPATH"/src/bitbucket.org/tmedwards/tweego
 	go get -d -v bitbucket.org/tmedwards/tweego
 	go build
 }
 
 termux_step_make_install() {
-	install -Dm700 $GOPATH/src/bitbucket.org/tmedwards/tweego/tweego $TERMUX_PREFIX/bin/tweego
+	install -Dm700 \
+		"$GOPATH"/src/bitbucket.org/tmedwards/tweego/tweego \
+		"$TERMUX_PREFIX"/bin/
 }
