@@ -73,4 +73,4 @@ maintainers always can modify or close your pull request if necessary.
 [termux-packages]: <https://github.com/termux/termux-packages>
 [termux-packages-docs]: <https://github.com/termux/termux-packages/tree/master/docs>
 [unstable-packages]: <https://github.com/termux/unstable-packages>
-[bug-report-template]: <https://github.com/termux/unstable-packages/issues/new?template=bug_report.md>
+[bug-report-template]: <https://github.com/termux/unstable-packages/issues/new?template=BUG_REPORT.md>
