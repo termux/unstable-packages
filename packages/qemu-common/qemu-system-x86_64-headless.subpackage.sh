@@ -4,5 +4,4 @@ TERMUX_SUBPKG_CONFLICTS="qemu-system-x86_64"
 
 TERMUX_SUBPKG_INCLUDE="
 bin/qemu-system-x86_64
-share/man/man1/qemu-system-x86_64.1.gz
-"
+share/man/man1/qemu-system-x86_64.1.gz"
