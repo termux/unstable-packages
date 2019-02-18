@@ -8,7 +8,10 @@ TERMUX_PKG_SHA256=86f602860133c828356b7cf7b8c319ba9b27adf70a624fe32275ba1ed26833
 
 termux_step_post_configure() {
 	gcc -DHAVE_CONFIG_H \
-		-I. -I$TERMUX_PKG_SRCDIR -I$TERMUX_PKG_SRCDIR/include \
-		-o gfshare_maketable $TERMUX_PKG_SRCDIR/src/gfshare_maketable.c
+		-I. \
+		-I"$TERMUX_PKG_SRCDIR" \
+		-I"$TERMUX_PKG_SRCDIR"/include \
+		"$TERMUX_PKG_SRCDIR"/src/gfshare_maketable.c \
+		-o gfshare_maketable
 	touch -d "next hour" gfshare_maketable
 }

@@ -9,10 +9,12 @@ TERMUX_PKG_DEPENDS="git"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
 termux_step_make() {
+	# Do not try to run 'make' as this causes
+	# build failure.
 	return
 }
 
 termux_step_make_install() {
-	install -Dm700 $TERMUX_PKG_SRCDIR/yadm $TERMUX_PREFIX/bin/
-	install -Dm600 $TERMUX_PKG_SRCDIR/yadm.1 $TERMUX_PREFIX/share/man/man1/
+	install -Dm700 "$TERMUX_PKG_SRCDIR"/yadm "$TERMUX_PREFIX"/bin/
+	install -Dm600 "$TERMUX_PKG_SRCDIR"/yadm.1 "$TERMUX_PREFIX"/share/man/man1/
 }

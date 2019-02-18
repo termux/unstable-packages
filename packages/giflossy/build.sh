@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/kornelski/giflossy
-TERMUX_PKG_DESCRIPTION="Based on gifsicle which implements lossy LZW compression.  It can reduce animgif file sizes 30%—50% at a cost of some dithering/noise."
+TERMUX_PKG_DESCRIPTION="Lossy GIF compressor"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=1.91

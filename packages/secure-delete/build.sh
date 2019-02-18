@@ -8,13 +8,10 @@ TERMUX_PKG_SHA256=78af201401e6dc159298cb5430c28996a8bdc278391d942d1fe454534540ee
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make() {
-	make -j1 CC=$CC
+	make -j1 CC="$CC"
 }
 
 termux_step_make_install() {
-	make install INSTALL_DIR=$TERMUX_PREFIX/bin
-
-	for manpage in sfill.1 smem.1 srm.1 sswap.1; do
-		install -Dm600 $manpage $TERMUX_PREFIX/share/man/man1/$manpage
-	done
+	make install INSTALL_DIR="$TERMUX_PREFIX/bin"
+	install -Dm600 -t "$TERMUX_PREFIX"/share/man/man1 sfill.1 smem.1 srm.1 sswap.1
 }

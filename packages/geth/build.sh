@@ -10,20 +10,21 @@ termux_step_make() {
 	termux_setup_golang
 
 	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p $GOPATH/src/github.com/ethereum
-	ln -sf $TERMUX_PKG_SRCDIR $GOPATH/src/github.com/ethereum/go-ethereum
+	mkdir -p "$GOPATH"/src/github.com/ethereum
+	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/ethereum/go-ethereum
 
-	cd $GOPATH/src/github.com/ethereum/go-ethereum
-	for cmd in geth abigen bootnode ethkey evm rlpdump swarm puppeth; do
-		pushd ./cmd/$cmd
-		go build
-		popd
+	cd "$GOPATH"/src/github.com/ethereum/go-ethereum
+	for applet in geth abigen bootnode ethkey evm rlpdump swarm puppeth; do
+		(cd ./cmd/"$applet" && go build)
 	done
-	unset cmd
+	unset applet
 }
 
 termux_step_make_install() {
-	for cmd in geth abigen bootnode ethkey evm rlpdump swarm puppeth; do
-		install -Dm700 $TERMUX_PKG_SRCDIR/cmd/$cmd/$cmd $TERMUX_PREFIX/bin/
+	for applet in geth abigen bootnode ethkey evm rlpdump swarm puppeth; do
+		install -Dm700 \
+			"$TERMUX_PKG_SRCDIR/cmd/$applet/$applet" \
+			"$TERMUX_PREFIX"/bin/
 	done
+	unset applet
 }

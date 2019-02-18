@@ -12,5 +12,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-curl
 --enable-https
 --enable-largefile
---enable-messages
-"
+--enable-messages"

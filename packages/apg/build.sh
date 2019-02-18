@@ -1,5 +1,6 @@
 ## Note: APG project seems dead. Official homepage & src urls
 ## disappeared.
+
 TERMUX_PKG_HOMEPAGE=http://www.adel.nursat.kz/apg/index.shtml
 TERMUX_PKG_DESCRIPTION="Automated Password Generator."
 TERMUX_PKG_LICENSE="BSD"

@@ -9,28 +9,25 @@ TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_download \
-		$TERMUX_PKG_SRCURL \
-		$TERMUX_PKG_CACHEDIR/bsh-$TERMUX_PKG_VERSION.jar \
-		$TERMUX_PKG_SHA256
-}
-
 termux_step_make() {
-	$TERMUX_D8 \
-		--classpath $ANDROID_HOME/platforms/android-$TERMUX_PKG_API_LEVEL/android.jar \
+	"$TERMUX_D8" \
+		--classpath "$ANDROID_HOME/platforms/android-$TERMUX_PKG_API_LEVEL/android.jar" \
 		--release \
-		--min-api $TERMUX_PKG_API_LEVEL \
-		--output $TERMUX_PKG_SRCDIR \
-		$TERMUX_PKG_CACHEDIR/bsh-$TERMUX_PKG_VERSION.jar
+		--min-api "$TERMUX_PKG_API_LEVEL" \
+		--output "$TERMUX_PKG_SRCDIR" \
+		"$TERMUX_PKG_CACHEDIR/bsh-$TERMUX_PKG_VERSION.jar"
 
 	jar cf beanshell.jar classes.dex
 }
 
 termux_step_make_install() {
-	install -Dm600 beanshell.jar $TERMUX_PREFIX/share/dex/beanshell.jar
-	echo '#!/bin/sh' > $TERMUX_PREFIX/bin/beanshell
-	echo "dalvikvm -cp $TERMUX_PREFIX/share/dex/beanshell.jar bsh.Interpreter \"\$@\"" >> $TERMUX_PREFIX/bin/beanshell
-	chmod +x $TERMUX_PREFIX/bin/beanshell
-	ln -sfr $TERMUX_PREFIX/bin/beanshell $TERMUX_PREFIX/bin/bsh
+	install -Dm600 beanshell.jar "$TERMUX_PREFIX/share/dex/beanshell.jar"
+
+	{
+		echo "#!$TERMUX_PREFIX/bin/sh"
+		echo "dalvikvm -cp $TERMUX_PREFIX/share/dex/beanshell.jar bsh.Interpreter \"\$@\""
+	} > "$TERMUX_PREFIX"/bin/beanshell
+
+	chmod 700 "$TERMUX_PREFIX"/bin/beanshell
+	ln -sfr "$TERMUX_PREFIX"/bin/beanshell "$TERMUX_PREFIX"/bin/bsh
 }

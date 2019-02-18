@@ -11,11 +11,12 @@ TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_configure() {
 	./configure \
-		--prefix=$TERMUX_PREFIX \
+		--prefix="$TERMUX_PREFIX" \
 		--yes
 }
 
 termux_step_post_make_install() {
-	mkdir -p $TERMUX_PREFIX/etc/profile.d
-	echo "export LESSOPEN='|$TERMUX_PREFIX/bin/lesspipe.sh %s'" > $TERMUX_PREFIX/etc/profile.d/lesspipe.sh
+	mkdir -p "$TERMUX_PREFIX"/etc/profile.d
+	echo "export LESSOPEN='|$TERMUX_PREFIX/bin/lesspipe.sh %s'" \
+		> "$TERMUX_PREFIX"/etc/profile.d/lesspipe.sh
 }
