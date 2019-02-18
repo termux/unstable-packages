@@ -5,6 +5,7 @@ TERMUX_PKG_DESCRIPTION="PDF rendering library based on xpdf 3.0 (with glib bindi
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=0.72.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://poppler.freedesktop.org/poppler-$TERMUX_PKG_VERSION.tar.xz
 TERMUX_PKG_SHA256=c1747eb8f26e9e753c4001ed951db2896edc1021b6d0f547a0bd2a27c30ada51
 
