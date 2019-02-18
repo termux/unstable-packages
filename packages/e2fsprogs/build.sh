@@ -21,8 +21,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-e2initrd-helper
 --disable-libuuid
 --disable-libblkid
---disable-uuidd
-"
+--disable-uuidd"
 
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/compile_et
@@ -30,10 +29,11 @@ bin/mk_cmds
 share/et
 share/ss
 share/man/man1/compile_et.1
-share/man/man1/mk_cmds.1
-"
+share/man/man1/mk_cmds.1"
 
 termux_step_make_install() {
 	make install install-libs
-	install -Dm644 "$TERMUX_PKG_SRCDIR/misc/mke2fs.conf.in" "$TERMUX_PREFIX/etc/mke2fs.conf"
+	install -Dm600 \
+		"$TERMUX_PKG_SRCDIR"/misc/mke2fs.conf.in \
+		"$TERMUX_PREFIX"/etc/mke2fs.conf
 }

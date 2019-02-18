@@ -12,6 +12,7 @@ TERMUX_PKG_SUGGESTS="termux-api"
 termux_step_make() {
 	termux_setup_golang
 	export GOPATH=$TERMUX_PKG_BUILDDIR
+
 	mkdir -p ./src
 	mv "$TERMUX_PKG_SRCDIR"/vendor/* src/
 	mkdir -p ./src/github.com/gopasspw
@@ -19,10 +20,12 @@ termux_step_make() {
 
 	# Build gopass for host so we can generate completion for shells.
 	GOOS=linux GOARCH=amd64 CC=gcc LD=gcc make -C ./src/github.com/gopasspw/gopass build completion
-	make -C ./src/github.com/gopasspw/gopass install PREFIX=$TERMUX_PREFIX
+	make -C ./src/github.com/gopasspw/gopass install PREFIX="$TERMUX_PREFIX"
 
 	# Finally build gopass for target.
 	rm -f ./src/github.com/gopasspw/gopass/gopass
 	make -C ./src/github.com/gopasspw/gopass build
-	install -Dm700 ./src/github.com/gopasspw/gopass/gopass $TERMUX_PREFIX/bin/gopass
+	install -Dm700 \
+		./src/github.com/gopasspw/gopass/gopass \
+		"$TERMUX_PREFIX"/bin/gopass
 }

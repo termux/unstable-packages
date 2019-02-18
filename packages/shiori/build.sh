@@ -9,9 +9,9 @@ termux_step_make_install() {
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 
 	go get -d github.com/RadhiFadlillah/shiori
-	cd $GOPATH/src/github.com/RadhiFadlillah/shiori
-	git checkout v$TERMUX_PKG_VERSION
+	cd "$GOPATH"/src/github.com/RadhiFadlillah/shiori
+	git checkout "v$TERMUX_PKG_VERSION"
 	git submodule update --init --recursive
 
-	go build -o $TERMUX_PREFIX/bin/shiori main.go
+	go build -o "$TERMUX_PREFIX"/bin/shiori main.go
 }

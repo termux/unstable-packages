@@ -20,9 +20,9 @@ termux_step_make() {
 	touch -d "next hour" _caps_output.gperf
 
 	cd -
-	make CC=${CC} PREFIX=${TERMUX_PREFIX}
+	make CC="$CC" PREFIX="$TERMUX_PREFIX"
 }
 
 termux_step_make_install() {
-	make CC=${CC} prefix=${TERMUX_PREFIX} RAISE_SETFCAP=no lib=/lib install
+	make CC="$CC" prefix="$TERMUX_PREFIX" RAISE_SETFCAP=no lib=/lib install
 }

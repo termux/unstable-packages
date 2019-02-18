@@ -10,11 +10,15 @@ TERMUX_PKG_BUILD_IN_SRC=yes
 
 termux_step_make() {
 	termux_setup_ninja
-	make CC=gcc OBJDIR=$PWD/build $PWD/build/lua
-	make OBJDIR=$PWD/build LUA_PACKAGE=lua
+	make CC=gcc OBJDIR="$PWD/build" "$PWD"/build/lua
+	make OBJDIR="$PWD/build" LUA_PACKAGE=lua
 }
 
 termux_step_make_install() {
-	install -Dm700 ./bin/wordgrinder-lua-curses-release $TERMUX_PREFIX/bin/wordgrinder
-	install -Dm600 ./bin/wordgrinder.1 $TERMUX_PREFIX/share/man/man1/
+	install -Dm700 \
+		"$TERMUX_PKG_SRCDIR"/bin/wordgrinder-lua-curses-release \
+		"$TERMUX_PREFIX"/bin/wordgrinder
+	install -Dm600 \
+		"$TERMUX_PKG_SRCDIR"/bin/wordgrinder.1 \
+		"$TERMUX_PREFIX"/share/man/man1/
 }

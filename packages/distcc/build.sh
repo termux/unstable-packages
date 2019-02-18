@@ -11,8 +11,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-pump-mode
 --without-avahi
 --without-gtk
---without-libiberty
-"
+--without-libiberty"
 
 termux_step_pre_configure() {
 	./autogen.sh

@@ -10,6 +10,6 @@ TERMUX_PKG_DEPENDS="ncurses, python2"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
 termux_step_make_install() {
-	export PYTHONPATH=${TERMUX_PREFIX}/lib/python2.7/site-packages/
-	python2.7 setup.py install --prefix="${TERMUX_PREFIX}" --force
+	export PYTHONPATH="$TERMUX_PREFIX/lib/python2.7/site-packages/"
+	python2.7 setup.py install --prefix="$TERMUX_PREFIX" --force
 }

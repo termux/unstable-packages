@@ -8,6 +8,6 @@ TERMUX_PKG_SHA256=e8483c05857a10cf2d5e45b9e8af867d95991fab0f9d3d8984840b810e132d
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make_install() {
-	install -Dm700 unifdef $TERMUX_PREFIX/bin/unifdef
-	install -Dm600 unifdef.1 $TERMUX_PREFIX/share/man/man1/unifdef.1
+	install -Dm700 unifdef "$TERMUX_PREFIX"/bin/
+	install -Dm600 unifdef.1 "$TERMUX_PREFIX"/share/man/man1/
 }

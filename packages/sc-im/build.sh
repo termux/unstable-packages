@@ -9,6 +9,6 @@ TERMUX_PKG_DEPENDS="ncurses"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
 termux_step_post_configure() {
-	cp -rf src/* .
 	CFLAGS+=" $CPPFLAGS -I$TERMUX_PREFIX/include/libandroid-support"
+	cp -rf src/* .
 }

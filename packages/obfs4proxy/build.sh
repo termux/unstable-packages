@@ -13,12 +13,12 @@ TERMUX_PKG_DEPENDS="tor"
 
 termux_step_make() {
 	termux_setup_golang
-	cd "${TERMUX_PKG_SRCDIR}/obfs4proxy"
+	cd "$TERMUX_PKG_SRCDIR"/obfs4proxy
 	go get -d ./...
 	go build .
 }
 
 termux_step_post_make_install() {
-	cd "${TERMUX_PKG_SRCDIR}/obfs4proxy"
-	install -Dm700 "obfs4proxy" "${TERMUX_PREFIX}/bin/obfs4proxy"
+	cd "$TERMUX_PKG_SRCDIR"/obfs4proxy
+	install -Dm700 obfs4proxy "${TERMUX_PREFIX}"/bin/
 }
