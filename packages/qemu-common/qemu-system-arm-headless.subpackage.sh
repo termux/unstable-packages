@@ -4,5 +4,4 @@ TERMUX_SUBPKG_CONFLICTS="qemu-system-arm"
 
 TERMUX_SUBPKG_INCLUDE="
 bin/qemu-system-arm
-share/man/man1/qemu-system-arm.1.gz
-"
+share/man/man1/qemu-system-arm.1.gz"

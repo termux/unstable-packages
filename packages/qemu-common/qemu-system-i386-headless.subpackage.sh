@@ -4,5 +4,4 @@ TERMUX_SUBPKG_CONFLICTS="qemu-system-i386"
 
 TERMUX_SUBPKG_INCLUDE="
 bin/qemu-system-i386
-share/man/man1/qemu-system-i386.1.gz
-"
+share/man/man1/qemu-system-i386.1.gz"
