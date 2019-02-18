@@ -73,6 +73,12 @@ fi
 if [ $# -ge 1 ]; then
 	if [ "$1" = "--upload" ]; then
 		exec "$REPO_DIR/scripts/bintray-add-package.sh" --path "$DEBS_DIR" $PACKAGE_NAMES
+	elif [ "$1" = "--show" ]; then
+		for pkg in $PACKAGE_NAMES; do
+			echo $pkg
+		done
+		unset pkg
+		exit 0
 	else
 		TERMUX_ARCH="$1"
 		unset BINTRAY_USERNAME
