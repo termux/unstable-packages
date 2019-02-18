@@ -33,8 +33,8 @@ termux_step_post_massage() {
 	fi
 
 	"$TERMUX_PKG_SRCDIR/$build_subdir"/en/rs/tools/join \
-		"$TERMUX_PKG_SRCDIR"/bin/arj \
+		bin/arj \
 		"$TERMUX_PKG_SRCDIR/$build_subdir"/en/rs/help.arj
 	"$TERMUX_PKG_SRCDIR/$build_subdir"/en/rs/tools/postproc \
-		"$TERMUX_PKG_SRCDIR"/bin/arj
+		bin/arj
 }
