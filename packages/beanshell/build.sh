@@ -9,6 +9,13 @@ TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
+termux_step_pre_configure() {
+	termux_download \
+		"$TERMUX_PKG_SRCURL" \
+		"$TERMUX_PKG_CACHEDIR/bsh-$TERMUX_PKG_VERSION.jar" \
+		"$TERMUX_PKG_SHA256"
+}
+
 termux_step_make() {
 	"$TERMUX_D8" \
 		--classpath "$ANDROID_HOME/platforms/android-$TERMUX_PKG_API_LEVEL/android.jar" \
