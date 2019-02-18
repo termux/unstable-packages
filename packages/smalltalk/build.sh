@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="A free implementation of the Smalltalk-80 language"
 TERMUX_PKG_LICENSE="GPL-2.0, LGPL-2.1"
 TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
 TERMUX_PKG_VERSION=3.2.5
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=ftp://ftp.gnu.org/gnu/smalltalk/smalltalk-$TERMUX_PKG_VERSION.tar.xz
 TERMUX_PKG_SHA256=819a15f7ba8a1b55f5f60b9c9a58badd6f6153b3f987b70e7b167e7755d65acc
 TERMUX_PKG_DEPENDS="glib, libltdl, libffi, libsigsegv, readline"

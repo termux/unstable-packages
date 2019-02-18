@@ -5,7 +5,7 @@ TERMUX_PKG_DESCRIPTION="A workaround for shm_open() and shm_unlink() for Android
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=0.2
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_REVISION=3
 
 termux_step_make() {
 	cp "$TERMUX_PKG_BUILDER_DIR/posix-shm.c" ./

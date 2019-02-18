@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Console FictionBook reader"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=0.2.2
+TERMUX_PKG_REVISION=1
 _COMMIT=7db0ee1193657ff79ae478e2a365e058a432f02b
 TERMUX_PKG_SRCURL=https://github.com/ashinkarov/fbless/archive/${_COMMIT}.zip
 TERMUX_PKG_SHA256=05bebf23f01ab7b5bc29f97e6b63f99f03b35027ca8392a40491101f8aa28bf8
