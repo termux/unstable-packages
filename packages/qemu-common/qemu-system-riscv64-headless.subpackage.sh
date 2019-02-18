@@ -4,5 +4,4 @@ TERMUX_SUBPKG_CONFLICTS="qemu-system-riscv64"
 
 TERMUX_SUBPKG_INCLUDE="
 bin/qemu-system-riscv64
-share/man/man1/qemu-system-riscv64.1.gz
-"
+share/man/man1/qemu-system-riscv64.1.gz"

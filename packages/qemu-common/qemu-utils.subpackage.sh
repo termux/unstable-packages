@@ -5,5 +5,4 @@ TERMUX_SUBPKG_INCLUDE="
 bin/qemu-img
 bin/qemu-io
 bin/qemu-nbd
-share/man/man1/qemu-img.1.gz
-"
+share/man/man1/qemu-img.1.gz"
