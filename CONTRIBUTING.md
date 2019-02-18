@@ -1,13 +1,12 @@
 # Contributing guide
 
-Everyone who decided to contribute must respect the following restrictions:
+This is an issue tracker for the [unstable-packages] project. It is expected that
+there will be submitted [bug reports](#bug-reports) or [pull requests](#pull-requests).
 
-- Issues about broken or mistyped configuration files, third-party or
-self-developed packages will be rejected.
+Personal support requests as well as general questions are discouraged here.
 
-- Personal support requests will be rejected.
-
-- Any kind of unacceptible behaviour (trolling, spam, etc...) is forbidden here.
+**Important note**: *unacceptible behaviour including toxic language, trolling,
+spam is prohibited here. However, constructive criticism is always okay.*
 
 ## Bug reports
 
@@ -15,39 +14,61 @@ If you are constantly observing "segmentation fault" or "Bad system call",
 freezes, attempts to access non-existent files or similar behaviour, you
 may [submit a bug report][bug-report-template].
 
-Each bug report should consist of:
+1. Before opening a new issue, search for previous discussions about your topic.
+There is a chance that your issue was reported already.
 
-- **Description**
+2. Make sure that your Termux installation is up-to-date. If not, please upgrade
+all your packages to the latest version and try to reproduce problem again. If
+software update solved your problem, do not open issue.
 
-	Clear description of the problem you encountered.
+3. Make sure that you did not mistype or broke configuration files. Just
+configuration typo is not worth of opening bug report.
 
-- **Steps to reproduce**
+4. Open new issue with [bug report template][bug-report-template]. Remove all
+comments and put all necessary information according to the fields.
 
-	Exact steps to reproduce the problem.
+	You have to fill at least the following fields:
 
-- **System information**
+	- **Description**
 
-	Just post output of the `termux-info`.
+		Clear description of the problem you encountered.
 
-Please do not post bug reports until you sure that your Termux installation
-is consistent and up-to-date and configuration files do not contain typos.
+	- **Steps to reproduce**
+
+		Exact steps to reproduce the problem.
+
+	- **System information**
+
+		Just post output of the `termux-info`.
+
+Please note that you should not expect that your problem will be solved
+immediately.
 
 ## Package requests
 
 Project [unstable-packages] does not accept package requests. Please submit them
-to [termux-packages] instead.
+to [termux-packages] instead. Though, if you submit a good package, your request
+still may be processed.
 
 ## Pull requests
 
-Pull requests are processed individually. But in any case, all pull requests
-should comply with the following restrictions:
+It is expected that pull request you are submitting is a bugfix or improvement.
+Package implementations are not accepted here same as package requests. Exceptions
+are only when package is moved from another repository.
 
-- Your changes should not break existing stuff.
+1. Before opening a pull request, make sure there no other pull requests similar
+to yours.
 
-- Your scripts should not use `su` or `sudo` commands, perform undesirable
-actions like creating or deleting files outside of build environment directories.
+2. Make sure that your changes do not break existing stuff and do not violate
+our coding practices and formatting guidelines (see [termux-packages/docs][termux-packages-docs]).
 
-Also, you may take a look on our documentation in [termux-packages/docs][termux-packages-docs].
+3. Make sure that your changes do not introduce code that perform undesirable
+actions like using `su` or `sudo` commands or modifying files outside of the
+build directories.
+
+When you opened a pull request, repository maintainers should review it. In review
+process you may be requested to apply additional changes. If you will not do this,
+maintainers always can modify or close your pull request if necessary.
 
 [termux-packages]: <https://github.com/termux/termux-packages>
 [termux-packages-docs]: <https://github.com/termux/termux-packages/tree/master/docs>
