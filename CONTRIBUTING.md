@@ -70,7 +70,17 @@ When you opened a pull request, repository maintainers should review it. In revi
 process you may be requested to apply additional changes. If you will not do this,
 maintainers always can modify or close your pull request if necessary.
 
+### For maintainers
+
+Since we use CI/CD for automatic package building and publishing, it is acceptable
+that simple (for example version upgrade or typo fix) pull request will be merged
+by collaborators without reviewing by core maintainer. Though it is expected that
+all changes are carefully reviewed to avoid having nasty things in our code.
+
+Everything else must be reviewed by the core maintainer ([@xeffyr][xeffyr-github]).
+
 [termux-packages]: <https://github.com/termux/termux-packages>
 [termux-packages-docs]: <https://github.com/termux/termux-packages/tree/master/docs>
 [unstable-packages]: <https://github.com/termux/unstable-packages>
 [bug-report-template]: <https://github.com/termux/unstable-packages/issues/new?template=BUG_REPORT.md>
+[xeffyr-github]: <https://github.com/xeffyr>
