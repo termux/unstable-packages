@@ -11,7 +11,6 @@ that package is licensed under GNU GPL v2.0.
 
 Following scripts are licensed under GNU GPL v3.0:
 
- * scripts/ci/gitlab.sh
  * scripts/bintray-add-package.sh
- * scripts/get-latest-version.sh
- * scripts/get-sha256.sh
+ * scripts/check-updates.sh
+ * scripts/get-modified-packages.sh
