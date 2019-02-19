@@ -6,7 +6,7 @@ there will be submitted [bug reports](#bug-reports) or [pull requests](#pull-req
 Personal support requests as well as general questions are discouraged here.
 
 **Important note**: *unacceptible behaviour including toxic language, trolling,
-spam is prohibited here. However, constructive criticism is always okay.*
+spam is prohibited here.*
 
 ## Bug reports
 
