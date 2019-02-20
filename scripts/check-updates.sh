@@ -55,6 +55,9 @@ translate_package_name() {
 
 		google-glog) translated_name="glog";;
 
+		# Do not check the legacy version Guile for updates.
+		guile18) translated_name="/hidden/";;
+
 		imagemagick-x) translated_name="imagemagick";;
 
 		# Custom package.
