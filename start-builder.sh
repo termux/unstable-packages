@@ -4,7 +4,7 @@ set -e -u
 HOME=/home/builder
 USER=builder
 REPOROOT=$(dirname "$(realpath "$0")")
-LOCKFILE="/tmp/.termux-extra-builder.lck"
+LOCKFILE="/tmp/.termux-unstable-builder.lck"
 
 IMAGE_NAME="xeffyr/termux-extra-packages-builder"
 : ${CONTAINER_NAME:=termux-unstable-packages-builder}
