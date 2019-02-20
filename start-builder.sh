@@ -17,7 +17,7 @@ fi
 
 if [ ! -e "$REPOROOT/termux-packages/build-package.sh" ]; then
 	echo "[*] Setting up repository submodules..."
-	git submodule update --init --recursive
+	git submodule update --init
 else
 	(flock -n 3 || exit 0
 		echo "[*] Copying packages to the build environment..."
