@@ -27,5 +27,5 @@ script:
   - MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
   - |
     for package in $MODIFIED_PACKAGES; do
-        ./start-builder.sh ./build-package.sh -i -a "$TERMUX_ARCH" "$package"
+        ./start-builder.sh ./build-package.sh -q -i -a "$TERMUX_ARCH" "$package"
     done
