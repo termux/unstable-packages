@@ -20,9 +20,16 @@ if [ ! -e "$REPOROOT/termux-packages/build-package.sh" ]; then
 	git submodule update --init
 else
 	(flock -n 3 || exit 0
-		echo "[*] Copying packages to the build environment..."
-		cd "$REPOROOT"/termux-packages && git clean -fdxq && git checkout -- .
-		cp -a "$REPOROOT"/packages/* "$REPOROOT"/termux-packages/packages/
+		(cd "$REPOROOT"/termux-packages && git clean -fdxq && git checkout -- .)
+
+		echo "[*] Copying packages from './packages' to build environment..."
+		for pkg in "$REPOROOT"/packages/*; do
+			if [ ! -d "$REPOROOT/termux-packages/packages/$(basename "$pkg")" ]; then
+				cp -a "$pkg" "$REPOROOT"/termux-packages/packages/
+			else
+				echo "[!] Package '$(basename "$pkg")' already exists in build environment. Skipping."
+			fi
+		done
 	) 3< "$LOCKFILE"
 fi
 
