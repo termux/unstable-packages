@@ -59,7 +59,8 @@ RUN mkdir -p /root/.android && echo 'count=0' > /root/.android/repositories.cfg
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platform-tools"
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_SDK_BUILD_TOOLS_VERSION}"
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-21"
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-24"
+RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28"
 RUN cp -a /root/.android /home/builder/.android
 RUN chown -R builder:builder /opt/termux /home/builder
 
