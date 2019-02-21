@@ -61,12 +61,13 @@ RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_SDK_BUILD
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-21"
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-24"
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28"
-RUN cp -a /root/.android /home/builder/.android
-RUN chown -R builder:builder /opt/termux /home/builder
 
 # Cleanup.
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Set user.
+USER builder:builder
 
 # Set working directory.
 WORKDIR /home/builder/packages

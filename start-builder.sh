@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e -u
 
-HOME=/home/builder
-USER=builder
 REPOROOT=$(dirname "$(realpath "$0")")
 LOCKFILE="/tmp/.termux-unstable-builder.lck"
 
@@ -39,7 +37,6 @@ fi
 		echo "Creating new container..."
 		docker run \
 			--detach \
-			--env HOME="$HOME" \
 			--name "$CONTAINER_NAME" \
 			--volume "$REPOROOT/termux-packages:$HOME/packages" \
 			--tty \
@@ -55,8 +52,8 @@ fi
 	fi
 
 	if [ $# -ge 1 ]; then
-		docker exec --interactive --tty --user "$USER" "$CONTAINER_NAME" "$@"
+		docker exec --interactive --tty "$CONTAINER_NAME" "$@"
 	else
-		docker exec --interactive --tty --user "$USER" "$CONTAINER_NAME" bash
+		docker exec --interactive --tty "$CONTAINER_NAME" bash
 	fi
 ) 3< "$LOCKFILE"
