@@ -9,7 +9,14 @@ variables:
 
 ## Copy packages to the build environment.
 before_script:
-  - cp -a ./packages/* ./termux-packages/packages/
+  - |
+    for pkg in ./packages/*; do
+        if [ ! -d "./termux-packages/packages/$(basename "$pkg")" ]; then
+            cp -a "$pkg" ./termux-packages/packages/
+        else
+            echo "[!] Package '$(basename "$pkg")' already exists in build environment. Skipping."
+        fi
+    done
 
 ## Common configuration for all build jobs.
 .job_template: &build_job
