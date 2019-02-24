@@ -1,5 +1,7 @@
 # Repository for new/unstable packages
 
+[![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
+
 [![pipeline status](https://gitlab.com/xeffyr/unstable-packages/badges/master/pipeline.svg)](https://gitlab.com/xeffyr/unstable-packages/commits/master)
 
 There are located packages which were requested, but not added to the
