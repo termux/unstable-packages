@@ -11,7 +11,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_make() {
 	make \
 		CC="$CC" \
-		CFLAGS="$CFLAGS" \
+		CFLAGS="$CFLAGS -fPIC" \
 		LDFLAGS="$LDFLAGS -llua" \
 		LUADIR="$TERMUX_PREFIX"/include
 }
