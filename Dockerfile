@@ -10,7 +10,7 @@ FROM ubuntu:cosmic
 
 ENV ANDROID_SDK_REVISION "4333796"
 ENV ANDROID_SDK_BUILD_TOOLS_VERSION "28.0.3"
-ENV ANDROID_NDK_VERSION "18"
+ENV ANDROID_NDK_VERSION "19b"
 ENV ANDROID_HOME "/opt/termux/android-sdk"
 ENV NDK "/opt/termux/android-ndk"
 
@@ -52,7 +52,7 @@ RUN mkdir /data && chown builder:builder /data && \
 RUN curl --fail --retry 3 -L -o sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_REVISION}.zip && \
     unzip -q sdk.zip -d ${ANDROID_HOME} && rm -f sdk.zip && \
     curl --fail --retry 3 -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-Linux-x86_64.zip && \
-    unzip -q ndk.zip && rm -f ndk.zip && mv android-ndk-r18 ${NDK}
+    unzip -q ndk.zip && rm -f ndk.zip && mv android-ndk-r${ANDROID_NDK_VERSION} ${NDK}
 
 # Installing Android SDK tools.
 RUN mkdir -p /root/.android && echo 'count=0' > /root/.android/repositories.cfg
