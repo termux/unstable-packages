@@ -1,0 +1,16 @@
+diff -uNr ZeroNet-0.6.5/src/Config.py ZeroNet-0.6.5.mod/src/Config.py
+--- ZeroNet-0.6.5/src/Config.py	2019-02-16 21:50:49.000000000 +0200
++++ ZeroNet-0.6.5.mod/src/Config.py	2019-02-28 21:22:45.312224632 +0200
+@@ -100,9 +100,9 @@
+         else:
+             fix_float_decimals = False
+
+-        config_file = self.start_dir + "/zeronet.conf"
+-        data_dir = self.start_dir + "/data"
+-        log_dir = self.start_dir + "/log"
++        config_file = "@TERMUX_PREFIX@/etc/zeronet.conf"
++        data_dir = "@TERMUX_PREFIX@/var/lib/zeronet"
++        log_dir = "@TERMUX_PREFIX@/var/log/zeronet"
+
+         ip_local = ["127.0.0.1", "::1"]
+
