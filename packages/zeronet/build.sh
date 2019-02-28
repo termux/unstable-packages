@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Decentralized websites using Bitcoin crypto and BitTorre
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=0.6.5
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://github.com/HelloZeroNet/ZeroNet/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=28ca440099323ac307c6ed0afbaf607e4c1c47948917c0c97126a2ec6a293f51
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
@@ -47,4 +47,15 @@ termux_step_create_debscripts() {
 		echo "bash $TERMUX_PREFIX/opt/zeronet/installer.sh"
 	} > ./postinst
 	chmod 755 ./postinst
+
+	{
+		echo "#!$TERMUX_PREFIX/bin/sh"
+		echo "[ \$1 != remove ] && exit 0"
+		echo "echo \"Removing ZeroNet files...\""
+		echo "rm -rf $TERMUX_PREFIX/opt/zeronet"
+		echo "rm -rf $TERMUX_PREFIX/var/lib/zeronet"
+		echo "rm -rf $TERMUX_PREFIX/var/log/zeronet"
+		echo "exit 0"
+	} > ./postrm
+	chmod 755 ./postrm
 }
