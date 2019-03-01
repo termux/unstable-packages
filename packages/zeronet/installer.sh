@@ -2,49 +2,29 @@
 set -e
 export PREFIX=@TERMUX_PREFIX@
 
-MSGPACK_INSTALLED=false
-GEVENT_INSTALLED=false
+# Lock terminal to prevent sending text input and special key
+# combinations that may break installation process.
+stty -echo -icanon time 0 min 0 intr undef quit undef susp undef
 
-# Function for locking terminal.
-lock_terminal() {
-	stty -echo -icanon time 0 min 0 intr undef quit undef susp undef
-}
-
-# Function to unlock terminal.
-unlock_terminal() {
-	while read -r; do
-		true;
-	done
-	stty sane
-}
-
+# Use trap to unlock terminal at exit.
 trap 'while read -r; do true; done; stty sane;' EXIT
-lock_terminal
 
-# Check if ZeroNet dependencies are installed.
+# Install 'msgpack' if necessary.
 echo -n "[*] Checking if 'msgpack' is installed: "
 if pip2 show msgpack > /dev/null 2>&1; then
 	echo "yes"
-	MSGPACK_INSTALLED=true
 else
 	echo "no"
-fi
-echo -n "[*] Checking if 'gevent' is installed: "
-if pip2 show gevent > /dev/null 2>&1; then
-	echo "yes"
-	GEVENT_INSTALLED=true
-else
-	echo "no"
-fi
-
-# Installing 'msgpack' if needed.
-if ! $MSGPACK_INSTALLED; then
 	echo "[*] Installing 'msgpack' for Python 2..."
 	pip2 install msgpack
 fi
 
-# Installing 'gevent' if needed.
-if ! $GEVENT_INSTALLED; then
+# Install 'gevent' if necessary.
+echo -n "[*] Checking if 'gevent' is installed: "
+if pip2 show gevent > /dev/null 2>&1; then
+	echo "yes"
+else
+	echo "no"
 	echo "[*] Installing 'gevent' for Python 2 (may take long time)..."
 	pip2 install gevent
 fi
