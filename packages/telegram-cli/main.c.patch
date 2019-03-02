@@ -30,7 +30,7 @@ diff -uNr tg/main.c tg.mod/main.c
 +  if (!str_empty (home_directory)) {
 +    return tstrdup (home_directory);
 +  } else {
-+    return tstrdup ("@TERMUX_ANDROID_HOME@");
++    return tstrdup ("@TERMUX_HOME@");
    }
 -  endpwent ();
 -  if (str_empty (home_directory)) { home_directory = tstrdup ("."); }
