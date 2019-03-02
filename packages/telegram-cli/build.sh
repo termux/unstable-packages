@@ -23,7 +23,7 @@ termux_step_post_configure() {
 }
 
 termux_step_make_install() {
-	install -Dm700 bin/telegram-cli "$TERMUX_PREFIX"/bin/
+	install -Dm700 -t "$TERMUX_PREFIX"/bin/ bin/telegram-cli
 	install -Dm600 tg-server.pub "$TERMUX_PREFIX"/etc/telegram-cli/server.pub
-	install -Dm600 debian/telegram-cli.8 "$TERMUX_PREFIX"/share/man/man8/
+	install -Dm600 -t "$TERMUX_PREFIX"/share/man/man8/ debian/telegram-cli.8
 }
