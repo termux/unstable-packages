@@ -1,0 +1,20 @@
+diff -uNr hashcat-5.1.0/src/folder.c hashcat-5.1.0.mod/src/folder.c
+--- hashcat-5.1.0/src/folder.c	2018-12-02 12:58:48.000000000 +0200
++++ hashcat-5.1.0.mod/src/folder.c	2019-03-02 22:49:31.899848481 +0200
+@@ -372,9 +372,13 @@
+   }
+   else
+   {
+-    profile_dir = install_dir;
+-    session_dir = install_dir;
+-    shared_dir  = install_dir;
++    profile_dir = hcmalloc (HCBUFSIZ_TINY);
++    get_profile_dir (profile_dir, "@TERMUX_HOME@");
++
++    session_dir = hcmalloc (HCBUFSIZ_TINY);
++    get_session_dir (session_dir, profile_dir);
++
++    shared_dir  = shared_folder;
+   }
+ 
+   hcfree (resolved_install_folder);
