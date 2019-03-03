@@ -31,6 +31,7 @@ termux_step_pre_configure() {
 		mkdir -p "$TERMUX_PREFIX"/share/guile/2.2/language/elisp
 		cp "$TERMUX_PKG_SRCDIR"/module/language/elisp/boot.el \
 			"$TERMUX_PREFIX"/share/guile/2.2/language/elisp/
+		mkdir -p "$TERMUX_PREFIX"/lib/guile/2.2/ccache/language/elisp
 		cp "$TERMUX_PKG_BUILDER_DIR"/boot.go \
 			"$TERMUX_PREFIX"/lib/guile/2.2/ccache/language/elisp/
 	fi
