@@ -25,11 +25,12 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     asciidoc asciidoctor autoconf automake bison build-essential curl devscripts \
     docbook-utils docbook-to-man ed flex g++-multilib gawk gettext git gnome-common \
     gnupg gtk-3-examples gtk-doc-tools gperf help2man intltool jq libexpat1-dev \
-    libffi-dev libgdk-pixbuf2.0-dev libgmp-dev libgtk-3-bin libglib2.0-dev libisl-dev \
-    libjpeg-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev \
-    libsigsegv-dev libssl-dev libtool-bin lzip m4 openjdk-8-jdk-headless pax-utils \
-    pkg-config python-pip python3.7 python3-docutils python3-pip python3-setuptools \
-    python3-sphinx ruby scons texinfo unzip valac xfonts-utils xmlto zip zlib1g-dev
+    libffi-dev libgc-dev libgdk-pixbuf2.0-dev libgmp-dev libgtk-3-bin libglib2.0-dev \
+    libisl-dev libjpeg-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev \
+    libncursesw5-dev libsigsegv-dev libssl-dev libtool-bin libunistring-dev lzip \
+    m4 openjdk-8-jdk-headless pax-utils pkg-config python-pip python3.7 \
+    python3-docutils python3-pip python3-setuptools python3-sphinx ruby scons \
+    texinfo unzip valac xfonts-utils xmlto zip zlib1g-dev
 
 # Install 32bit packages.
 RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
