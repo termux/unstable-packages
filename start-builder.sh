@@ -2,10 +2,10 @@
 set -e -u
 
 REPOROOT=$(dirname "$(realpath "$0")")
-LOCKFILE="/tmp/.termux-unstable21-builder.lck"
+LOCKFILE="/tmp/.termux-unstable24-builder.lck"
 
 IMAGE_NAME="xeffyr/termux-extra-packages-builder"
-: ${CONTAINER_NAME:=termux-unstable21-packages-builder}
+: ${CONTAINER_NAME:=termux-unstable24-packages-builder}
 
 cd "$REPOROOT"
 
