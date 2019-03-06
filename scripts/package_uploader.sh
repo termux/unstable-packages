@@ -35,7 +35,7 @@ PACKAGE_DELETE_MODE=false
 KEEP_OLD_VERSION=false
 
 # Bintray-specific configuration.
-BINTRAY_REPO_NAME="unstable-packages-21"
+BINTRAY_REPO_NAME="unstable-packages-24"
 BINTRAY_REPO_GITHUB="termux/unstable-packages"
 BINTRAY_REPO_DISTRIBUTION="unstable"
 BINTRAY_REPO_COMPONENT="main"
