@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=12.2.1
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/tsenart/vegeta/archive/cli/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=9d50b69893a321a7929682247c99af57677203c50d187dbc3fd4c823cc3b3e3f
+TERMUX_PKG_SHA256=5a7376de64a022d5748b43e3873ee5b7bcffa3596e2df00bff9866bb039720d7
 
 termux_step_make() {
 	termux_setup_golang
