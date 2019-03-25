@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Advanced open-source platform for developing, testing, a
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=5.0.13
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/rapid7/metasploit-framework/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=dd035f14b6c691174796f83bc3986c44ba62685de19d6d0d877047846862c11c
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
@@ -43,4 +44,11 @@ termux_step_create_debscripts() {
 		echo "bash $TERMUX_PREFIX/opt/metasploit-framework/installer.sh"
 	} > ./postinst
 	chmod 755 ./postinst
+
+	{
+		echo "#!$TERMUX_PREFIX/bin/sh"
+		echo "[ \$1 != remove ] && exit 0"
+		echo "rm -rf $TERMUX_PREFIX/opt/metasploit-framework"
+	} > ./postrm
+	chmod 755 ./postrm
 }
