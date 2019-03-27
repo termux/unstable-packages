@@ -1,13 +1,26 @@
-diff --git a/Makefile b/Makefile
-index 2acf502..cf0a0be 100644
---- a/Makefile
-+++ b/Makefile
-@@ -106,7 +106,7 @@ cc-nowarn = $(shell set -e; if $(CC) -W$(1) -c -xc - -o /dev/null </dev/null >&0
-
+diff -uNr haproxy-1.9.4/Makefile haproxy-1.9.4.mod/Makefile
+--- haproxy-1.9.4/Makefile	2019-02-06 15:51:03.000000000 +0200
++++ haproxy-1.9.4.mod/Makefile	2019-03-27 13:48:34.193985684 +0200
+@@ -127,10 +127,10 @@
+ 
  #### Installation options.
  DESTDIR =
 -PREFIX = /usr/local
+-SBINDIR = $(PREFIX)/sbin
 +PREFIX ?= /usr/local
- SBINDIR = $(PREFIX)/sbin
++SBINDIR = $(PREFIX)/bin
  MANDIR = $(PREFIX)/share/man
- DOCDIR = $(PREFIX)/doc/haproxy
+-DOCDIR = $(PREFIX)/doc/haproxy
++DOCDIR = $(PREFIX)/share/doc/haproxy
+ 
+ #### TARGET system
+ # Use TARGET=<target_name> to optimize for a specifc target OS among the
+@@ -154,7 +154,7 @@
+ 
+ #### Toolchain options.
+ # GCC is normally used both for compiling and linking.
+-CC = gcc
++CC ?= gcc
+ LD = $(CC)
+ 
+ #### Debug flags (typically "-g").
