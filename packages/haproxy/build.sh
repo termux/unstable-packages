@@ -19,6 +19,8 @@ USE_ZLIB=1
 USE_LUA=1
 LUA_LIB_NAME=lua"
 
+TERMUX_PKG_CONFFILES="etc/haproxy/haproxy.cfg"
+
 termux_step_post_make_install() {
 	for contrib in halog iprange ip6range; do
 		make -C "contrib/$contrib" \
@@ -30,4 +32,7 @@ termux_step_post_make_install() {
 		install -Dm700 "contrib/$contrib/$contrib" \
 			"$TERMUX_PREFIX/bin/$contrib"
 	done
+
+	install -Dm600 "$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg \
+		"$TERMUX_PREFIX"/etc/haproxy/haproxy.cfg
 }
