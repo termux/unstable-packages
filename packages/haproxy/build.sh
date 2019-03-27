@@ -22,6 +22,10 @@ LUA_LIB_NAME=lua"
 
 TERMUX_PKG_CONFFILES="etc/haproxy/haproxy.cfg"
 
+termux_step_pre_configure() {
+	CC="$CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags"
+}
+
 termux_step_post_make_install() {
 	for contrib in halog iprange ip6range; do
 		make -C "contrib/$contrib" \
