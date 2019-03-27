@@ -9,12 +9,13 @@ TERMUX_PKG_SHA256=407260ce65d7a16d93a037976712a8742985ce29360b6d5c187a849b6c0fbf
 TERMUX_PKG_DEPENDS="liblua, openssl, pcre"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
+# USE_PCRE=1 requires libpcreposix which is not available. PCRE
+# support will be disabled for now.
 TERMUX_PKG_EXTRA_MAKE_ARGS="
 CPU=generic
 TARGET=generic
 USE_GETADDRINFO=1
 USE_OPENSSL=1
-USE_PCRE=1
 USE_ZLIB=1
 USE_LUA=1
 LUA_LIB_NAME=lua"
