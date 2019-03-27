@@ -35,4 +35,12 @@ termux_step_post_make_install() {
 
 	install -Dm600 "$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg \
 		"$TERMUX_PREFIX"/etc/haproxy/haproxy.cfg
+
+	mkdir -p "$TERMUX_PREFIX"/share/haproxy/examples/errorfiles
+	install -m600 examples/*.cfg "$TERMUX_PREFIX"/share/haproxy/examples/
+	install -m600 examples/errorfiles/*.http \
+		"$TERMUX_PREFIX"/share/haproxy/examples/errorfiles/
+
+	install -Dm644 examples/haproxy.vim \
+		"$TERMUX_PREFIX"/share/vim/vimfiles/syntax/haproxy.vim
 }
