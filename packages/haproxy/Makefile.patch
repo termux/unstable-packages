@@ -1,6 +1,6 @@
 diff -uNr haproxy-1.9.5/Makefile haproxy-1.9.5.mod/Makefile
 --- haproxy-1.9.5/Makefile	2019-03-19 15:40:44.000000000 +0200
-+++ haproxy-1.9.5.mod/Makefile	2019-03-27 15:07:49.188285754 +0200
++++ haproxy-1.9.5.mod/Makefile	2019-03-27 15:36:22.262501763 +0200
 @@ -127,10 +127,10 @@
  
  #### Installation options.
@@ -24,6 +24,22 @@ diff -uNr haproxy-1.9.5/Makefile haproxy-1.9.5.mod/Makefile
  LD = $(CC)
  
  #### Debug flags (typically "-g").
+@@ -264,13 +264,13 @@
+ # These CFLAGS contain general optimization options, CPU-specific optimizations
+ # and debug flags. They may be overridden by some distributions which prefer to
+ # set all of them at once instead of playing with the CPU and DEBUG variables.
+-CFLAGS = $(ARCH_FLAGS) $(CPU_CFLAGS) $(DEBUG_CFLAGS) $(SPEC_CFLAGS)
++CFLAGS = $(ARCH_FLAGS) $(CPU_CFLAGS) $(DEBUG_CFLAGS) $(SPEC_CFLAGS) -I@TERMUX_PREFIX@/include
+ 
+ #### Common LDFLAGS
+ # These LDFLAGS are used as the first "ld" options, regardless of any library
+ # path or any other option. They may be changed to add any linker-specific
+ # option at the beginning of the ld command line.
+-LDFLAGS = $(ARCH_FLAGS) -g
++LDFLAGS = $(ARCH_FLAGS) -g -L@TERMUX_PREFIX@/lib
+ 
+ #### Target system options
+ # Depending on the target platform, some options are set, as well as some
 @@ -692,7 +692,7 @@
  ifeq ($(LUA_LIB_NAME),)
  $(error unable to automatically detect the Lua library name, you can enforce its name with LUA_LIB_NAME=<name> (where <name> can be lua5.3, lua53, lua, ...))
