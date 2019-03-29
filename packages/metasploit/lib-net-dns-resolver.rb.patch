@@ -1,0 +1,12 @@
+diff -uNr metasploit-framework-5.0.13/lib/net/dns/resolver.rb metasploit-framework-5.0.13.mod/lib/net/dns/resolver.rb
+--- metasploit-framework-5.0.13/lib/net/dns/resolver.rb	2019-03-21 18:41:47.000000000 +0200
++++ metasploit-framework-5.0.13.mod/lib/net/dns/resolver.rb	2019-03-29 13:28:21.186947140 +0200
+@@ -95,7 +95,7 @@
+       # the description for each parameter to have an
+       # explanation of its usage.
+       Defaults = {
+-        :config_file => "/etc/resolv.conf",
++        :config_file => "@TERMUX_PREFIX@/etc/resolv.conf",
+         :log_file => $stdout,
+         :port => 53,
+         :searchlist => [],
