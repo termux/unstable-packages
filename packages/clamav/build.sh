@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.clamav.net/
 TERMUX_PKG_DESCRIPTION="Anti-virus toolkit for Unix"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-TERMUX_PKG_VERSION=0.101.1
-TERMUX_PKG_REVISION=4
+TERMUX_PKG_VERSION=0.101.2
 TERMUX_PKG_SRCURL=https://www.clamav.net/downloads/production/clamav-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=fa368fa9b2f57638696150c7d108b06dec284e8d8e3b8e702c784947c01fb806
+TERMUX_PKG_SHA256=0a12ebdf6ff7a74c0bde2bdc2b55cae33449e6dd953ec90824a9e01291277634
 TERMUX_PKG_DEPENDS="json-c, libandroid-support, libbz2, libc++, libcurl, libltdl, liblzma, libxml2, openssl, pcre2"
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
