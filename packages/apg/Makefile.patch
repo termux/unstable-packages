@@ -12,7 +12,7 @@ diff -uNr apg-2.2.3/Makefile apg-2.2.3.mod/Makefile
  # Compilation flags
  # You should comment the line below for AIX+native cc
 -FLAGS = -Wall
-+FLAGS = -Wall -I@TERMUX_PREFIX@/include
++FLAGS = -Wall -I@TERMUX_PREFIX@/include -Wl,-rpath=@TERMUX_PREFIX@/lib -Wl,--enable-new-dtags
  
  ##################################################################
  # Libraries
