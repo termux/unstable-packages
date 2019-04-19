@@ -24,6 +24,7 @@ fi
 
 echo "[*] Installing Metasploit dependencies (may take long time)..."
 cd "$PREFIX"/opt/metasploit-framework
+bundle config build.nokogiri --use-system-libraries
 bundle install --jobs=2 --verbose
 
 echo "[*] Running fixes..."
