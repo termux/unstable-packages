@@ -11,7 +11,7 @@ trap 'while read -r; do true; done; stty sane;' EXIT
 
 echo "[*] Installing 'rubygems-update' if necessary..."
 if [ "$(gem list -i rubygems-update 2>/dev/null)" = "false" ]; then
-	gem install rubygems-update
+	gem install --no-document --verbose rubygems-update
 fi
 
 echo "[*] Updating Ruby gems..."
@@ -19,12 +19,12 @@ update_rubygems
 
 echo "[*] Installing 'bundler' if necessary..."
 if [ "$(gem list -i bundler 2>/dev/null)" = "false" ]; then
-	gem install bundler
+	gem install --no-document --verbose bundler
 fi
 
 echo "[*] Installing Metasploit dependencies (may take long time)..."
 cd "$PREFIX"/opt/metasploit-framework
-bundle install -j2
+bundle install --jobs=2 --verbose
 
 echo "[*] Running fixes..."
 "$PREFIX"/bin/find "$PREFIX"/opt/metasploit-framework -type f -executable -print0 | xargs -0 -r termux-fix-shebang
