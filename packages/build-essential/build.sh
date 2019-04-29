@@ -6,20 +6,25 @@ TERMUX_PKG_VERSION=2.0
 TERMUX_PKG_METAPACKAGE=yes
 TERMUX_PKG_PLATFORM_INDEPENDENT=yes
 
-# Common utilities for various build systems.
-_COMMON_DEV_PACKAGES="autoconf, automake, bison, clang, cmake, flex, gperf, libtool, m4, make, ninja, pkg-config"
-
-# These packages replace busybox's applets.
-_CORE_PACKAGES="bc, bzip2, coreutils, diffutils, ed, findutils, gawk, grep, gzip, lzip, lzop, patch, procps, psmisc, sed, tar, xz-utils"
-
+#
+# Common utilities for various build systems:
+#
+#   autoconf, automake, bison, clang, cmake, flex, gperf, libtool, m4, make, ninja, pkg-config
+#
+# These packages replace busybox's applets:
+#
+#   bc, bzip2, coreutils, diffutils, ed, findutils, gawk, grep, gzip, lzip, lzop, patch, procps, psmisc, sed, tar, xz-utils
+#
 # Useful for debugging.
-_DEBUG_PACKAGES="file, gdb, ltrace, strace"
-
+#
+#   file, gdb, ltrace, strace
+#
 # Version control systems.
-_VCS_PACKAGES="git, subversion"
+#
+#   git, subversion
+#
 
-# Combine all categories.
-TERMUX_PKG_DEPENDS="${_COMMON_DEV_PACKAGES}, ${_CORE_PACKAGES}, ${_DEBUG_PACKAGES}, ${_VCS_PACKAGES}"
+TERMUX_PKG_DEPENDS="autoconf, automake, bison, clang, cmake, flex, gperf, libtool, m4, make, ninja, pkg-config, bc, bzip2, coreutils, diffutils, ed, findutils, gawk, grep, gzip, lzip, lzop, patch, procps, psmisc, sed, tar, xz-utils, file, gdb, ltrace, strace, git, subversion"
 
 # Other packages that may be interesting.
 TERMUX_PKG_SUGGESTS="cargo, golang, nodejs, patchelf, proot, python-dev, python2-dev, ruby-dev"
