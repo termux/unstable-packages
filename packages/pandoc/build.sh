@@ -5,6 +5,7 @@ TERMUX_PKG_DESCRIPTION="Universal markup converter"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=2.7.2
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/jgm/pandoc/releases/download/$TERMUX_PKG_VERSION/pandoc-${TERMUX_PKG_VERSION}-linux.tar.gz
 TERMUX_PKG_SHA256=6741f73e37a900deee56bc2dc71c2893fb28e0961557db36eb029368de5183c2
 TERMUX_PKG_DEPENDS="qemu-user-x86_64"
@@ -15,7 +16,7 @@ termux_step_make_install() {
 	local file
 	for file in pandoc pandoc-citeproc; do
 		sed \
-			-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX@|g" \
+			-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
 			-e "s|@BINARY@|$file|g" \
 			"$TERMUX_PKG_BUILDER_DIR/wrapper.sh.in" \
 				> "$TERMUX_PREFIX/bin/$file"
