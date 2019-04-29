@@ -1,6 +1,6 @@
 diff -uNr apg-2.2.3/Makefile apg-2.2.3.mod/Makefile
 --- apg-2.2.3/Makefile	2003-08-07 18:40:30.000000000 +0300
-+++ apg-2.2.3.mod/Makefile	2019-01-28 21:11:18.821459195 +0200
++++ apg-2.2.3.mod/Makefile	2019-04-29 23:22:29.465761275 +0300
 @@ -1,19 +1,19 @@
  ##################################################################
  # You can modify CC variable if you have compiler other than GCC
@@ -24,12 +24,19 @@ diff -uNr apg-2.2.3/Makefile apg-2.2.3.mod/Makefile
  LIBM = -lm
  # Use lines below for cygwin
  # LIBS = 
-@@ -39,7 +39,7 @@
+@@ -39,11 +39,11 @@
  ##################################################################
  # Directories
  # Install dirs
 -INSTALL_PREFIX = /usr/local
 +INSTALL_PREFIX = @TERMUX_PREFIX@
  APG_BIN_DIR = /bin
- APG_MAN_DIR = /man/man1
- APGD_BIN_DIR = /sbin
+-APG_MAN_DIR = /man/man1
+-APGD_BIN_DIR = /sbin
+-APGD_MAN_DIR = /man/man8
++APG_MAN_DIR = /share/man/man1
++APGD_BIN_DIR = $(APG_BIN_DIR)
++APGD_MAN_DIR = /share/man/man8
+ 
+ ####################################################################
+ # If you plan to install APG daemon you should look at lines below #
