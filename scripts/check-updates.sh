@@ -44,6 +44,9 @@ translate_package_name() {
 	local translated_name
 
 	case "$1" in
+		# Custom package.
+		build-essential) translated_name="/hidden/";;
+
 		emacs-x) translated_name="emacs";;
 
 		# Custom package.
