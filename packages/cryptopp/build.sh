@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="A free C++ class library of cryptographic schemes"
 TERMUX_PKG_LICENSE="BSL-1.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=7.0.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://www.cryptopp.com/cryptopp${TERMUX_PKG_VERSION//./}.zip
 TERMUX_PKG_SHA256=a4bc939910edd3d29fb819a6fc0dfdc293f686fa62326f61c56d72d0a366ceb0
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
@@ -30,4 +31,6 @@ termux_step_make() {
 
 termux_step_make_install() {
 	make install PREFIX=$TERMUX_PREFIX
+	ln -sfr $TERMUX_PREFIX/lib/libcryptopp.so.${TERMUX_PKG_VERSION} \
+		$TERMUX_PREFIX/lib/libcryptopp.so.${TERMUX_PKG_VERSION:0:1}
 }
