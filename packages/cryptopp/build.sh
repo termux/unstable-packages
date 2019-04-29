@@ -19,6 +19,12 @@ termux_step_extract_package() {
 }
 
 termux_step_make() {
+	# Prevents compilation errors.
+	CXXFLAGS+=" -fPIC"
+	if [ "$TERMUX_ARCH" = "i686" ]; then
+		CXXFLAGS+=" -DCRYPTOPP_DISABLE_ASM"
+	fi
+
 	make -j $TERMUX_MAKE_PROCESSES dynamic CC=$CC CXX=$CXX
 }
 
