@@ -8,7 +8,7 @@ diff -uNr iodine-0.7.0/src/Makefile iodine-0.7.0.mod/src/Makefile
 -LDFLAGS +=  -lz `sh osflags $(TARGETOS) link` $(LIBPATH)
 -CFLAGS += -std=c99 -c -g -Wall -D$(OS) -pedantic `sh osflags $(TARGETOS) cflags`
 +LDFLAGS +=  -lz -llog `sh osflags $(TARGETOS) link` $(LIBPATH)
-+CFLAGS += -DANDROID -std=c99 -c -g -Wall -D$(OS) -pedantic `sh osflags $(TARGETOS) cflags`
++CFLAGS += -DANDROID -std=c99 -c -g -Wall -D$(OS) -pedantic `sh osflags $(TARGETOS) cflags` -I@TERMUX_PREFIX@/include
  
  all: stateos $(CLIENT) $(SERVER)
  
