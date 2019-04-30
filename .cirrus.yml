@@ -47,13 +47,16 @@ build_task:
 
   # Determine changes in repository and build modified packages.
   build_script: |
-    cd ./termux-packages
-    for package in $(../scripts/get-modified-packages.sh); do
-        ./build-package.sh -i -a "$TERMUX_ARCH" "$package"
-    done
-    if [ -d ./debs ]; then
-        rm -rf ../debs
-        mv ./debs ../
+    MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
+    if [ -n "$MODIFIED_PACKAGES" ]; then
+        cd ./termux-packages
+        for package in $MODIFIED_PACKAGES; do
+            ./build-package.sh -i -a "$TERMUX_ARCH" "$package"
+        done
+        if [ -d ./debs ]; then
+            rm -rf ../debs
+            mv ./debs ../
+        fi
     fi
 
   # Make built packages available for the next tasks.
@@ -85,4 +88,7 @@ publish_task:
 
   # Publish.
   upload_to_bintray_script: |
-    ./scripts/package_uploader.sh $(./scripts/get-modified-packages.sh)
+    MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
+    if [ -n "$MODIFIED_PACKAGES" ]; then
+        ./scripts/package_uploader.sh $MODIFIED_PACKAGES
+    fi
