@@ -1,7 +1,7 @@
 #!/bin/bash
 ##
 ##  Script for detecting modified packages.
-##  Designed for use with Travis or Gitlab CI.
+##  Designed for use with Cirrus, Gitlab or Travis CI.
 ##
 ##  Leonid Plyushch <leonid.plyushch@gmail.com> (C) 2019
 ##
