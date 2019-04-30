@@ -621,7 +621,7 @@ show_usage() {
 	msg
 	msg "=========================================================="
 	msg
-	msg "Primarily indended to be used by Gitlab CI for automatic"
+	msg "Primarily indended to be used by CI systems for automatic"
 	msg "package uploads but it can be used for manual uploads too."
 	msg
 	msg "Before using this script, check that you have all"
