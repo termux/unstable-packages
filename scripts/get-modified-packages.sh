@@ -42,6 +42,18 @@ elif [ -n "$CI_COMMIT_SHA" ]; then
 	else
 		UPDATED_FILES=$(git diff-tree --no-commit-id --name-only -r "${CI_COMMIT_BEFORE_SHA}..${CI_COMMIT_SHA}" 2>/dev/null | grep -P "packages/")
 	fi
+elif [ -n "$CIRRUS_CI" ]; then
+	# We are on Cirrus CI.
+	if [ -z "$CIRRUS_PR" ]; then
+		if [ -z "$CIRRUS_LAST_GREEN_CHANGE" ]; then
+			UPDATED_FILES=$(git diff-tree --no-commit-id --name-only -r "$CIRRUS_CHANGE_IN_REPO" 2>/dev/null | grep -P "packages/")
+		else
+			UPDATED_FILES=$(git diff-tree --no-commit-id --name-only -r "${CIRRUS_LAST_GREEN_CHANGE}..${CIRRUS_CHANGE_IN_REPO}" 2>/dev/null | grep -P "packages/")
+		fi
+	else
+		# Pull requests are handled in a bit different way.
+		UPDATED_FILES=$(git diff-tree --no-commit-id --name-only -r "${CIRRUS_BASE_SHA}..${CIRRUS_CHANGE_IN_REPO}" 2>/dev/null | grep -P "packages/")
+	fi
 else
 	# Something wrong.
 	echo "[!] Cannot determine git commit range." >&2

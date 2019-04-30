@@ -1,0 +1,33 @@
+container:
+  image: xeffyr/termux-extra-packages-builder:latest
+  cpu: 4
+  memory: 8
+
+build_task:
+  timeout_in: 360m
+
+  env:
+    matrix:
+      TERMUX_ARCH: aarch64
+      TERMUX_ARCH: arm
+      TERMUX_ARCH: i686
+      TERMUX_ARCH: x86_64
+
+  prepare_script: |
+    git submodule update --init
+    for pkg in ./packages/*; do
+        if [ ! -d "./termux-packages/packages/$(basename "$pkg")" ]; then
+            cp -a "$pkg" ./termux-packages/packages/
+        else
+            echo "[!] Package '$(basename "$pkg")' already exists in build environment. Skipping."
+        fi
+    done
+
+  build_script: |
+    cd ./termux-packages
+    for package in $(../scripts/get-modified-packages.sh); do
+        ./build-package.sh -i -a "$TERMUX_ARCH" "$package"
+    done
+
+  store_packages_artifacts:
+    path: "termux-packages/debs/*.deb"
