@@ -51,12 +51,7 @@ build_task:
     if [ -n "$MODIFIED_PACKAGES" ]; then
         cd ./termux-packages
         for package in $MODIFIED_PACKAGES; do
-            if [ -n "$CIRRUS_PR" ]; then
-                # Perform full builds for PR.
-                ./build-package.sh -a "$TERMUX_ARCH" "$package"
-            else
-                ./build-package.sh -I -a "$TERMUX_ARCH" "$package"
-            fi
+            ./build-package.sh -I -a "$TERMUX_ARCH" "$package"
         done
         if [ -d ./debs ]; then
             rm -rf ../debs
