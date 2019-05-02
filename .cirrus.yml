@@ -55,33 +55,15 @@ build_task:
             fi
         done
         if [ -d ./debs ]; then
-            # Packages should be available for both cache and downloading.
-            rm -rf "../debs-${TERMUX_ARCH}" ../debs
-            mv ./debs "../cached-debs-${TERMUX_ARCH}"
-            cp -a "../cached-debs-${TERMUX_ARCH}" ../debs
+            # Upload packages to cache.
+            tar zcf "debs-${TERMUX_ARCH}.tar.gz" debs
+            curl -s --upload-file "debs-${TERMUX_ARCH}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${TERMUX_ARCH}"
         fi
     fi
 
-  # Make built packages available for the next tasks.
-  share_aarch64_packages_cache:
-    folder: "./cached-debs-aarch64"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-aarch64"
-
-  share_arm_packages_cache:
-    folder: "./cached-debs-arm"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-arm"
-
-  share_i686_packages_cache:
-    folder: "./cached-debs-i686"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-i686"
-
-  share_x86_64_packages_cache:
-    folder: "./cached-debs-x86_64"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-x86_64"
-
-  # Also make them downloadable from the UI.
-  store_packages_artifacts:
-    path: "./debs/*.deb"
+  # Make packages downloadable via UI.
+  output_artifacts:
+    path: "./termux-packages/debs/*.deb"
 
 # Publish packages to Bintray.
 publish_task:
@@ -96,32 +78,17 @@ publish_task:
     BINTRAY_USERNAME: ENCRYPTED[5977e6c0f069d0bc9be4ed09044d59835767a5c71c541cbe47cd56736cc43f5191a9291bbc3031a9267f0be105651f25]
     BINTRAY_API_KEY: ENCRYPTED[04f4ee0fc194ca2f94959a623388d4c3ae1bf874e8fa876f79b2659fc9e8f6fea952275e97f2d022e43e2ab6c67d1198]
 
-  # Retrieve built packages.
-  share_aarch64_packages_cache:
-    folder: "./cached-debs-aarch64"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-aarch64"
-
-  share_arm_packages_cache:
-    folder: "./cached-debs-arm"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-arm"
-
-  share_i686_packages_cache:
-    folder: "./cached-debs-i686"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-i686"
-
-  share_x86_64_packages_cache:
-    folder: "./cached-debs-x86_64"
-    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-x86_64"
+  # Retrieve *.deb files from cache.
+  retrieve_built_debs_script: |
+    for arch in aarch64 arm i686 x86_64; do
+        curl -s -o "/tmp/debs-${arch}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${arch}"
+        tar xvf "/tmp/debs-${arch}.tar.gz"
+        rm -f "/tmp/debs-${arch}.tar.gz"
+    done
 
   # Publish.
   upload_to_bintray_script: |
     MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
     if [ -n "$MODIFIED_PACKAGES" ]; then
-        mkdir ./debs
-        for arch in aarch64 arm i686 x86_64; do
-            if [ -d "./cached-debs-${arch}" ]; then
-                cp -a "./cached-debs-${arch}"/*.deb ./debs/
-            fi
-        done
         ./scripts/package_uploader.sh $MODIFIED_PACKAGES
     fi
