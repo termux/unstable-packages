@@ -3,13 +3,14 @@ TERMUX_PKG_DESCRIPTION="Advanced open-source platform for developing, testing, a
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=5.0.19
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/rapid7/metasploit-framework/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=c5a193857fd83f697e8906672fd3f83886f5ddf01704ee49ae843f5820495bba
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
 # Many dependencies specified here are required to build & install
 # ruby gems used by Metasploit.
-TERMUX_PKG_DEPENDS="apr, apr-util, autoconf, bison, clang, coreutils, curl, findutils, git, libffi-dev, libgmp-dev, libpcap-dev, libsqlite-dev, libtool, libxml2-dev, libxslt-dev, make, ncurses, ncurses-dev, ncurses-utils, openssl-dev, pkg-config, postgresql, postgresql-dev, readline-dev, resolv-conf, ruby-dev, tar, termux-elf-cleaner, termux-tools, unzip, wget, zip, zlib-dev"
+TERMUX_PKG_DEPENDS="apr, apr-util, autoconf, bison, clang, coreutils, curl, findutils, git, libffi-dev, libgmp-dev, libiconv-dev, libpcap-dev, libsqlite-dev, libtool, libxml2-dev, libxslt-dev, make, ncurses, ncurses-dev, ncurses-utils, openssl-dev, pkg-config, postgresql, postgresql-dev, readline-dev, resolv-conf, ruby-dev, tar, termux-elf-cleaner, termux-tools, unzip, wget, zip, zlib-dev"
 
 termux_step_make_install() {
 	# Metasploit sources.
