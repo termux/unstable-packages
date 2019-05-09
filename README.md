@@ -2,8 +2,6 @@
 
 [![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
 
-[![Build Status](https://api.cirrus-ci.com/github/termux/unstable-packages.svg?branch=master)](https://cirrus-ci.com/github/termux/unstable-packages)
-
 There are located packages which were requested, but not added to the
 [main][termux-packages] Termux repository due to various reasons. Packages
 available here may have lower quality, be unstable or not work at all.
