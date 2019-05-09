@@ -5,10 +5,6 @@ container:
 
 # Build packages.
 build_task:
-  # Run task only if packages were modified.
-  # Note that similar check is done in 'scripts/get-modified-packages.sh'.
-  only_if: "changesInclude('packages/**')"
-
   # 2 hours is a maximal timeout for free use.
   timeout_in: 120m
 
@@ -43,22 +39,26 @@ build_task:
 
   # Determine changes in repository and build modified packages.
   build_script: |
+    if grep -qiP '^\s*%ci:reset-backlog\s*$' <(git log --format="%B" -n 1 "$CIRRUS_CHANGE_IN_REPO"); then
+        # If commit message contains line '%ci:reset-backlog', builds will be done
+        # only for current commit.
+        unset CIRRUS_LAST_GREEN_CHANGE
+        unset CIRRUS_BASE_SHA
+    fi
     MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
-    if [ -n "$MODIFIED_PACKAGES" ]; then
-        cd ./termux-packages
-        for package in $MODIFIED_PACKAGES; do
-            if [ -n "$CIRRUS_PR" ]; then
-                # Perform full builds for PR.
-                ./build-package.sh -a "$TERMUX_ARCH" "$package"
-            else
-                ./build-package.sh -I -a "$TERMUX_ARCH" "$package"
-            fi
-        done
-        if [ -d ./debs ]; then
-            # Upload packages to cache.
-            tar zcf "debs-${TERMUX_ARCH}.tar.gz" debs
-            curl -s --upload-file "debs-${TERMUX_ARCH}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${TERMUX_ARCH}"
+    cd ./termux-packages
+    for package in $MODIFIED_PACKAGES; do
+        if [ -n "$CIRRUS_PR" ]; then
+            # Perform full builds for PR.
+            ./build-package.sh -a "$TERMUX_ARCH" "$package"
+        else
+            ./build-package.sh -I -a "$TERMUX_ARCH" "$package"
         fi
+    done
+    if [ -d ./debs ]; then
+        # Upload packages to cache.
+        tar zcf "debs-${TERMUX_ARCH}.tar.gz" debs
+        curl -s --upload-file "debs-${TERMUX_ARCH}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${TERMUX_ARCH}-${CIRRUS_CHANGE_IN_REPO}"
     fi
 
   # Make packages downloadable via UI.
@@ -69,7 +69,7 @@ build_task:
 publish_task:
   only_if: $CIRRUS_BRANCH == 'master'
 
-  timeout_in: 30m
+  timeout_in: 60m
 
   depends_on:
     - build
@@ -78,17 +78,17 @@ publish_task:
     BINTRAY_USERNAME: ENCRYPTED[5977e6c0f069d0bc9be4ed09044d59835767a5c71c541cbe47cd56736cc43f5191a9291bbc3031a9267f0be105651f25]
     BINTRAY_API_KEY: ENCRYPTED[04f4ee0fc194ca2f94959a623388d4c3ae1bf874e8fa876f79b2659fc9e8f6fea952275e97f2d022e43e2ab6c67d1198]
 
-  # Retrieve *.deb files from cache.
-  retrieve_built_debs_script: |
-    for arch in aarch64 arm i686 x86_64; do
-        curl -s -o "/tmp/debs-${arch}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${arch}"
-        tar xvf "/tmp/debs-${arch}.tar.gz"
-        rm -f "/tmp/debs-${arch}.tar.gz"
-    done
-
-  # Publish.
   upload_to_bintray_script: |
+    if grep -qiP '^\s*%ci:reset-backlog\s*$' <(git log --format="%B" -n 1 "$CIRRUS_CHANGE_IN_REPO"); then
+        unset CIRRUS_LAST_GREEN_CHANGE
+        unset CIRRUS_BASE_SHA
+    fi
     MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
     if [ -n "$MODIFIED_PACKAGES" ]; then
+        for arch in aarch64 arm i686 x86_64; do
+            curl -s -o "/tmp/debs-${arch}.tar.gz" "http://$CIRRUS_HTTP_CACHE_HOST/debs-${arch}-${CIRRUS_CHANGE_IN_REPO}"
+            tar xvf "/tmp/debs-${arch}.tar.gz"
+            rm -f "/tmp/debs-${arch}.tar.gz"
+        done
         ./scripts/package_uploader.sh $MODIFIED_PACKAGES
     fi
