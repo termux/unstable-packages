@@ -49,7 +49,7 @@ termux_step_make () {
 termux_step_make_install () {
 	# Force reinstall:
 	rm -rf $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/electrum
-    	rm -rf $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/Electrum-${TERMUX_PKG_VERSION}-py${_PYTHON_VERSION}.egg*
+	rm -rf $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/Electrum-${TERMUX_PKG_VERSION}-py${_PYTHON_VERSION}.egg*
 	export PYTHONPATH=$TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/
 	python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX
 }
