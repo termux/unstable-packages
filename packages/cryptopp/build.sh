@@ -8,6 +8,11 @@ TERMUX_PKG_SHA256=03f0e2242e11b9d19b28d0ec5a3fa8ed5cc7b27640e6bed365744f593e8580
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
+TERMUX_PKG_RM_AFTER_INSTALL="
+bin/
+share/cryptopp/
+"
+
 termux_step_extract_package() {
 	mkdir -p $TERMUX_PKG_CACHEDIR
 	termux_download $TERMUX_PKG_SRCURL $TERMUX_PKG_CACHEDIR/cryptopp.zip \
@@ -19,17 +24,10 @@ termux_step_extract_package() {
 }
 
 termux_step_make() {
-	# Prevents compilation errors.
-	CXXFLAGS+=" -fPIC"
-	if [ "$TERMUX_ARCH" = "i686" ]; then
-		CXXFLAGS+=" -DCRYPTOPP_DISABLE_ASM"
-	fi
-
-	make -j $TERMUX_MAKE_PROCESSES dynamic CC=$CC CXX=$CXX
+	CXXFLAGS+=" -fPIC -DCRYPTOPP_DISABLE_ASM"
+	make -j $TERMUX_MAKE_PROCESSES dynamic libcryptopp.pc CC=$CC CXX=$CXX
 }
 
 termux_step_make_install() {
-	make install PREFIX=$TERMUX_PREFIX
-	ln -sfr $TERMUX_PREFIX/lib/libcryptopp.so.${TERMUX_PKG_VERSION} \
-		$TERMUX_PREFIX/lib/libcryptopp.so.${TERMUX_PKG_VERSION:0:1}
+	make install-lib PREFIX=$TERMUX_PREFIX
 }
