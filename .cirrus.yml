@@ -81,7 +81,7 @@ build_task:
 
 # Publish packages to Bintray.
 publish_task:
-  only_if: $CIRRUS_BRANCH == 'master'
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'android-5'
 
   timeout_in: 60m
 
