@@ -1,5 +1,5 @@
 container:
-  image: xeffyr/termux-extra-packages-builder:latest
+  image: xeffyr/termux-advanced-builder:latest
   cpu: 8
   memory: 16
 
@@ -64,6 +64,20 @@ build_task:
   # Make packages downloadable via UI.
   output_artifacts:
     path: "./termux-packages/debs/*.deb"
+
+  # Debug SSH shell in case of failure.
+  on_failure:
+    ssh_service_script: |
+      sudo service ssh start
+      mkdir -p "$HOME/.ssh"
+      # Maintainer's (@xeffyr) SSH public key.
+      echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH5jsA0CQfw+um7V7BGxERRKQSnKM8B1Wl33zieAu7/z" > "$HOME/.ssh/authorized_keys"
+      # Allow to stop debug shell on exit.
+      echo "kill \$(pgrep -f \"ssh -R \${CIRRUS_TASK_ID}\") &" > "$HOME/.shutdown_script"
+      echo "nohup bash \${HOME}/.shutdown_script > /dev/null 2>&1" > "$HOME/.bash_logout"
+      # Reverse SSH via Serveo.net.
+      # Connect with: ssh -J serveo.net builder@${CIRRUS_TASK_ID}
+      ssh -R "${CIRRUS_TASK_ID}:22:localhost:22" serveo.net || true
 
 # Publish packages to Bintray.
 publish_task:
