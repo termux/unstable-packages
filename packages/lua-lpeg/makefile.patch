@@ -1,13 +1,13 @@
-diff -uNr lpeg-1.0.1/makefile lpeg-1.0.1.mod/makefile
---- lpeg-1.0.1/makefile	2017-01-14 20:57:16.000000000 +0200
-+++ lpeg-1.0.1.mod/makefile	2019-02-25 23:40:40.671294195 +0200
+diff -uNr lpeg-1.0.2/makefile lpeg-1.0.2.mod/makefile
+--- lpeg-1.0.2/makefile	2019-03-11 16:08:29.000000000 +0200
++++ lpeg-1.0.2.mod/makefile	2019-05-10 16:13:05.997196863 +0300
 @@ -1,7 +1,7 @@
  LIBNAME = lpeg
  LUADIR = ../lua/
  
--COPT = -O2
-+# COPT = -O2
- # COPT = -DLPEG_DEBUG -g
+-COPT = -O2 -DNDEBUG
++#COPT = -O2 -DNDEBUG
+ # COPT = -g
  
  CWARNS = -Wall -Wextra -pedantic \
 @@ -22,7 +22,7 @@
@@ -20,7 +20,7 @@ diff -uNr lpeg-1.0.1/makefile lpeg-1.0.1.mod/makefile
  
  FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o
 @@ -36,7 +36,7 @@
- 	make lpeg.so "DLLFLAGS = -bundle -undefined dynamic_lookup"
+ 	$(MAKE) lpeg.so "DLLFLAGS = -bundle -undefined dynamic_lookup"
  
  lpeg.so: $(FILES)
 -	env $(CC) $(DLLFLAGS) $(FILES) -o lpeg.so
