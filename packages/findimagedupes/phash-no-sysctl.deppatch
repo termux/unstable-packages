@@ -1,0 +1,46 @@
+diff -uNr phash/c++/pHash/pHash.cpp phash.mod/c++/pHash/pHash.cpp
+--- phash/c++/pHash/pHash.cpp	2019-05-14 22:30:11.898252489 +0000
++++ phash.mod/c++/pHash/pHash.cpp	2019-05-14 22:35:37.827526509 +0000
+@@ -33,30 +33,7 @@
+ 
+ int ph_num_threads()
+ {
+-	int numCPU = 1;
+-#ifdef __GLIBC__
+-		numCPU = sysconf( _SC_NPROCESSORS_ONLN );
+-#else
+-		int mib[2];
+-		size_t len;
+-
+-		mib[0] = CTL_HW;
+-		mib[1] = HW_AVAILCPU;
+-
+-		sysctl(mib, 2, &numCPU, &len, NULL, 0);
+-
+-		if( numCPU < 1 )
+-		{
+-     			mib[1] = HW_NCPU;
+-     			sysctl( mib, 2, &numCPU, &len, NULL, 0 );
+-
+-		     	if( numCPU < 1 )
+-     			{
+-          			numCPU = 1;
+-     			}
+-		}
+-
+-#endif
++	int numCPU = 4;
+ 	return numCPU;
+ }
+ #endif
+diff -uNr phash/c++/pHash/pHash.h phash.mod/c++/pHash/pHash.h
+--- phash/c++/pHash/pHash.h	2019-05-14 22:30:11.898252489 +0000
++++ phash.mod/c++/pHash/pHash.h	2019-05-14 22:35:52.148697569 +0000
+@@ -57,7 +57,6 @@
+ 
+ #ifndef __GLIBC__
+ #include <sys/param.h>
+-#include <sys/sysctl.h>
+ #endif
+ 
+ using namespace std;
