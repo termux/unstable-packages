@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=http://dotat.at/prog/unifdef/
 TERMUX_PKG_DESCRIPTION="Remove #ifdef'ed lines"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.11
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://dotat.at/prog/unifdef/unifdef-$TERMUX_PKG_VERSION.tar.gz
