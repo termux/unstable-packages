@@ -7,6 +7,8 @@ _COMMIT=237ed2ef4bbb91c79eee0f5ee84a1adad9c014ff
 TERMUX_PKG_SRCURL=https://gitlab.com/opennota/findimagedupes/-/archive/${_COMMIT}/findimagedupes-${_COMMIT}.tar.gz
 TERMUX_PKG_SHA256=7eb4fbab38c8c1965dafd1d0fddbfac58ba6e1a3d52cd1220df488a0a338abb0
 TERMUX_PKG_DEPENDS="file, libjpeg-turbo, libpng, libtiff"
+TERMUX_PKG_CONFLICTS="findimagedupes"
+TERMUX_PKG_REPLACES="findimagedupes"
 
 termux_step_make() {
 	termux_setup_golang
