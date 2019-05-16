@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=http://atterer.org/jigdo/
 TERMUX_PKG_DESCRIPTION="Distribute large images by sending and receiving the files that make them up"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.7.3
 TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=http://atterer.org/sites/atterer/files/2009-08/jigdo/jigdo-$TERMUX_PKG_VERSION.tar.bz2

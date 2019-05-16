@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://bellard.org/tcc/
 TERMUX_PKG_DESCRIPTION="Tiny C Compiler"
 TERMUX_PKG_LICENSE="LGPL-2.1"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.9.27.gfef838db2
 TERMUX_PKG_SRCURL=https://repo.or.cz/tinycc.git/snapshot/fef838db2d124db3f1357385972371ccba7af2c6.tar.gz
 TERMUX_PKG_SHA256=f6a022994b9903485a1777540c0c9e0571990fc339a2b325be6127b616534f33

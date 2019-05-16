@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/a2ps
 TERMUX_PKG_DESCRIPTION="An Any to PostScript filter"
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_API_LEVEL=22
 TERMUX_PKG_VERSION=4.14
 TERMUX_PKG_REVISION=2

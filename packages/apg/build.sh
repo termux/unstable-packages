@@ -4,7 +4,7 @@
 TERMUX_PKG_HOMEPAGE=http://www.adel.nursat.kz/apg/index.shtml
 TERMUX_PKG_DESCRIPTION="Automated Password Generator."
 TERMUX_PKG_LICENSE="BSD"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.2.3
 TERMUX_PKG_REVISION=3
 TERMUX_PKG_SRCURL=https://web.archive.org/web/20070609184004if_/http://www.adel.nursat.kz/apg/download/apg-$TERMUX_PKG_VERSION.tar.gz
