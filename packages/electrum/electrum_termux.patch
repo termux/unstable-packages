@@ -1,9 +1,7 @@
-Electrum is configured to work with electrums native app, we need to remove the
-android detection. Lets remove (most of) the qt-gui stuff as well to save space
-
---- ./electrum/daemon.py.orig	2019-03-20 11:40:29.174409738 +0100
-+++ ./electrum/daemon.py	2019-03-20 11:49:20.347745297 +0100
-@@ -331,7 +331,7 @@
+diff -uNr Electrum-3.3.6/electrum/daemon.py Electrum-3.3.6.mod/electrum/daemon.py
+--- Electrum-3.3.6/electrum/daemon.py	2019-05-16 20:00:49.000000000 +0300
++++ Electrum-3.3.6.mod/electrum/daemon.py	2019-05-20 01:47:47.246158554 +0300
+@@ -342,7 +342,7 @@
  
      def init_gui(self, config, plugins):
          threading.current_thread().setName('GUI')
@@ -12,20 +10,33 @@ android detection. Lets remove (most of) the qt-gui stuff as well to save space
          if gui_name in ['lite', 'classic']:
              gui_name = 'qt'
          gui = __import__('electrum.gui.' + gui_name, fromlist=['electrum'])
---- ./electrum/util.py.orig	2019-02-13 19:12:54.000000000 +0100
-+++ ./electrum/util.py	2019-03-20 11:50:14.141078855 +0100
-@@ -304,10 +304,6 @@
+diff -uNr Electrum-3.3.6/electrum/electrum Electrum-3.3.6.mod/electrum/electrum
+--- Electrum-3.3.6/electrum/electrum	2019-05-16 20:00:49.000000000 +0300
++++ Electrum-3.3.6.mod/electrum/electrum	2019-05-20 01:47:47.247158559 +0300
+@@ -40,7 +40,7 @@
+ script_dir = os.path.dirname(os.path.realpath(__file__))
+ is_bundle = getattr(sys, 'frozen', False)
+ is_local = not is_bundle and os.path.exists(os.path.join(script_dir, "electrum.desktop"))
+-is_android = 'ANDROID_DATA' in os.environ
++is_android = False
+ 
+ # move this back to gui/kivy/__init.py once plugins are moved
+ os.environ['KIVY_DATA_DIR'] = os.path.abspath(os.path.dirname(__file__)) + '/electrum/gui/kivy/data/'
+diff -uNr Electrum-3.3.6/electrum/util.py Electrum-3.3.6.mod/electrum/util.py
+--- Electrum-3.3.6/electrum/util.py	2019-05-16 20:00:49.000000000 +0300
++++ Electrum-3.3.6.mod/electrum/util.py	2019-05-20 01:48:06.973263531 +0300
+@@ -305,10 +305,6 @@
              self.running = False
  
      def on_stop(self):
 -        if 'ANDROID_DATA' in os.environ:
 -            import jnius
 -            jnius.detach()
--            self.print_error("jnius detach")
-         self.print_error("stopped")
+-            self.logger.info("jnius detach")
+         self.logger.info("stopped")
  
  
-@@ -480,9 +476,7 @@
+@@ -469,9 +465,7 @@
  
  
  def user_dir():
@@ -36,21 +47,10 @@ android detection. Lets remove (most of) the qt-gui stuff as well to save space
          return os.path.join(os.environ["HOME"], ".electrum")
      elif "APPDATA" in os.environ:
          return os.path.join(os.environ["APPDATA"], "Electrum")
-diff -u -r ../src.orig/run_electrum ./run_electrum
---- ../src.orig/run_electrum	2018-11-30 08:09:24.216636265 +0100
-+++ ./run_electrum	2018-11-30 08:10:30.306635790 +0100
-@@ -29,7 +29,7 @@
- script_dir = os.path.dirname(os.path.realpath(__file__))
- is_bundle = getattr(sys, 'frozen', False)
- is_local = not is_bundle and os.path.exists(os.path.join(script_dir, "electrum.desktop"))
--is_android = 'ANDROID_DATA' in os.environ
-+is_android = False
- 
- # move this back to gui/kivy/__init.py once plugins are moved
- os.environ['KIVY_DATA_DIR'] = os.path.abspath(os.path.dirname(__file__)) + '/electrum/gui/kivy/data/'
---- ../electrum.orig	2018-11-30 11:46:00.556544262 +0100
-+++ ./electrum/electrum	2018-11-30 11:46:05.946544215 +0100
-@@ -29,7 +29,7 @@
+diff -uNr Electrum-3.3.6/run_electrum Electrum-3.3.6.mod/run_electrum
+--- Electrum-3.3.6/run_electrum	2019-05-16 20:00:49.000000000 +0300
++++ Electrum-3.3.6.mod/run_electrum	2019-05-20 01:47:47.247158559 +0300
+@@ -40,7 +40,7 @@
  script_dir = os.path.dirname(os.path.realpath(__file__))
  is_bundle = getattr(sys, 'frozen', False)
  is_local = not is_bundle and os.path.exists(os.path.join(script_dir, "electrum.desktop"))
