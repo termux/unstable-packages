@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://miniupnp.tuxfamily.org/
 TERMUX_PKG_DESCRIPTION="Small UPnP client library and tool to access Internet Gateway Devices"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=2.1
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=2.1.20190408
 TERMUX_PKG_SRCURL=https://miniupnp.tuxfamily.org/files/miniupnpc-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=e19fb5e01ea5a707e2a8cb96f537fbd9f3a913d53d804a3265e3aeab3d2064c6
+TERMUX_PKG_SHA256=a0c46bcf6065d6351a8fa6a0a18dc57d10a16908dbb470908fd2e423511514ec
 
 termux_step_post_make_install() {
 	install -Dm700 upnpc-static "$TERMUX_PREFIX/bin/upnpc"
