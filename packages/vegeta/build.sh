@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://github.com/tsenart/vegeta
 TERMUX_PKG_DESCRIPTION="HTTP load testing tool"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=12.3.0
+TERMUX_PKG_VERSION=12.5.1
 TERMUX_PKG_SRCURL=https://github.com/tsenart/vegeta/archive/cli/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=becfcdd173e288325e0882734a9ddf2352448f50b5a83a4c0d7d0eecaa03a0d0
+TERMUX_PKG_SHA256=28b9c30d0dd4af3e83a857194cc8df6d00cb613e3d553c96d151638f509e2820
 
 termux_step_make() {
 	termux_setup_golang
