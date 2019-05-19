@@ -5,9 +5,15 @@ TERMUX_PKG_HOMEPAGE=http://www.adel.nursat.kz/apg/index.shtml
 TERMUX_PKG_DESCRIPTION="Automated Password Generator."
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=2.2.3
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=https://web.archive.org/web/20070609184004if_/http://www.adel.nursat.kz/apg/download/apg-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=69c9facde63958ad0a7630055f34d753901733d55ee759d08845a4eda2ba7dba
+TERMUX_PKG_VERSION=2.3.0b
+TERMUX_PKG_SRCURL=http://web.archive.org/web/20150925034746/http://www.adel.nursat.kz/apg/download/apg-2.3.0b.tar.gz
+TERMUX_PKG_SHA256=d1e52029709e2d7f9cb99bedce3e02ee7a63cff7b8e2b4c2bc55b3dc03c28b92
 TERMUX_PKG_DEPENDS="libcrypt"
 TERMUX_PKG_BUILD_IN_SRC=yes
+
+termux_step_post_extract_package() {
+	# Fix permissions.
+	find "$TERMUX_PKG_SRCDIR" -type d -exec chmod 700 "{}" \;
+	find "$TERMUX_PKG_SRCDIR" -type f -executable -exec chmod 700 "{}" \;
+	find "$TERMUX_PKG_SRCDIR" -type f ! -executable -exec chmod 600 "{}" \;
+}
