@@ -2,11 +2,9 @@ TERMUX_PKG_HOMEPAGE=http://pybookreader.narod.ru/misc.html
 TERMUX_PKG_DESCRIPTION="Console FictionBook reader"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=0.2.2
-TERMUX_PKG_REVISION=1
-_COMMIT=7db0ee1193657ff79ae478e2a365e058a432f02b
-TERMUX_PKG_SRCURL=https://github.com/ashinkarov/fbless/archive/${_COMMIT}.zip
-TERMUX_PKG_SHA256=05bebf23f01ab7b5bc29f97e6b63f99f03b35027ca8392a40491101f8aa28bf8
+TERMUX_PKG_VERSION=0.2.3
+TERMUX_PKG_SRCURL=http://deb.debian.org/debian/pool/main/f/fbless/fbless_${TERMUX_PKG_VERSION}.orig.tar.gz
+TERMUX_PKG_SHA256=68ae914d141da913ed6ff1805a1739346c33756b64a9407c14e95e278452c362
 TERMUX_PKG_DEPENDS="ncurses, python2"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
