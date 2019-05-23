@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Proxy for using W3C WebDriver-compatible clients to inte
 TERMUX_PKG_LICENSE="MPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.24.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/mozilla/geckodriver/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=e6f86b3b6411f078c0a762f978c00ee99926463036a68be01d111bd91f25340e
 TERMUX_PKG_BUILD_IN_SRC=yes
