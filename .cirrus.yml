@@ -68,6 +68,8 @@ build_task:
   # Debug SSH shell in case of failure.
   on_failure:
     ssh_service_script: |
+      [ "$CIRRUS_BRANCH" = "master" ] && exit 0
+      [ "$CIRRUS_BRANCH" = "android-5" ] && exit 0
       sudo service ssh start
       mkdir -p "$HOME/.ssh"
       # Maintainer's (@xeffyr) SSH public key.
