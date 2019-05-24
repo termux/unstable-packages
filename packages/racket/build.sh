@@ -1,12 +1,12 @@
 TERMUX_PKG_HOMEPAGE=https://racket-lang.org
 TERMUX_PKG_DESCRIPTION="Full-spectrum programming language going beyond Lisp and Scheme"
 TERMUX_PKG_LICENSE="GPL-3.0, LGPL-3.0"
+TERMUX_PKG_LICENSE_FILE="COPYING-libscheme.txt COPYING.txt COPYING_LESSER.txt"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=7.2
-TERMUX_PKG_REVISION=4
+TERMUX_PKG_VERSION=7.3
 TERMUX_PKG_SRCURL=https://www.cs.utah.edu/plt/installers/${TERMUX_PKG_VERSION}/racket-minimal-${TERMUX_PKG_VERSION}-src-builtpkgs.tgz
-TERMUX_PKG_SHA256=dd75401824b877964b70d8b475b05f424721f72015f41d5ae6c508b60dab3ad5
-TERMUX_PKG_DEPENDS="libandroid-support, libffi"
+TERMUX_PKG_SHA256=40286b2de8aaeed70d2dbebcbbb89f1be55be00fd55f4522635b7a51a58d6dc2
+TERMUX_PKG_DEPENDS="libffi, libiconv"
 TERMUX_PKG_NO_DEVELSPLIT=true
 TERMUX_PKG_HOSTBUILD=true
 
@@ -25,6 +25,6 @@ termux_step_host_build() {
 
 termux_step_pre_configure() {
 	CPPFLAGS+=" -I$TERMUX_PKG_SRCDIR/src/racket/include -I$TERMUX_PKG_BUILDDIR/racket"
-	LDFLAGS+=" -llog"
+	LDFLAGS+=" -liconv -llog"
 	export TERMUX_PKG_SRCDIR="$TERMUX_PKG_SRCDIR/src"
 }
