@@ -1,9 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://racket-lang.org
 TERMUX_PKG_DESCRIPTION="Full-spectrum programming language going beyond Lisp and Scheme"
 TERMUX_PKG_LICENSE="GPL-3.0, LGPL-3.0"
-TERMUX_PKG_LICENSE_FILE="COPYING-libscheme.txt COPYING.txt COPYING_LESSER.txt"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=7.3
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://www.cs.utah.edu/plt/installers/${TERMUX_PKG_VERSION}/racket-minimal-${TERMUX_PKG_VERSION}-src-builtpkgs.tgz
 TERMUX_PKG_SHA256=40286b2de8aaeed70d2dbebcbbb89f1be55be00fd55f4522635b7a51a58d6dc2
 TERMUX_PKG_DEPENDS="libffi, libiconv"
