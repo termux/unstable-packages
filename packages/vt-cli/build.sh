@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://github.com/VirusTotal/vt-cli
 TERMUX_PKG_DESCRIPTION="Command line interface for VirusTotal"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=0.5.0
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=0.6.1
 TERMUX_PKG_SRCURL=https://github.com/VirusTotal/vt-cli/archive/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=868b1e260571c28c406f36d461216ad42b0f4d76c14340fa3a1bf50d85aadc0a
+TERMUX_PKG_SHA256=aea742c8d7a26c2154550460b9540e278a17e211b19c21d92e63ec41ac7799f3
 
 termux_step_make() {
 	termux_setup_golang
