@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.metasploit.com/
 TERMUX_PKG_DESCRIPTION="Advanced open-source platform for developing, testing, and using exploit code"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=5.0.26
+TERMUX_PKG_VERSION=5.0.28
 TERMUX_PKG_SRCURL=https://github.com/rapid7/metasploit-framework/archive/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=a6105a402da41160693579c3e9d826243a9603b60f14b705e7d5ab5e05d3bba4
+TERMUX_PKG_SHA256=7274a00a6b06b8eb4e010061735750d6550800385bc33bcf5c3ee5d9f944f50c
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
 # Many dependencies specified here are required to build & install
