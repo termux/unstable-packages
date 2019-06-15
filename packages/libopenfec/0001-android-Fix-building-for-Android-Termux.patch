@@ -21,7 +21,7 @@ index de24ed0..ddb53b5 100755
   * compatibility stuff
   */
 -#if defined(WIN32)	/* but also for others, e.g. sun... */
-+#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
++#if defined(WIN32) || defined(__ANDROID__)
  #define NEED_BCOPY
  #define bcmp(a,b,n) memcmp(a,b,n)
  #endif
@@ -32,11 +32,11 @@ index 1eb4cf6..7456b06 100644
 @@ -42,6 +42,19 @@
  #define GF_ADDMULC(dst, x)		{dst ^= __gf_mulc_[x];}
  #define GF_ADDMULC_COMPACT(dst,x)	{dst = (dst>>4 ^ __gf_mulc_[x>>4])<<4 |(dst & 0x0F ^ __gf_mulc_[x & 0x0F]); }
- 
+
 +/*
 + * compatibility stuff
 + */
-+#if !defined(bcmp) || defined(ANDROID) || defined(TRUE) || 1	/* but also for others, e.g. sun... */
++#if !defined(bcmp) || defined(__ANDROID__)
 +#define NEED_BCOPY
 +#define bcmp(a,b,n) memcmp(a,b,n)
 +#endif
@@ -56,11 +56,11 @@ index bbbef94..a899ddf 100644
 @@ -40,6 +40,19 @@
  #define GF_MULC0(c)		__gf_mulc_ = (gf*)of_gf_2_8_mul_table[c]
  #define GF_ADDMULC(dst, x)	{dst ^= __gf_mulc_[x];}
- 
+
 + /*
 + * compatibility stuff
 + */
-+#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
++#if defined(WIN32) || defined(__ANDROID__)
 +#define NEED_BCOPY
 +#define bcmp(a,b,n) error
 +#endif
@@ -78,13 +78,13 @@ index 898de1a..29d67bc 100644
 --- a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c
 +++ b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c
 @@ -36,6 +36,18 @@
- 
+
  #ifdef OF_USE_REED_SOLOMON_2_M_CODEC
- 
+
 +/*
 + * compatibility stuff
 + */
-+#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
++#if defined(WIN32) || defined(__ANDROID__)
 +#define NEED_BCOPY
 +#define bcmp(a,b,n) error
 +#endif
@@ -93,9 +93,9 @@ index 898de1a..29d67bc 100644
 +#define bcopy(s, d, siz)        memcpy((d), (s), (siz))
 +#define bzero(d, siz)   memset((d), '\0', (siz))
 +#endif
- 
+
  gf of_modnn(of_galois_field_code_cb_t* ofcb,INT32 x)
  {
--- 
+--
 2.20.1
 
