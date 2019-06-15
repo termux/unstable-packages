@@ -1,0 +1,164 @@
+diff -uNr roc-0.1.0/SConstruct roc-0.1.0.mod/SConstruct
+--- roc-0.1.0/SConstruct	2019-05-28 12:41:33.000000000 +0300
++++ roc-0.1.0.mod/SConstruct	2019-06-15 17:03:18.757583931 +0300
+@@ -386,19 +386,11 @@
+ 
+ tools = dict()
+ 
+-if compiler == 'gcc':
+-    tools['CC'] = ['gcc']
+-    tools['CXX'] = ['g++']
+-    tools['LD'] = ['g++']
+-    tools['AR'] = ['ar']
+-    tools['RANLIB'] = ['ranlib']
+-
+-if compiler == 'clang':
+-    tools['CC'] = ['clang']
+-    tools['CXX'] = ['clang++']
+-    tools['LD'] = ['clang++']
+-    tools['AR'] = ['llvm-ar', 'ar']
+-    tools['RANLIB'] = ['llvm-ranlib', 'ranlib']
++tools['CC'] = [os.environ['CC']]
++tools['CXX'] = [os.environ['CXX']]
++tools['LD'] = [os.environ['CC']]
++tools['AR'] = [os.environ['AR']]
++tools['RANLIB'] = [os.environ['RANLIB']]
+ 
+ checked = set()
+ 
+@@ -499,13 +491,6 @@
+     host,
+     '-'.join([s for s in [compiler, '.'.join(map(str, compiler_ver)), variant] if s]))
+ 
+-if compiler in ['gcc', 'clang']:
+-    for var in ['CC', 'CXX']:
+-        env[var] = env.ClangDB(build_dir, env[var])
+-
+-    clangdb = env.Install('#', '%s/compile_commands.json' % build_dir)
+-    env.Requires(clangdb, env.Dir('#src'))
+-
+ env['ROC_BINDIR'] = '#bin/%s' % host
+ env['ROC_VERSION'] = open(env.File('#.version').path).read().strip()
+ 
+@@ -559,10 +544,10 @@
+             'target_openfec',
+         ])
+ 
+-env.Append(CXXFLAGS=[])
++env.Append(CXXFLAGS=os.environ['CXXFLAGS'].split())
+ env.Append(CPPDEFINES=[])
+ env.Append(CPPPATH=[])
+-env.Append(LIBPATH=[])
++env.Append(LIBPATH=['-L@TERMUX_PREFIX@/lib'])
+ env.Append(LIBS=[])
+ 
+ lib_env = env.Clone()
+@@ -607,68 +592,35 @@
+ 
+ if 'target_uv' in system_dependecies:
+     conf = Configure(env, custom_tests=env.CustomTests)
+-
+     env.TryParseConfig('--cflags --libs libuv')
+-
+-    if not crosscompile:
+-        if not conf.CheckLibWithHeaderExpr(
+-            'uv', 'uv.h', 'c', expr='UV_VERSION_MAJOR >= 1 && UV_VERSION_MINOR >= 4'):
+-            env.Die("libuv >= 1.4 not found (see 'config.log' for details)")
+-    else:
+-        if not conf.CheckLibWithHeaderUniq('uv', 'uv.h', 'c'):
+-            env.Die("libuv not found (see 'config.log' for details)")
+-
+     env = conf.Finish()
+ 
+ if 'target_openfec' in system_dependecies:
+     conf = Configure(env, custom_tests=env.CustomTests)
+ 
+-    if not env.TryParseConfig('--silence-errors --cflags --libs openfec') \
+-      and not crosscompile:
+-        for prefix in ['/usr/local', '/usr']:
+-            if os.path.exists('%s/include/openfec' % prefix):
+-                env.Append(CPPPATH=[
+-                    '%s/include/openfec' % prefix,
+-                    '%s/include/openfec/lib_common' % prefix,
+-                    '%s/include/openfec/lib_stable' % prefix,
+-                ])
+-                env.Append(LIBPATH=[
+-                    '%s/lib' % prefix,
+-                ])
+-                break
+-
+-    if not conf.CheckLibWithHeaderUniq('openfec', 'of_openfec_api.h', 'c'):
+-        env.Die("openfec not found (see 'config.log' for details)")
++    prefix="@TERMUX_PREFIX@"
+ 
+-    if not conf.CheckDeclaration('OF_USE_ENCODER', '#include <of_openfec_api.h>', 'c'):
+-        env.Die("openfec has no encoder support (OF_USE_ENCODER)")
+-
+-    if not conf.CheckDeclaration('OF_USE_DECODER', '#include <of_openfec_api.h>', 'c'):
+-        env.Die("openfec has no encoder support (OF_USE_DECODER)")
++    if os.path.exists('%s/include/openfec' % prefix):
++        env.Append(CPPPATH=[
++            '%s/include/openfec' % prefix,
++            '%s/include/openfec/lib_common' % prefix,
++            '%s/include/openfec/lib_stable' % prefix,
++        ])
+ 
+-    if not conf.CheckDeclaration('OF_USE_LDPC_STAIRCASE_CODEC',
+-                                 '#include <of_openfec_api.h>', 'c'):
+-        env.Die(
+-            "openfec has no LDPC-Staircase codec support (OF_USE_LDPC_STAIRCASE_CODEC)")
++    env.Append(LIBPATH=[
++        '%s/lib' % prefix,
++    ])
+ 
++    env.Append(LIBS=['openfec'])
+     env = conf.Finish()
+ 
+ if 'target_pulseaudio' in system_dependecies:
+     conf = Configure(tool_env, custom_tests=env.CustomTests)
+-
+     tool_env.TryParseConfig('--cflags --libs libpulse')
+-
+-    if not conf.CheckLibWithHeaderUniq('pulse', 'pulse/pulseaudio.h', 'c'):
+-        env.Die("libpulse not found (see 'config.log' for details)")
+-
+     tool_env = conf.Finish()
+ 
+     if GetOption('enable_pulseaudio_modules'):
+         conf = Configure(pulse_env, custom_tests=env.CustomTests)
+-
+-        if not conf.CheckLibWithHeaderUniq('ltdl', 'ltdl.h', 'c'):
+-            env.Die("ltdl not found (see 'config.log' for details)")
+-
+         pulse_env = conf.Finish()
+ 
+         pa_dir = GetOption('with_pulseaudio')
+@@ -678,7 +630,7 @@
+ 
+         pulse_env.Append(CPPPATH=[
+             pa_dir,
+-            pa_dir + '/src',
++            pa_dir + '/../src/src',
+         ])
+ 
+         for lib in ['libpulsecore-*.so', 'libpulsecommon-*.so']:
+@@ -840,7 +792,7 @@
+ env.Append(LIBPATH=['#%s' % build_dir])
+ 
+ if platform in ['linux']:
+-    env.AppendUnique(LIBS=['rt', 'dl', 'm'])
++    env.AppendUnique(LIBS=['dl', 'm'])
+ 
+ if compiler in ['gcc', 'clang']:
+     env.Append(CXXFLAGS=[
+@@ -854,10 +806,6 @@
+             '-fPIC',
+         ]})
+ 
+-    env.Append(LIBS=[
+-        'pthread',
+-    ])
+-
+     if platform in ['linux']:
+         lib_env.Append(LINKFLAGS=[
+             '-Wl,--version-script=' + env.File('#src/lib/roc.version').path
