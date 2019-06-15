@@ -1,0 +1,101 @@
+From c02288db4273df04d6bd29beb77b77187d4292f4 Mon Sep 17 00:00:00 2001
+From: Soul Trace <S-trace@list.ru>
+Date: Thu, 13 Jun 2019 22:04:06 +0300
+Subject: [PATCH] android: Fix building for Android/Termux
+
+There is no bcmp and bcopy functions on Android
+Fixes "error: undefined reference to 'bcmp'" and "error: undefined reference to 'bcopy'" linking errors.
+---
+ .../reed-solomon_gf_2_8/of_reed-solomon_gf_2_8.c    |  2 +-
+ .../galois_field_codes_utils/algebra_2_4.c          | 13 +++++++++++++
+ .../galois_field_codes_utils/algebra_2_8.c          | 13 +++++++++++++
+ .../galois_field_codes_utils/of_galois_field_code.c | 12 ++++++++++++
+ 4 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/src/lib_stable/reed-solomon_gf_2_8/of_reed-solomon_gf_2_8.c b/src/lib_stable/reed-solomon_gf_2_8/of_reed-solomon_gf_2_8.c
+index de24ed0..ddb53b5 100755
+--- a/src/lib_stable/reed-solomon_gf_2_8/of_reed-solomon_gf_2_8.c
++++ b/src/lib_stable/reed-solomon_gf_2_8/of_reed-solomon_gf_2_8.c
+@@ -46,7 +46,7 @@
+ /*
+  * compatibility stuff
+  */
+-#if defined(WIN32)	/* but also for others, e.g. sun... */
++#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
+ #define NEED_BCOPY
+ #define bcmp(a,b,n) memcmp(a,b,n)
+ #endif
+diff --git a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_4.c b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_4.c
+index 1eb4cf6..7456b06 100644
+--- a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_4.c
++++ b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_4.c
+@@ -42,6 +42,19 @@
+ #define GF_ADDMULC(dst, x)		{dst ^= __gf_mulc_[x];}
+ #define GF_ADDMULC_COMPACT(dst,x)	{dst = (dst>>4 ^ __gf_mulc_[x>>4])<<4 |(dst & 0x0F ^ __gf_mulc_[x & 0x0F]); }
+ 
++/*
++ * compatibility stuff
++ */
++#if !defined(bcmp) || defined(ANDROID) || defined(TRUE) || 1	/* but also for others, e.g. sun... */
++#define NEED_BCOPY
++#define bcmp(a,b,n) memcmp(a,b,n)
++#endif
++
++#ifdef NEED_BCOPY
++#define bcopy(s, d, siz)        memcpy((d), (s), (siz))
++#define bzero(d, siz)   memset((d), '\0', (siz))
++#endif
++
+ /*
+  * addmul() computes dst[] = dst[] + c * src[]
+  * This is used often, so better optimize it! Currently the loop is
+diff --git a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_8.c b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_8.c
+index bbbef94..a899ddf 100644
+--- a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_8.c
++++ b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/algebra_2_8.c
+@@ -40,6 +40,19 @@
+ #define GF_MULC0(c)		__gf_mulc_ = (gf*)of_gf_2_8_mul_table[c]
+ #define GF_ADDMULC(dst, x)	{dst ^= __gf_mulc_[x];}
+ 
++ /*
++ * compatibility stuff
++ */
++#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
++#define NEED_BCOPY
++#define bcmp(a,b,n) error
++#endif
++
++#ifdef NEED_BCOPY
++#define bcopy(s, d, siz)        memcpy((d), (s), (siz))
++#define bzero(d, siz)   memset((d), '\0', (siz))
++#endif
++
+ /*
+  * addmul() computes dst[] = dst[] + c * src[]
+  * This is used often, so better optimize it! Currently the loop is
+diff --git a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c
+index 898de1a..29d67bc 100644
+--- a/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c
++++ b/src/lib_stable/reed-solomon_gf_2_m/galois_field_codes_utils/of_galois_field_code.c
+@@ -36,6 +36,18 @@
+ 
+ #ifdef OF_USE_REED_SOLOMON_2_M_CODEC
+ 
++/*
++ * compatibility stuff
++ */
++#if defined(WIN32) || defined(ANDROID) || defined(TERMUX) || 1	/* but also for others, e.g. sun... */
++#define NEED_BCOPY
++#define bcmp(a,b,n) error
++#endif
++
++#ifdef NEED_BCOPY
++#define bcopy(s, d, siz)        memcpy((d), (s), (siz))
++#define bzero(d, siz)   memset((d), '\0', (siz))
++#endif
+ 
+ gf of_modnn(of_galois_field_code_cb_t* ofcb,INT32 x)
+ {
+-- 
+2.20.1
+
