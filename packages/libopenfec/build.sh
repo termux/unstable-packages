@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=http://openfec.org
 TERMUX_PKG_DESCRIPTION="Application-Level Forward Erasure Correction implementation library"
-TERMUX_PKG_LICENSE="CeCCIL-C"
+TERMUX_PKG_LICENSE="CeCILL-C"
 TERMUX_PKG_LICENSE_FILE="LICENCE_CeCILL-C_V1-en.txt LICENCE_CeCILL-C_V1-en.txt"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.4.2.3
