@@ -79,6 +79,22 @@ all changes are carefully reviewed to avoid having nasty things in our code.
 
 Everything else must be reviewed by the core maintainer ([@xeffyr][xeffyr-github]).
 
+#### CI tags
+
+The behaviour of CI dispatcher script can be modified by some tags specified in the
+commit message. Usage of tags allowed only for maintainers.
+
+Currently, the following tags are supported:
+
+- `%ci:no-build` - causes CI to force-exit with status 'passed'. Use it when build
+  has to be done manually or CI already stuck at task timeout or failure.
+
+- `%ci:reset-backlog` - causes CI to perform build according to changes in the
+  latest commit only.
+
+All tags must be specified on a clean, separate lines. There shouldn't be any characters
+before or after tag specification.
+
 [termux-packages]: <https://github.com/termux/termux-packages>
 [termux-packages-docs]: <https://github.com/termux/termux-packages/tree/master/docs>
 [unstable-packages]: <https://github.com/termux/unstable-packages>

@@ -70,7 +70,11 @@ SCRIPT_EMERG_EXIT=false
 SCRIPT_ERROR_EXIT=false
 
 # Bintray-specific configuration.
-BINTRAY_REPO_NAME="unstable-packages-24"
+if [ "$(basename "$0")" = "package_uploader_legacy.sh" ]; then
+    BINTRAY_REPO_NAME="unstable-packages-21"
+else
+    BINTRAY_REPO_NAME="unstable-packages-24"
+fi
 BINTRAY_REPO_GITHUB="termux/unstable-packages"
 BINTRAY_REPO_DISTRIBUTION="unstable"
 BINTRAY_REPO_COMPONENT="main"
@@ -510,6 +514,10 @@ process_packages() {
 	local package_name
 	local package_name_list
 	local buildsh_path
+
+	msg
+	msg "Repository: $BINTRAY_REPO_NAME"
+	msg
 
 	if $PACKAGE_CLEANUP_MODE; then
 		msg "[@] Removing old versions:"
