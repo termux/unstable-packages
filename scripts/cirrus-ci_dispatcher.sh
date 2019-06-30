@@ -62,7 +62,7 @@ set +e
 # Process tag '%ci:no-build' that may be added as line to commit message.
 # Will force CI to exit with status 'passed' without performing build.
 if grep -qiP '^\s*%ci:no-build\s*$' <(git log --format="%B" -n 1 "$CIRRUS_CHANGE_IN_REPO"); then
-	echo "[*] Exiting with status 'passwd' (tag '%ci:no-build' applied)."
+	echo "[*] Exiting with status 'passed' (tag '%ci:no-build' applied)."
 	exit 0
 fi
 
