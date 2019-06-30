@@ -16,8 +16,8 @@ pkg install unstable-repo
 
 ## Building packages manually
 
-You can build all packages manually by using provided docker image. The
-only requirements are Linux-based host with Docker installed.
+You can build all packages manually by using provided docker image. The only
+requirements are Linux-based host with Docker installed.
 
 1. Clone this repository:
 	```ShellSession
@@ -29,13 +29,15 @@ only requirements are Linux-based host with Docker installed.
 	cd ./unstable-packages
 	./start-builder.sh
 	```
+	Command shown above will start builder for Android 7 (API level 24). If you
+	need to build package for Android 5, use `./start-builder-legacy.sh`.
 
 3. Choose package you want to build and run:
 	```ShellSession
 	./build-package.sh -a ${arch} ${package name}
 	```
-	Make sure that you replaced `${arch}` with target CPU architecture and
-	`${package name}` with package name you want to build.
+	Replace `${arch}` with target CPU architecture and `${package name}` with
+	package name you want to build.
 
 ## Contributing
 
