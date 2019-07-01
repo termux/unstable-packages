@@ -1,6 +1,6 @@
 diff -uNr LuaJIT-2.1.0-beta3/src/Makefile LuaJIT-2.1.0-beta3.mod/src/Makefile
 --- LuaJIT-2.1.0-beta3/src/Makefile	2017-05-01 22:03:01.000000000 +0300
-+++ LuaJIT-2.1.0-beta3.mod/src/Makefile	2019-07-01 17:33:48.640433533 +0300
++++ LuaJIT-2.1.0-beta3.mod/src/Makefile	2019-07-01 21:33:38.426284669 +0300
 @@ -27,7 +27,7 @@
  DEFAULT_CC = gcc
  #
@@ -60,3 +60,12 @@ diff -uNr LuaJIT-2.1.0-beta3/src/Makefile LuaJIT-2.1.0-beta3.mod/src/Makefile
  TARGET_DYLIBNAME= libluajit-$(ABIVER).$(MAJVER).dylib
  TARGET_DYLIBPATH= $(TARGET_LIBPATH)/$(TARGET_DYLIBNAME)
  TARGET_DLLNAME= lua$(NODOTABIVER).dll
+@@ -585,7 +585,7 @@
+ endif
+ endif
+ 
+-Q= @
++Q=
+ E= @echo
+ #Q=
+ #E= @:
