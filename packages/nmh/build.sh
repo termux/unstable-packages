@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.7.1
 TERMUX_PKG_SRCURL=http://download.savannah.nongnu.org/releases/nmh/nmh-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=f1fb94bbf7d95fcd43277c7cfda55633a047187f57afc6c1bb9321852bd07c11
-TERMUX_PKG_DEPENDS="gdbm, libdb, libiconv, libsasl"
+TERMUX_PKG_DEPENDS="gdbm, libdb, libiconv, libsasl, openssl"
 TERMUX_PKG_BUILD_DEPENDS="ncurses"
 
 # We don't have complete sendmail utility.
