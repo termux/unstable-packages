@@ -1,0 +1,7 @@
+#!@TERMUX_PREFIX@/bin/sh
+##
+## seproxy requires execution from setoolkit installation directory.
+##
+
+cd @TERMUX_PREFIX@/opt/setoolkit
+exec python ./seproxy "$@"

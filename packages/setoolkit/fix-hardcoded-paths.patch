@@ -1,0 +1,818 @@
+diff -uNr social-engineer-toolkit-7.7.9/seautomate social-engineer-toolkit-7.7.9.mod/seautomate
+--- social-engineer-toolkit-7.7.9/seautomate	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/seautomate	2019-07-02 01:33:29.114811873 +0300
+@@ -30,7 +30,7 @@
+ import src.core.setcore as core
+ 
+ # if we can't see our config then something didn't go good..
+-if not os.path.isfile("/etc/setoolkit/set.config"):
++if not os.path.isfile("@TERMUX_PREFIX@/etc/setoolkit/set.config"):
+     core.print_error("Cannot locate SET executable. Try running from the local directory.")
+     core.print_error("If this does not work, please run the setup.py install file.")
+     sys.exit()
+diff -uNr social-engineer-toolkit-7.7.9/setoolkit social-engineer-toolkit-7.7.9.mod/setoolkit
+--- social-engineer-toolkit-7.7.9/setoolkit	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/setoolkit	2019-07-02 01:33:11.308014293 +0300
+@@ -30,21 +30,21 @@
+         sys.path.append("/usr/share/set")
+ 
+ # make sure the config file is located in /etc/setoolkit
+-if not os.path.isdir("/etc/setoolkit/"):
+-    os.makedirs("/etc/setoolkit/")
+-    shutil.copyfile("src/core/config.baseline", "/etc/setoolkit/set.config")
++if not os.path.isdir("@TERMUX_PREFIX@/etc/setoolkit/"):
++    os.makedirs("@TERMUX_PREFIX@/etc/setoolkit/")
++    shutil.copyfile("src/core/config.baseline", "@TERMUX_PREFIX@/etc/setoolkit/set.config")
+ 
+-if not os.path.isfile("/etc/setoolkit/set.config"):
+-    shutil.copyfile("src/core/config.baseline", "/etc/setoolkit/set.config")
++if not os.path.isfile("@TERMUX_PREFIX@/etc/setoolkit/set.config"):
++    shutil.copyfile("src/core/config.baseline", "@TERMUX_PREFIX@/etc/setoolkit/set.config")
+ 
+ # here we check to ensure we have the latest version
+-with open("/etc/setoolkit/set.config") as fileopen:
++with open("@TERMUX_PREFIX@/etc/setoolkit/set.config") as fileopen:
+     data = fileopen.read()
+ 
+ if "CONFIG_VERSION=7.7.9" not in data:
+-    print("[*] Overwriting old config for updates to SET. Backing up your old one in /etc/setoolkit/")
+-    shutil.move("/etc/setoolkit/set.config", "/etc/setoolkit/set.config.bak")
+-    shutil.copyfile("src/core/config.baseline", "/etc/setoolkit/set.config")
++    print("[*] Overwriting old config for updates to SET. Backing up your old one in @TERMUX_PREFIX@/etc/setoolkit/")
++    shutil.move("@TERMUX_PREFIX@/etc/setoolkit/set.config", "/etc/setoolkit/set.config.bak")
++    shutil.copyfile("src/core/config.baseline", "@TERMUX_PREFIX@/etc/setoolkit/set.config")
+ 
+ # import after config checks have been properly created
+ import src.core.setcore as core
+@@ -148,7 +148,7 @@
+         core.exit_set()
+ 
+ # if there isn't a set_config.py file yet, create one
+-if not os.path.isfile("/etc/setoolkit/set_config.py"):
++if not os.path.isfile("@TERMUX_PREFIX@/etc/setoolkit/set_config.py"):
+     update_config()
+ 
+ define_version = core.get_version()
+diff -uNr social-engineer-toolkit-7.7.9/src/core/arp_cache/arp.py social-engineer-toolkit-7.7.9.mod/src/core/arp_cache/arp.py
+--- social-engineer-toolkit-7.7.9/src/core/arp_cache/arp.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/arp_cache/arp.py	2019-07-02 01:13:42.839558800 +0300
+@@ -13,7 +13,7 @@
+ definepath = os.getcwd()
+ 
+ # grab config file
+-config = open("/etc/setoolkit/set.config", "r").readlines()
++config = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ # grab our default directory
+ cwd = os.getcwd()
+ # set a variable as default to n or no
+@@ -37,7 +37,7 @@
+         ettercapchoice = 'n'
+ 
+ # GRAB CONFIG from SET
+-fileopen = open("/etc/setoolkit/set.config", "r").readlines()
++fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ for line in fileopen:
+     # grab the ettercap interface
+     match = re.search("ETTERCAP_INTERFACE=", line)
+@@ -55,7 +55,7 @@
+         path = line.replace("ETTERCAP_PATH=", "")
+ 
+         if not os.path.isfile(path):
+-            path = ("/usr/local/share/ettercap")
++            path = ("@TERMUX_PREFIX@/opt/ettercap")
+ 
+ # if we are using ettercap then get everything ready
+ if ettercapchoice == 'y':
+diff -uNr social-engineer-toolkit-7.7.9/src/core/config.baseline social-engineer-toolkit-7.7.9.mod/src/core/config.baseline
+--- social-engineer-toolkit-7.7.9/src/core/config.baseline	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/config.baseline	2019-07-02 01:17:31.837845325 +0300
+@@ -66,7 +66,7 @@
+ ETTERCAP=OFF
+ #
+ ### Ettercap home directory (needed for DNS_spoof).
+-ETTERCAP_PATH=/usr/share/ettercap
++ETTERCAP_PATH=@TERMUX_PREFIX@/opt/ettercap
+ #
+ ### Specify what interface you want Ettercap or dsniff to listen on.
+ ETTERCAP_INTERFACE=eth0
+@@ -95,7 +95,7 @@
+ APACHE_SERVER=OFF
+ #
+ ### Path to the Apache web root.
+-APACHE_DIRECTORY=/var/www/html
++APACHE_DIRECTORY=@TERMUX_PREFIX@/var/www/html
+ #
+ ### Specify what port to run the HTTP server on that serves the Java applet attack
+ ### or Metasploit exploit. The default is port 80. If you are using Apache, you
+@@ -126,8 +126,8 @@
+ #
+ ### Below is the client/server (private) cert; this must be in PEM format in order to work.
+ ### Simply place the path you want. For example: /root/ssl_client/server.pem
+-PEM_CLIENT=/root/newcert.pem
+-PEM_SERVER=/root/newreq.pem
++PEM_CLIENT=@TERMUX_HOME@/newcert.pem
++PEM_SERVER=@TERMUX_HOME@/newreq.pem
+ #
+ ### Tweak the web jacking time used for the iFrame replace; sometimes it can be a little slow
+ ### and harder to convince the victim. 5000 equals 5 seconds.
+@@ -140,7 +140,7 @@
+ ### These two options will turn the UPX packer on and automatically attempt
+ ### to pack the executable which may evade anti-virus a little better.
+ UPX_ENCODE=OFF
+-UPX_PATH=/usr/bin/upx
++UPX_PATH=@TERMUX_PREFIX@/bin/upx
+ #
+ ### This will configure whether or not to use "EnableStageEncoding" within Metasploit payloads.
+ STAGE_ENCODING=OFF
+@@ -159,8 +159,8 @@
+ HARVESTER_URL=http://thisisasite
+ #
+ ### This will allow you to specify where the harvester log file goes when you use Apache. 
+-### By default, this will be in the "/var/www" directory.
+-HARVESTER_LOG=/var/www
++### By default, this will be in the "@TERMUX_PREFIX@/var/www" directory.
++HARVESTER_LOG=@TERMUX_PREFIX@/var/www
+ #
+ ### This will turn off the ability to log passwords in the credential harvester. Note that this isn't always
+ ### reliable. It will only not present content that is password oriented. Otherwise, it will still
+@@ -176,8 +176,8 @@
+ ### This feature will attempt to create a rogue access point and redirect victims back to the
+ ### SET web server when associated.
+ ACCESS_POINT_SSID=linksys
+-AIRBASE_NG_PATH=/usr/local/sbin/airbase-ng
+-DNSSPOOF_PATH=/usr/local/sbin/dnsspoof
++AIRBASE_NG_PATH=@TERMUX_PREFIX@/bin/airbase-ng
++DNSSPOOF_PATH=@TERMUX_PREFIX@/bin/dnsspoof
+ #
+ ### This will configure the default channel that the wireless access point broadcasts through
+ ### Wi-Fi communications.
+diff -uNr social-engineer-toolkit-7.7.9/src/core/msf_attacks/create_payload.py social-engineer-toolkit-7.7.9.mod/src/core/msf_attacks/create_payload.py
+--- social-engineer-toolkit-7.7.9/src/core/msf_attacks/create_payload.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/msf_attacks/create_payload.py	2019-07-02 01:04:48.352536461 +0300
+@@ -28,7 +28,7 @@
+ apache = 0
+ 
+ # open set_config
+-apache_check = open("/etc/setoolkit/set.config", "r").readlines()
++apache_check = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ 
+ # loop this guy to search for the APACHE_SERVER config variable
+ for line in apache_check:
+diff -uNr social-engineer-toolkit-7.7.9/src/core/payloadgen/create_payloads.py social-engineer-toolkit-7.7.9.mod/src/core/payloadgen/create_payloads.py
+--- social-engineer-toolkit-7.7.9/src/core/payloadgen/create_payloads.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/payloadgen/create_payloads.py	2019-07-02 01:04:48.369203255 +0300
+@@ -34,7 +34,7 @@
+ else:
+     stage_encoding = "true"
+ 
+-configfile = open("/etc/setoolkit/set.config", "r").readlines()
++configfile = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ 
+ # check the metasploit path
+ msf_path = meta_path()
+@@ -80,7 +80,7 @@
+ # grab ipaddr if it hasn't been identified yet
+ #
+ if check_options("IPADDR=") == False:
+-    fileopen = open("/etc/setoolkit/set.config", "r")
++    fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+     data = fileopen.read()
+     match = re.search("AUTO_DETECT=ON", data)
+     if match:
+diff -uNr social-engineer-toolkit-7.7.9/src/core/payloadprep.py social-engineer-toolkit-7.7.9.mod/src/core/payloadprep.py
+--- social-engineer-toolkit-7.7.9/src/core/payloadprep.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/payloadprep.py	2019-07-02 01:04:48.365869896 +0300
+@@ -17,7 +17,7 @@
+ operating_system = check_os()
+ 
+ # check the config file
+-fileopen = open("/etc/setoolkit/set.config", "r")
++fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+ for line in fileopen:
+     line = line.rstrip()
+     # define if we use upx encoding or not
+diff -uNr social-engineer-toolkit-7.7.9/src/core/setcore.py social-engineer-toolkit-7.7.9.mod/src/core/setcore.py
+--- social-engineer-toolkit-7.7.9/src/core/setcore.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/setcore.py	2019-07-02 01:15:55.357158914 +0300
+@@ -60,7 +60,7 @@
+         if os.path.isfile("setoolkit"):
+             return os.getcwd()
+         else:
+-            return "/usr/share/setoolkit/"
++            return "@TERMUX_PREFIX@/opt/setoolkit/"
+ 
+     else:
+         return os.getcwd()
+@@ -338,9 +338,9 @@
+             trigger = 1
+ 
+         # if we are using just the standard path for msfconsole
+-        if os.path.isfile("/usr/bin/msfconsole"):
++        if os.path.isfile("@TERMUX_PREFIX@/bin/msfconsole"):
+             if trigger == 0:
+-                msf_path = "/usr/bin/"
++                msf_path = "@TERMUX_PREFIX@/bin/"
+                 trigger = 1
+ 
+         # specific for backbox linux
+@@ -389,12 +389,18 @@
+                 msf_path = "/usr/share/metasploit-framework/"
+                 trigger = 1
+ 
++        # Metasploit path in Termux
++        if os.path.isfile("@TERMUX_PREFIX@/opt/metasploit-framework"):
++            if trigger == 0:
++                msf_path = "@TERMUX_PREFIX@/opt/metasploit-framework"
++                trigger = 1
++
+         # if we didn't find anything
+         if trigger == 0:
+             print_error(
+                 "Metasploit path not found. These payloads will be disabled.")
+             print_error(
+-                "Please configure Metasploit's path in the /etc/setoolkit/set.config file.")
++                "Please configure Metasploit's path in the @TERMUX_PREFIX@/etc/setoolkit/set.config file.")
+             msf_path = False
+ 
+     except Exception as e:
+@@ -413,7 +419,7 @@
+ 
+ def meta_database():
+     # DEFINE METASPLOIT PATH
+-    meta_path = open("/etc/setoolkit/set.config", "r").readlines()
++    meta_path = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+     for line in meta_path:
+         line = line.rstrip()
+         match = re.search("METASPLOIT_DATABASE=", line)
+@@ -793,7 +799,7 @@
+ 
+ def upx(path_to_file):
+     # open the set_config
+-    fileopen = open("/etc/setoolkit/set.config", "r")
++    fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+     for line in fileopen:
+         line = line.rstrip()
+         match = re.search("UPX_PATH=", line)
+@@ -1197,7 +1203,7 @@
+ 
+ 
+ def set_check():
+-    fileopen = open("/etc/setoolkit/set.config", "r")
++    fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+     for line in fileopen:
+         match = re.search("SET_INTERACTIVE_SHELL=OFF", line)
+         # if we turned it off then we return a true else return false
+@@ -1367,7 +1373,7 @@
+ 
+ # check the config file and return value
+ def check_config(param):
+-    fileopen = open("/etc/setoolkit/set.config", "r")
++    fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+     for line in fileopen:
+         line = line.rstrip()
+         # print line
+@@ -1936,8 +1942,8 @@
+ 
+ 
+ def check_backbox():
+-    if os.path.isfile("/etc/issue"):
+-        backbox = open("/etc/issue", "r")
++    if os.path.isfile("@TERMUX_PREFIX@/etc/issue"):
++        backbox = open("@TERMUX_PREFIX@/etc/issue", "r")
+         backboxdata = backbox.read()
+         if "BackBox" in backboxdata:
+             return "BackBox"
+@@ -1952,8 +1958,8 @@
+ 
+ 
+ def check_kali():
+-    if os.path.isfile("/etc/apt/sources.list"):
+-        kali = open("/etc/apt/sources.list", "r")
++    if os.path.isfile("@TERMUX_PREFIX@/etc/apt/sources.list"):
++        kali = open("@TERMUX_PREFIX@/etc/apt/sources.list", "r")
+         kalidata = kali.read()
+         if "kali" in kalidata:
+             return "Kali"
+diff -uNr social-engineer-toolkit-7.7.9/src/core/set.py social-engineer-toolkit-7.7.9.mod/src/core/set.py
+--- social-engineer-toolkit-7.7.9/src/core/set.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/set.py	2019-07-02 01:04:48.359203178 +0300
+@@ -288,7 +288,7 @@
+                     # pull ip address
+                     if choice3 != "-1":
+                         fileopen = open(
+-                            "/etc/setoolkit/set.config", "r").readlines()
++                            "@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+                         for line in fileopen:
+                             line = line.rstrip()
+                             match = re.search("AUTO_DETECT=ON", line)
+@@ -1093,7 +1093,7 @@
+                 airbase_path = ""
+                 dnsspoof_path = ""
+                 # need to pull the SET config file
+-                fileopen = open("/etc/setoolkit/set.config", "r")
++                fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
+                 for line in fileopen:
+                     line = line.rstrip()
+                     match = re.search("AIRBASE_NG_PATH=", line)
+@@ -1105,7 +1105,7 @@
+                         dnsspoof_path = line.replace("DNSSPOOF_PATH=", "")
+ 
+                 if not os.path.isfile(airbase_path):
+-                    if not os.path.isfile("/usr/local/sbin/airbase-ng"):
++                    if not os.path.isfile("@TERMUX_PREFIX@/bin/airbase-ng"):
+                         print_warning(
+                             "Warning airbase-ng was not detected on your system. Using one in SET.")
+                         print_warning(
+@@ -1113,14 +1113,10 @@
+                         print_warning(
+                             "You can configure it through the set_config and point to airbase-ng.")
+                         airbase_path = ("src/wireless/airbase-ng")
+-                    if os.path.isfile("/usr/local/sbin/airbase-ng"):
+-                        airbase_path = "/usr/local/sbin/airbase-ng"
+ 
+                 if not os.path.isfile(dnsspoof_path):
+-                    if os.path.isfile("/usr/local/sbin/dnsspoof"):
+-                        dnsspoof_path = "/usr/local/sbin/dnsspoof"
+-                    if os.path.isfile("/usr/sbin/dnsspoof"):
+-                        dnsspoof_path = "/usr/sbin/dnsspoof"
++                    if os.path.isfile("@TERMUX_PREFIX@/bin/dnsspoof"):
++                        dnsspoof_path = "@TERMUX_PREFIX@/bin/dnsspoof"
+ 
+                 # if we can find airbase-ng
+                 if os.path.isfile(airbase_path):
+@@ -1163,7 +1159,7 @@
+                                 break
+ 
+                 if not os.path.isfile(dnsspoof_path):
+-                    if not os.path.isfile("/usr/local/sbin/dnsspoof"):
++                    if not os.path.isfile("@TERMUX_PREFIX@/bin/dnsspoof"):
+                         print_error(
+                             "ERROR:DNS Spoof was not detected. Check the set_config file.")
+                         return_continue()
+diff -uNr social-engineer-toolkit-7.7.9/src/core/update_config.py social-engineer-toolkit-7.7.9.mod/src/core/update_config.py
+--- social-engineer-toolkit-7.7.9/src/core/update_config.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/core/update_config.py	2019-07-02 01:04:48.355869820 +0300
+@@ -90,14 +90,14 @@
+ 
+ 
+ def update_config():
+-    if not os.path.isdir("/etc/setoolkit"):
+-        os.makedirs("/etc/setoolkit")
++    if not os.path.isdir("@TERMUX_PREFIX@/etc/setoolkit"):
++        os.makedirs("@TERMUX_PREFIX@/etc/setoolkit")
+ 
+-    init_file = open("/etc/setoolkit/set.config", "r")
+-    new_config = open("/etc/setoolkit/set_config.py", "w")
++    init_file = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r")
++    new_config = open("@TERMUX_PREFIX@/etc/setoolkit/set_config.py", "w")
+     timestamp = str(datetime.datetime.now())
+ 
+-    new_config.write("""#!/usr/bin/python\n
++    new_config.write("""#!@TERMUX_PREFIX@/bin/python\n
+ #######################################################################
+ ##                    DO NOT MODIFY THIS FILE                        ##
+ #######################################################################
+@@ -137,7 +137,7 @@
+     init_file.close()
+     new_config.close()
+     sleep(1)
+-    sys.path.append("/etc/setoolkit")
++    sys.path.append("@TERMUX_PREFIX@/etc/setoolkit")
+     from set_config import CONFIG_DATE as verify
+     print_info("New set.config.py file generated on: %s" % timestamp)
+     print_info("Verifying configuration update...")
+diff -uNr social-engineer-toolkit-7.7.9/src/html/spawn.py social-engineer-toolkit-7.7.9.mod/src/html/spawn.py
+--- social-engineer-toolkit-7.7.9/src/html/spawn.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/html/spawn.py	2019-07-02 01:09:48.641278246 +0300
+@@ -311,8 +311,8 @@
+                 print(bcolors.ENDC + "Do you want to try to stop Apache? y/n")
+                 stop_apache = input("Attempt to stop Apache? y/n: ")
+                 if stop_apache == "yes" or stop_apache == "y" or stop_apache == "":
+-                    subprocess.Popen("/etc/init.d/apache2 stop", shell=True).wait()
+-                    subprocess.Popen("/etc/init.d/nginx stop", shell=True).wait()
++                    subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/apache2 stop", shell=True).wait()
++                    subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/nginx stop", shell=True).wait()
+                     try:
+ 
+                         # specify port listener here
+@@ -432,7 +432,7 @@
+             if operating_system == "posix":
+ 
+                     # if we detect an apache installation
+-                if os.path.isfile("/etc/init.d/apache2"):
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/apache2"):
+                     apache_stop = input(
+                         "[!] Apache may be running, do you want SET to stop the process? [y/n]: ")
+                     if apache_stop.lower() == "y" or apache_stop.lower() == "yes":
+@@ -440,12 +440,12 @@
+                             "Attempting to stop apache.. One moment..")
+                         # stop apache here
+                         subprocess.Popen(
+-                            "/etc/init.d/apache2 stop", shell=True).wait()
++                            "@TERMUX_PREFIX@/etc/init.d/apache2 stop", shell=True).wait()
+                         try:
+                             ipaddr.connect(('localhost', web_port))
+                             if ipaddr:
+                                 print_warning(
+-                                    "If you want to use Apache, edit the /etc/setoolkit/set.config")
++                                    "If you want to use Apache, edit the @TERMUX_PREFIX@/etc/setoolkit/set.config")
+                                 print_error(
+                                     "Exit whatever is listening and restart SET")
+                                 exit_set()
+@@ -459,13 +459,13 @@
+                     # user
+                     if apache_stop.lower() == "n" or apache_stop.lower() == "no":
+                         print_warning(
+-                            "If you want to use Apache, edit the /etc/setoolkit/set.config and turn apache on")
++                            "If you want to use Apache, edit the @TERMUX_PREFIX@/etc/setoolkit/set.config and turn apache on")
+                         print_error(
+                             "Exit whatever is lsitening or turn Apache on in set_config and restart SET")
+                         exit_set()
+                 else:
+                     print_warning(
+-                        "If you want to use Apache, edit the /etc/setoolkit/set.config")
++                        "If you want to use Apache, edit the @TERMUX_PREFIX@/etc/setoolkit/set.config")
+                     print_error("Exit whatever is listening and restart SET")
+                     exit_set()
+ 
+@@ -492,16 +492,16 @@
+     # if we are using apache
+     if apache == 1:
+         print_error("Error:Apache does not appear to be running.")
+-        print_error("Start it or turn APACHE off in /etc/setoolkit/set.config")
++        print_error("Start it or turn APACHE off in @TERMUX_PREFIX@/etc/setoolkit/set.config")
+         print_status("Attempting to start Apache manually...")
+         apache_counter = 0
+ 
+-        if os.path.isfile("/etc/init.d/apache2"):
+-            subprocess.Popen("/etc/init.d/apache2 start", shell=True).wait()
++        if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/apache2"):
++            subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/apache2 start", shell=True).wait()
+             apache_counter = 1
+ 
+-        if os.path.isfile("/etc/init.d/httpd"):
+-            subprocess.Popen("/etc/init.d/httpd start", shell=True).wait()
++        if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/httpd"):
++            subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/httpd start", shell=True).wait()
+             apache_counter = 1
+ 
+         if apache_counter == 0:
+@@ -665,7 +665,7 @@
+ if automatic_listener == "off" or multiattack == "on":
+ 
+     if automatic_listener == "off":
+-        print_warning("Listener is turned off in /etc/setoolkit/set.config!")
++        print_warning("Listener is turned off in @TERMUX_PREFIX@/etc/setoolkit/set.config!")
+     if automatic_listener == "off" or template == "CUSTOM" or template == "SELF":
+ 
+         while 1:
+diff -uNr social-engineer-toolkit-7.7.9/src/html/templates/template.py social-engineer-toolkit-7.7.9.mod/src/html/templates/template.py
+--- social-engineer-toolkit-7.7.9/src/html/templates/template.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/html/templates/template.py	2019-07-02 01:04:48.325869592 +0300
+@@ -27,7 +27,7 @@
+ 
+ You can configure this option under:
+ 
+-      /etc/setoolkit/set.config
++      @TERMUX_PREFIX@/etc/setoolkit/set.config
+ 
+ Edit this file, and change HARVESTER_REDIRECT and
+ HARVESTER_URL to the sites you want to redirect to
+diff -uNr social-engineer-toolkit-7.7.9/src/phishing/smtp/client/smtp_client.py social-engineer-toolkit-7.7.9.mod/src/phishing/smtp/client/smtp_client.py
+--- social-engineer-toolkit-7.7.9/src/phishing/smtp/client/smtp_client.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/phishing/smtp/client/smtp_client.py	2019-07-02 01:03:17.755180376 +0300
+@@ -31,7 +31,7 @@
+ 
+ # DEFINE SENDMAIL CONFIG
+ sendmail = 0
+-sendmail_file = open("/etc/setoolkit/set.config", "r").readlines()
++sendmail_file = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ 
+ from src.core.setcore import *
+ 
+@@ -55,13 +55,13 @@
+             # if yes, then do some good stuff
+             if sendmail_choice == "YES":
+                 print_info("NOTE: Sendmail can take 3-5 minutes to start.")
+-                if os.path.isfile("/etc/init.d/sendmail"):
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/sendmail"):
+                     subprocess.Popen(
+-                        "/etc/init.d/sendmail start", shell=True).wait()
++                        "@TERMUX_PREFIX@/etc/init.d/sendmail start", shell=True).wait()
+                 # if not there then prompt user
+                 # added for osx
+-                if not os.path.isfile("/usr/sbin/sendmail"):
+-                    if not os.path.isfile("/etc/init.d/sendmail"):
++                if not os.path.isfile("@TERMUX_PREFIX@/bin/sendmail"):
++                    if not os.path.isfile("@TERMUX_PREFIX@/etc/init.d/sendmail"):
+                         pause = input("[!] Sendmail was not found. Install it and try again. (For Kali: apt-get install sendmail-bin)")
+                         sys.exit()
+                 smtp = ("localhost")
+diff -uNr social-engineer-toolkit-7.7.9/src/phishing/smtp/client/smtp_web.py social-engineer-toolkit-7.7.9.mod/src/phishing/smtp/client/smtp_web.py
+--- social-engineer-toolkit-7.7.9/src/phishing/smtp/client/smtp_web.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/phishing/smtp/client/smtp_web.py	2019-07-02 01:04:48.319202874 +0300
+@@ -43,7 +43,7 @@
+ # DEFINE SENDMAIL CONFIG and WEB ATTACK
+ sendmail = 0
+ 
+-sendmail_file = open("/etc/setoolkit/set.config", "r").readlines()
++sendmail_file = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ for line in sendmail_file:
+     # strip carriage returns
+     line = line.rstrip()
+@@ -59,13 +59,13 @@
+             # if yes, then do some good stuff
+             if sendmail_choice == "YES":
+                 print_info("Sendmail can take up to 3-5 minutes to start")
+-                if os.path.isfile("/etc/init.d/sendmail"):
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/sendmail"):
+                     subprocess.Popen(
+-                        "/etc/init.d/sendmail start", shell=True).wait()
++                        "@TERMUX_PREFIX@/etc/init.d/sendmail start", shell=True).wait()
+ 
+                 # added for osx
+-                if not os.path.isfile("/usr/sbin/sendmail"):
+-                    if not os.path.isfile("/etc/init.d/sendmail"):
++                if not os.path.isfile("@TERMUX_PREFIX@/bin/sendmail"):
++                    if not os.path.isfile("@TERMUX_PREFIX@/etc/init.d/sendmail"):
+                         pause = input("[!] Sendmail was not found. Try again and restart. (For Kali - apt-get install sendmail-bin)")
+                         sys.exit()
+                 smtp = ("localhost")
+diff -uNr social-engineer-toolkit-7.7.9/src/teensy/binary2teensy.py social-engineer-toolkit-7.7.9.mod/src/teensy/binary2teensy.py
+--- social-engineer-toolkit-7.7.9/src/teensy/binary2teensy.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/teensy/binary2teensy.py	2019-07-02 00:49:45.275527525 +0300
+@@ -20,7 +20,7 @@
+ # metasploit_path here
+ #
+ msf_path = meta_path() + "msfconsole"
+-if msf_path == "msfconsole": msf_path = "/usr/bin/msfconsole"
++if msf_path == "msfconsole": msf_path = "@TERMUX_PREFIX@/bin/msfconsole"
+ 
+ ################################################################
+ #
+diff -uNr social-engineer-toolkit-7.7.9/src/teensy/ino_gen.py social-engineer-toolkit-7.7.9.mod/src/teensy/ino_gen.py
+--- social-engineer-toolkit-7.7.9/src/teensy/ino_gen.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/teensy/ino_gen.py	2019-07-02 01:16:25.750707935 +0300
+@@ -9,7 +9,7 @@
+ # Mike Judge April 2017
+ 
+ # Declare required variables for shellcode generation
+-meta_path = '/usr/share/metasploit-framework/'                              # File path to metasploit - std SET msf_path = meta_path().
++meta_path = '@TERMUX_PREFIX@/opt/metasploit-framework/'                              # File path to metasploit - std SET msf_path = meta_path().
+ lhost_ipaddr = '192.168.50.5'                                               # Local host LHOST ip address.                                  --Make user selectable--
+ shell_arch = 'x86'                                                          # Shellcode architecture.                                       --Make user selectable--
+ shell_plat = 'Windows'                                                      # Shellcode platform.                                           --Make user selectable--
+@@ -28,10 +28,10 @@
+ build_path = 'C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\msbuild.exe'   # Path to msbuild.exe - needs to have \ escaped with \\ to prevent issues.          --Make user selectable--
+ 
+ # Variables for external files
+-ino_output_filename = '/usr/share/set/src/teensy/ino_file_gen.ino'                                    # Filename of the final ino file containing the generated arduino code and xml build config for msbuild.
+-ino_header_filename = '/usr/share/set/src/teensy/ino_header.txt'                                      # File containg the header arduino code to be incorporated into the ino file before the xml build config.
+-ino_tail_filename  = '/usr/share/set/src/teensy/ino_tail.txt'                                         # File containg the header arduino code to be incorporated into the ino file after the xml build config.
+-xml_input_filename = '/usr/share/set/src/teensy/ino_build_file.xml'                                   # File containing the xml build structure to be incorporated into the ino file.
++ino_output_filename = '@TERMUX_PREFIX@/opt/setoolkit/src/teensy/ino_file_gen.ino'                                    # Filename of the final ino file containing the generated arduino code and xml build config for msbuild.
++ino_header_filename = '@TERMUX_PREFIX@/opt/setoolkit/src/teensy/ino_header.txt'                                      # File containg the header arduino code to be incorporated into the ino file before the xml build config.
++ino_tail_filename  = '@TERMUX_PREFIX@/opt/setoolkit/src/teensy/ino_tail.txt'                                         # File containg the header arduino code to be incorporated into the ino file after the xml build config.
++xml_input_filename = '@TERMUX_PREFIX@/opt/setoolkit/src/teensy/ino_build_file.xml'                                   # File containing the xml build structure to be incorporated into the ino file.
+ 
+ # User selection - default values
+ print '\n-----default settings for shellcode generation-----\n'
+diff -uNr social-engineer-toolkit-7.7.9/src/teensy/teensy.py social-engineer-toolkit-7.7.9.mod/src/teensy/teensy.py
+--- social-engineer-toolkit-7.7.9/src/teensy/teensy.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/teensy/teensy.py	2019-07-02 01:04:48.335869668 +0300
+@@ -37,7 +37,7 @@
+ # define if use apache or not
+ apache = False
+ # open set_config here
+-with open("/etc/setoolkit/set.config") as fileopen:
++with open("@TERMUX_PREFIX@/etc/setoolkit/set.config") as fileopen:
+     apache_check = fileopen.readlines()
+ # loop this guy to search for the APACHE_SERVER config variable
+ for line in apache_check:
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/browser_exploits/gen_payload.py social-engineer-toolkit-7.7.9.mod/src/webattack/browser_exploits/gen_payload.py
+--- social-engineer-toolkit-7.7.9/src/webattack/browser_exploits/gen_payload.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/browser_exploits/gen_payload.py	2019-07-02 01:04:48.349203103 +0300
+@@ -35,7 +35,7 @@
+ 
+ msf_path = meta_path()
+ 
+-configfile = open("/etc/setoolkit/set.config", "r").readlines()
++configfile = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ for line in configfile:
+     line = line.rstrip()
+ 
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/dll_hijacking/hijacking.py social-engineer-toolkit-7.7.9.mod/src/webattack/dll_hijacking/hijacking.py
+--- social-engineer-toolkit-7.7.9/src/webattack/dll_hijacking/hijacking.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/dll_hijacking/hijacking.py	2019-07-02 00:48:27.964902180 +0300
+@@ -132,7 +132,7 @@
+ 
+     # if we didnt find rar
+     if counter == 0:
+-        print("[!] Error, rar was not detected. Please download rar and place it in your /usr/bin or /usr/local/bin directory.")
++        print("[!] Error, rar was not detected. Please download rar and place it in your @TERMUX_PREFIX@/bin directory.")
+         print("[*] Defaulting to zipfile for the attack vector. Sorry boss.")
+         choice = "2"
+ 
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/fsattack/fsattacks.py social-engineer-toolkit-7.7.9.mod/src/webattack/fsattack/fsattacks.py
+--- social-engineer-toolkit-7.7.9/src/webattack/fsattack/fsattacks.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/fsattack/fsattacks.py	2019-07-02 01:18:43.201689339 +0300
+@@ -425,7 +425,7 @@
+              can be directly linked during the XSS
+              attack inside the HTML file. In the example 
+              below the folders have been placed in the
+-            'Attackfiles' directory on that computer '/var/www/Attackfiles'.
++            'Attackfiles' directory on that computer '@TERMUX_PREFIX@/var/www/Attackfiles'.
+ 
+          [?]
+                Using your own private IP for ethical pentesting? 
+@@ -1387,7 +1387,7 @@
+             "\nDo you have a Local Server Setup? (y Or n): ")
+         if self.results.lower()[0] == "y" or self.results.lower() == "yes":
+             self.results = input(
+-                "\nSpecify Full Path to Web Server Folder (ex: /var/www/html ): ")
++                "\nSpecify Full Path to Web Server Folder (ex: @TERMUX_PREFIX@/var/www/html ): ")
+             resultss = self.results
+             if os.path.isdir(self.results):
+                 # Specify which action to take also
+@@ -1396,7 +1396,7 @@
+                 serverList.append(resultss)
+             else:
+                 self.results = input(
+-                    "\nDir Not Found, Specify Main Web Folder Directory (ex: /var/www ): ")
++                    "\nDir Not Found, Specify Main Web Folder Directory (ex: @TERMUX_PREFIX@/var/www ): ")
+                 resultss = self.results
+                 if os.path.isdir(self.results):
+                     # Specify which action to take also
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/harvester/harvester.py social-engineer-toolkit-7.7.9.mod/src/webattack/harvester/harvester.py
+--- social-engineer-toolkit-7.7.9/src/webattack/harvester/harvester.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/harvester/harvester.py	2019-07-02 01:19:51.342179002 +0300
+@@ -30,7 +30,7 @@
+ definepath = os.getcwd()
+ sys.path.append(definepath)
+ from src.core.setcore import *
+-sys.path.append("/etc/setoolkit")
++sys.path.append("@TERMUX_PREFIX@/etc/setoolkit")
+ from set_config import APACHE_SERVER as apache_check
+ from set_config import WEBATTACK_EMAIL as webattack_email
+ from set_config import TRACK_EMAIL_ADDRESSES as track_email
+@@ -98,7 +98,7 @@
+ 
+ # GRAB DEFAULT PORT FOR WEB SERVER AND CHECK FOR COMMAND CENTER
+ command_center = "off"
+-fileopen = open("/etc/setoolkit/set.config", "r").readlines()
++fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ counter = 0
+ for line in fileopen:
+     line = line.rstrip()
+@@ -143,7 +143,7 @@
+ ssl_flag = "false"
+ self_signed = "false"
+ # SEE IF WE WANT TO USE SSL
+-fileopen = open("/etc/setoolkit/set.config", "r").readlines()
++fileopen = open("@TERMUX_PREFIX@/etc/setoolkit/set.config", "r").readlines()
+ for line in fileopen:
+     line = line.rstrip()
+     match = re.search("WEBATTACK_SSL=ON", line)
+@@ -420,15 +420,15 @@
+             apache_stop = input("Do you want to attempt to disable Apache? [y/n]: ")
+             apache_counter = 0
+             if apache_stop == "yes" or apache_stop == "y" or apache_stop == "":
+-                if os.path.isfile("/etc/init.d/apache2"):
+-                    subprocess.Popen("/etc/init.d/apache2 stop", shell=True).wait()
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/apache2"):
++                    subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/apache2 stop", shell=True).wait()
+                     apache_counter = 1
+-                if os.path.isfile("/etc/init.d/httpd"):
+-                    subprocess.Popen("/etc/init.d/httpd stop", shell=True).wait()
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/httpd"):
++                    subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/httpd stop", shell=True).wait()
+                     apache_counter = 1
+ 
+-                if os.path.isfile("/etc/init.d/nginx"):
+-                    subprocess.Popen("/etc/init.d/nginx stop", shell=True).wait()
++                if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/nginx"):
++                    subprocess.Popen("@TERMUX_PREFIX@/etc/init.d/nginx stop", shell=True).wait()
+                     apache_counter = 1 
+ 
+             if apache_counter == 1:
+@@ -484,12 +484,12 @@
+                 pass
+ 
+         except Exception as e:
+-            if os.path.isfile("/etc/init.d/apache2"):
++            if os.path.isfile("@TERMUX_PREFIX@/etc/init.d/apache2"):
+                 apache_start = input(
+                     "[!] Apache may be not running, do you want SET to start the process? [y/n]: ")
+                 if apache_start == "y":
+                     subprocess.Popen(
+-                        "/etc/init.d/apache2 start", shell=True).wait()
++                        "@TERMUX_PREFIX@/etc/init.d/apache2 start", shell=True).wait()
+ 
+         try:
+ 
+@@ -508,8 +508,8 @@
+         harvester_file = ("harvester_" + now + ".txt")
+         filewrite.write("""<?php $file = '%s';file_put_contents($file, print_r($_POST, true), FILE_APPEND); \n/* If you are just seeing plain text you need to install php5 for apache apt-get install libapache2-mod-php5 */ ?><meta http-equiv="refresh" content="0; url=%s" />\n""" % (harvester_file, RAW_URL))
+         filewrite.close()
+-        if os.path.isdir("/var/www/html"):
+-            logpath = ("/var/www/html")
++        if os.path.isdir("@TERMUX_PREFIX@/var/www/html"):
++            logpath = ("@TERMUX_PREFIX@/var/www/html")
+ 
+         filewrite = open("%s/%s" % (logpath, harvester_file), "w")
+         filewrite.write("")
+@@ -613,7 +613,7 @@
+     line = line.rstrip()
+     if line == 'tabnabbing': 
+         print(bcolors.RED + "\n[*] Tabnabbing Attack Vector is Enabled...Victim needs to switch tabs.")
+-    print_status("You may need to copy /var/www/* into /var/www/html depending on where your directory structure is.")
++    print_status("You may need to copy @TERMUX_PREFIX@/var/www/* into @TERMUX_PREFIX@/var/www/html depending on where your directory structure is.")
+     raw_input("Press {return} if you understand what we're saying here.")
+     if line == 'webjacking': print(bcolors.RED + "\n[*] Web Jacking Attack Vector is Enabled...Victim needs to click the link.")
+ 
+Binary files social-engineer-toolkit-7.7.9/src/webattack/java_applet/Java.class and social-engineer-toolkit-7.7.9.mod/src/webattack/java_applet/Java.class differ
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/java_applet/Java.java social-engineer-toolkit-7.7.9.mod/src/webattack/java_applet/Java.java
+--- social-engineer-toolkit-7.7.9/src/webattack/java_applet/Java.java	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/java_applet/Java.java	2019-07-02 01:19:29.205353054 +0300
+@@ -325,7 +325,7 @@
+         else // if not windows then use linux/osx/etc.
+         {
+ 		    // change permisisons to execute
+-	    Process process1 = Runtime.getRuntime().exec("/bin/chmod 755 " + pfad);
++	    Process process1 = Runtime.getRuntime().exec("@TERMUX_PREFIX@/bin/chmod 755 " + pfad);
+             process1.waitFor();                
+ 		    //and execute
+             f = Runtime.getRuntime().exec(pfad);
+diff -uNr social-engineer-toolkit-7.7.9/src/webattack/web_clone/cloner.py social-engineer-toolkit-7.7.9.mod/src/webattack/web_clone/cloner.py
+--- social-engineer-toolkit-7.7.9/src/webattack/web_clone/cloner.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/webattack/web_clone/cloner.py	2019-07-02 01:04:48.345869744 +0300
+@@ -19,7 +19,7 @@
+ operating_system = check_os()
+ definepath = os.getcwd()
+ 
+-sys.path.append("/etc/setoolkit")
++sys.path.append("@TERMUX_PREFIX@/etc/setoolkit")
+ from set_config import USER_AGENT_STRING as user_agent
+ from set_config import WEB_PORT as web_port
+ from set_config import JAVA_ID_PARAM as java_id
+diff -uNr social-engineer-toolkit-7.7.9/src/wireless/airmon-ng social-engineer-toolkit-7.7.9.mod/src/wireless/airmon-ng
+--- social-engineer-toolkit-7.7.9/src/wireless/airmon-ng	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/wireless/airmon-ng	2019-07-02 01:10:14.348119294 +0300
+@@ -2,7 +2,7 @@
+ 
+ USERID=""
+ IFACE=""
+-KISMET=/etc/kismet/kismet.conf
++KISMET=@TERMUX_PREFIX@/etc/kismet/kismet.conf
+ CH=$3; [ x$3 = "x" ] && CH=10
+ IFACE_FOUND="false"
+ MADWIFI=0
+diff -uNr social-engineer-toolkit-7.7.9/src/wireless/wifiattack.py social-engineer-toolkit-7.7.9.mod/src/wireless/wifiattack.py
+--- social-engineer-toolkit-7.7.9/src/wireless/wifiattack.py	2018-07-28 18:46:42.000000000 +0300
++++ social-engineer-toolkit-7.7.9.mod/src/wireless/wifiattack.py	2019-07-02 01:10:35.451596351 +0300
+@@ -15,7 +15,7 @@
+ import src.core.setcore as core
+ from src.core.menu import text
+ 
+-sys.path.append("/etc/setoolkit")
++sys.path.append("@TERMUX_PREFIX@/etc/setoolkit")
+ from set_config import AIRBASE_NG_PATH as airbase_path
+ from set_config import ACCESS_POINT_SSID as access_point
+ from set_config import AP_CHANNEL as ap_channel
+@@ -25,13 +25,13 @@
+ try: input = raw_input
+ except: pass
+ 
+-if not os.path.isfile("/etc/init.d/isc-dhcp-server"):
++if not os.path.isfile("@TERMUX_PREFIX@/etc/init.d/isc-dhcp-server"):
+     core.print_warning("isc-dhcp-server does not appear to be installed.")
+     core.print_warning("apt-get install isc-dhcp-server to install it. Things may fail now.")
+ 
+ if not os.path.isfile(dnsspoof_path):
+-    if os.path.isfile("/usr/sbin/dnsspoof"):
+-        dnsspoof_path = "/usr/sbin/dnsspoof"
++    if os.path.isfile("@TERMUX_PREFIX@/bin/dnsspoof"):
++        dnsspoof_path = "@TERMUX_PREFIX@/bin/dnsspoof"
+     else:
+         core.print_warning("DNSSpoof was not found. Please install or correct path in set_config. Exiting....")
+         core.exit_set()
+@@ -47,7 +47,7 @@
+ core.print_status("Press ^X to exit nano and don't forget to save the updated file!")
+ core.print_warning("If you receive an empty file in nano, please check the path of your isc-dhcp-server file!")
+ core.return_continue()
+-subprocess.Popen("nano /etc/dhcp/dhcpd.conf", shell=True).wait()
++subprocess.Popen("nano @TERMUX_PREFIX@/etc/dhcp/dhcpd.conf", shell=True).wait()
+ 
+ # DHCP SERVER CONFIG HERE
+ dhcp_config1 = ("""
+@@ -112,8 +112,8 @@
+ core.print_status("Placing card in monitor mode via airmon-ng..")
+ 
+ # if we have it already installed then don't use the SET one
+-if os.path.isfile("/usr/local/sbin/airmon-ng"):
+-    airmonng_path = "/usr/local/sbin/airmon-ng"
++if os.path.isfile("@TERMUX_PREFIX@/bin/airmon-ng"):
++    airmonng_path = "@TERMUX_PREFIX@/bin/airmon-ng"
+ else:
+     airmonng_path = "src/wireless/airmon-ng"
+ 
