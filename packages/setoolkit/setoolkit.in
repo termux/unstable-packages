@@ -1,0 +1,7 @@
+#!@TERMUX_PREFIX@/bin/sh
+##
+## setoolkit requires execution from the setoolkit installation directory.
+##
+
+cd @TERMUX_PREFIX@/opt/setoolkit
+exec python ./setoolkit "$@"
