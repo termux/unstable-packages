@@ -7,6 +7,7 @@ TERMUX_PKG_DESCRIPTION="Elixir is a dynamic, functional language designed for bu
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.9.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/elixir-lang/elixir/releases/download/v${TERMUX_PKG_VERSION}/Precompiled.zip
 TERMUX_PKG_SHA256=5111da32582a2d67f9a3ca8a2eb2434a5d52538fc29cd55f6e8a0ae076c8d210
 TERMUX_PKG_DEPENDS="dash, erlang"
@@ -27,7 +28,6 @@ termux_step_extract_package() {
 
 termux_step_make_install() {
 	# Remove unneeded files.
-	(cd "$TERMUX_PREFIX"/opt/elixir/bin; rm -f *.bat *.ps1)
 	(cd "$TERMUX_PREFIX"/opt/elixir/man; rm -f common elixir.1.in iex.1.in)
 
 	# Put manpages to standard location.
