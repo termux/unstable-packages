@@ -34,6 +34,8 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     docbook-to-man \
     docbook-utils \
     ed \
+    elixir \
+    erlang-nox \
     flex \
     gawk \
     gettext \
