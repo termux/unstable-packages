@@ -10,10 +10,10 @@ TERMUX_PKG_DESCRIPTION="The Social-Engineer Toolkit"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=7.7.9
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://github.com/trustedsec/social-engineer-toolkit/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=267b2efa0470f0da9f6d53414f9a433aaea176d1a6825581ade8998924ddffd0
-TERMUX_PKG_DEPENDS="clang, coreutils, libffi-dev, metasploit, openssl-dev, python, python-dev, zlib-dev"
+TERMUX_PKG_DEPENDS="clang, coreutils, libffi-dev, libjpeg-turbo-dev, metasploit, openssl-dev, python, python-dev, zlib-dev"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
 #
