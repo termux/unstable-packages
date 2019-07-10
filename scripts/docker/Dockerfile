@@ -85,6 +85,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     python3-sphinx \
     python-pip \
     python-setuptools \
+    python-xcbgen \
     python-yaml \
     rsync \
     ruby \
