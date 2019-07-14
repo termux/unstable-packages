@@ -84,6 +84,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     python3-setuptools \
     python3-sphinx \
     python-pip \
+    python-rdflib \
     python-setuptools \
     python-xcbgen \
     python-yaml \
