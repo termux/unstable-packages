@@ -57,6 +57,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     libffi-dev \
     libgc-dev \
     libgdk-pixbuf2.0-dev \
+    libgirepository1.0-dev \
     libglib2.0-dev \
     libgmp-dev \
     libgtk-3-bin \
