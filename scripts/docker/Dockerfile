@@ -44,6 +44,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     g++-multilib \
     gnome-common \
     gnupg \
+    gobject-introspection \
     gperf \
     groff \
     gtk-3-examples \
