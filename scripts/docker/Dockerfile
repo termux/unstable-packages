@@ -52,6 +52,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     intltool \
     jq \
     libexpat1-dev \
+    libdbus-1-dev \
     libffi-dev \
     libgc-dev \
     libgdk-pixbuf2.0-dev \
