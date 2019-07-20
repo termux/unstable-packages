@@ -168,4 +168,5 @@ RUN apt-get clean && \
 USER builder:builder
 
 # Set working directory.
+RUN mkdir /home/builder/packages && chown builder:builder /home/builder/packages
 WORKDIR /home/builder/packages
