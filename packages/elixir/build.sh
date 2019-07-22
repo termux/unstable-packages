@@ -6,10 +6,9 @@ TERMUX_PKG_HOMEPAGE=http://elixir-lang.org/
 TERMUX_PKG_DESCRIPTION="Elixir is a dynamic, functional language designed for building scalable and maintainable applications"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=1.9.0
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=1.9.1
 TERMUX_PKG_SRCURL=https://github.com/elixir-lang/elixir/releases/download/v${TERMUX_PKG_VERSION}/Precompiled.zip
-TERMUX_PKG_SHA256=5111da32582a2d67f9a3ca8a2eb2434a5d52538fc29cd55f6e8a0ae076c8d210
+TERMUX_PKG_SHA256=17e43cb1627a0fa5625bc370cec0964ad6471ef242f1549e316db73c0d94fcc6
 TERMUX_PKG_DEPENDS="dash, erlang"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
@@ -21,7 +20,7 @@ termux_step_extract_package() {
 	mkdir -p "$TERMUX_PREFIX"/opt
 	rm -rf "$TERMUX_PREFIX"/opt/elixir
 	unzip -d "$TERMUX_PREFIX"/opt/elixir "$TERMUX_PKG_CACHEDIR"/prebuilt.zip
-	
+
 	# Create src directory to avoid build-package.sh errors.
 	mkdir -p "$TERMUX_PKG_SRCDIR"
 }
