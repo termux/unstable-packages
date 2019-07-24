@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.haproxy.org/
 TERMUX_PKG_DESCRIPTION="The Reliable, High Performance TCP/HTTP Load Balancer"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=1.9.8
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_VERSION=2.0.3
 TERMUX_PKG_SRCURL=https://haproxy.org/download/${TERMUX_PKG_VERSION%.*}/src/haproxy-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=2d9a3300dbd871bc35b743a83caaf50fecfbf06290610231ca2d334fd04c2aee
+TERMUX_PKG_SHA256=aac1ff3e5079997985b6560f46bf265447d0cd841f11c4d77f15942c9fe4b770
 TERMUX_PKG_DEPENDS="liblua, openssl, pcre, zlib"
 TERMUX_PKG_BUILD_IN_SRC=yes
 
@@ -47,7 +46,4 @@ termux_step_post_make_install() {
 	install -m600 examples/*.cfg "$TERMUX_PREFIX"/share/haproxy/examples/
 	install -m600 examples/errorfiles/*.http \
 		"$TERMUX_PREFIX"/share/haproxy/examples/errorfiles/
-
-	install -Dm644 examples/haproxy.vim \
-		"$TERMUX_PREFIX"/share/vim/vimfiles/syntax/haproxy.vim
 }
