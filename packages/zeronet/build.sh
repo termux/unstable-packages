@@ -3,15 +3,15 @@ TERMUX_PKG_DESCRIPTION="Decentralized websites using Bitcoin crypto and BitTorre
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.6.5
-TERMUX_PKG_REVISION=5
+TERMUX_PKG_REVISION=6
 TERMUX_PKG_SRCURL=https://github.com/HelloZeroNet/ZeroNet/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=28ca440099323ac307c6ed0afbaf607e4c1c47948917c0c97126a2ec6a293f51
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_CONFFILES="etc/zeronet.conf"
 
 # Clang & python2-dev used to install additional python modules.
-TERMUX_PKG_DEPENDS="bash, clang, dash, python2, python2-dev"
-TERMUX_PKG_RECOMMENDS="tor"
+TERMUX_PKG_DEPENDS="bash, clang, dash, python2"
+TERMUX_PKG_RECOMMENDS="python2-dev, tor"
 
 termux_step_make_install() {
 	# ZeroNet sources.
