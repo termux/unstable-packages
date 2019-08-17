@@ -3,9 +3,32 @@ container:
   cpu: 4
   memory: 8
 
+##
+##  Perform basic check for errors in build.sh package scripts.
+##  If error found, exit with error code to stop build.
+##
+task:
+  name: Lint packages
 
-build_task:
+  timeout_in: 5m
+
+  lint_script: |
+    bash ./scripts/lint-packages.sh
+
+##
+##  Determine changes in the last push, find modified packages and
+##  build them for aarch64/arm/i686/x86_64 architectures for both
+##  Android API 21 and 24.
+##
+##  Built packages are accessible from Cirrus CI web interface.
+##
+task:
+  name: Build packages
+
   timeout_in: 120m
+
+  depends_on:
+    - Lint packages
 
   environment:
     TERMUX_MAKE_PROCESSES: 4
@@ -27,23 +50,37 @@ build_task:
       - TERMUX_ARCH: x86_64
         LEGACY_ANDROID: true
 
-  # Build modified packages.
+  # Do not use built-in git client provided by Cirrus as it may
+  # cause problems when determining changed files.
+  clone_script: |
+    if [[ -z "$CIRRUS_PR" ]]; then
+        git clone --recursive --branch="$CIRRUS_BRANCH" "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+        git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    else
+        git clone --recursive "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+        git fetch origin "pull/$CIRRUS_PR/head:pull/$CIRRUS_PR"
+        git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    fi
+
   build_script: |
     bash ./scripts/cirrus-ci_dispatcher.sh
 
-  # Make built packages downloadable from web UI.
   output_artifacts:
     path: "./termux-packages/debs/*.deb"
 
-
-# Upload packages to Bintray.
-publish_task:
+##
+##  When doing release build (branch 'master'), upload built packages
+##  to APT repository on Bintray.
+##
+task:
   only_if: $CIRRUS_BRANCH == 'master'
+
+  name: Upload packages to Bintray
 
   timeout_in: 60m
 
   depends_on:
-    - build
+    - Build packages
 
   environment:
     BINTRAY_USERNAME: ENCRYPTED[5977e6c0f069d0bc9be4ed09044d59835767a5c71c541cbe47cd56736cc43f5191a9291bbc3031a9267f0be105651f25]
