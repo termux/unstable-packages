@@ -7,7 +7,7 @@ TERMUX_PKG_REVISION=3
 TERMUX_PKG_SRCURL=https://github.com/TheLocehiliosan/yadm/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=c3d612d01e2027d5f457e0f7d120bc67251b716c373d99fe70638bd86edf107f
 TERMUX_PKG_DEPENDS="git"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make() {
 	# Do not try to run 'make' as this causes

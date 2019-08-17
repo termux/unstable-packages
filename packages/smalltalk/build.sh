@@ -8,7 +8,7 @@ TERMUX_PKG_SRCURL=ftp://alpha.gnu.org/gnu/smalltalk/smalltalk-$TERMUX_PKG_VERSIO
 TERMUX_PKG_SHA256=13a7480553c182dbb8092bd4f215781b9ec871758d1db7045c2d8587e4d1bef9
 TERMUX_PKG_DEPENDS="glib, libandroid-support, libffi, libltdl, libsigsegv, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-gtk"
-TERMUX_PKG_HOSTBUILD=yes
+TERMUX_PKG_HOSTBUILD=true
 
 termux_step_host_build() {
 	(cd "$TERMUX_PKG_SRCDIR"

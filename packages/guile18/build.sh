@@ -8,7 +8,7 @@ TERMUX_PKG_SRCURL=ftp://ftp.gnu.org/pub/gnu/guile/guile-$TERMUX_PKG_VERSION.tar.
 TERMUX_PKG_SHA256=c3471fed2e72e5b04ad133bbaaf16369e8360283679bcf19800bc1b381024050
 TERMUX_PKG_DEPENDS="libcrypt, libgmp, libltdl, ncurses, readline"
 TERMUX_PKG_BUILD_DEPENDS="libtool"
-TERMUX_PKG_HOSTBUILD=yes
+TERMUX_PKG_HOSTBUILD=true
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --program-suffix=1.8

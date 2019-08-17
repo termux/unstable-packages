@@ -9,7 +9,7 @@ TERMUX_PKG_SRCURL=https://github.com/jgm/pandoc/releases/download/$TERMUX_PKG_VE
 TERMUX_PKG_SHA256=eb775fd42ec50329004d00f0c9b13076e707cdd44745517c8ce2581fb8abdb75
 TERMUX_PKG_DEPENDS="qemu-user-x86_64"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make_install() {
 	local file

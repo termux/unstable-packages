@@ -8,7 +8,7 @@ TERMUX_PKG_SRCURL=https://github.com/jart/hiptext/releases/download/$TERMUX_PKG_
 TERMUX_PKG_SHA256=7f2217dec8775b445be6745f7bd439c24ce99c4316a9faf657bee7b42bc72e8f
 TERMUX_PKG_DEPENDS="ffmpeg, freetype, gflags, google-glog, libjpeg-turbo, libpng, ncurses"
 TERMUX_PKG_BUILD_DEPENDS="ragel"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	#Font reference on file font.cc --> Patch by font.cc.patch

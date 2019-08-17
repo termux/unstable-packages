@@ -10,7 +10,7 @@ TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=http://web.archive.org/web/20150925034746/http://www.adel.nursat.kz/apg/download/apg-2.3.0b.tar.gz
 TERMUX_PKG_SHA256=d1e52029709e2d7f9cb99bedce3e02ee7a63cff7b8e2b4c2bc55b3dc03c28b92
 TERMUX_PKG_DEPENDS="libcrypt"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_extract_package() {
 	# Fix permissions.

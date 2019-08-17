@@ -13,7 +13,7 @@ TERMUX_PKG_REVISION=5
 TERMUX_PKG_SRCURL=https://github.com/hashcat/hashcat/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=283beaa68e1eab41de080a58bb92349c8e47a2bb1b93d10f36ea30f418f1e338
 TERMUX_PKG_DEPENDS="libiconv"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	CFLAGS+=" -isystem $TERMUX_PKG_BUILDER_DIR/include $CPPFLAGS"
