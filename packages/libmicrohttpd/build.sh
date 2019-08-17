@@ -3,9 +3,12 @@ TERMUX_PKG_DESCRIPTION="A small C library that is supposed to make it easy to ru
 TERMUX_PKG_LICENSE="LGPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.9.65
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=f2467959c5dd5f7fdf8da8d260286e7be914d18c99b898e22a70dafd2237b3c9
 TERMUX_PKG_DEPENDS="libgnutls"
+TERMUX_PKG_BREAKS="libmicrohttpd-dev"
+TERMUX_PKG_REPLACES="libmicrohttpd-dev"
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-examples

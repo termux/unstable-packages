@@ -5,6 +5,7 @@ TERMUX_PKG_DESCRIPTION="Universal markup converter"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.7.3
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/jgm/pandoc/releases/download/$TERMUX_PKG_VERSION/pandoc-${TERMUX_PKG_VERSION}-linux.tar.gz
 TERMUX_PKG_SHA256=eb775fd42ec50329004d00f0c9b13076e707cdd44745517c8ce2581fb8abdb75
 TERMUX_PKG_DEPENDS="qemu-user-x86_64"

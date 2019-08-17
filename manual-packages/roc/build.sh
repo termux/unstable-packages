@@ -6,10 +6,12 @@ TERMUX_PKG_DESCRIPTION="Roc real-time streaming over the network"
 TERMUX_PKG_LICENSE="LGPL-2.0, MPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.1.1
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://github.com/roc-project/roc/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=2aa63061b586a5f16cfcb0bfe304015a6effdcb373513cb62e76283bde7dd104
 TERMUX_PKG_DEPENDS="libltdl, libopenfec, libpulseaudio, libuv"
+TERMUX_PKG_BREAKS="roc-dev"
+TERMUX_PKG_REPLACES="roc-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make() {
