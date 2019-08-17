@@ -1,0 +1,11 @@
+--- ngspice-30/src/frontend/com_shell.c	2018-05-12 05:50:05.000000000 +0800
++++ ngspice-30_mod/src/frontend/com_shell.c	2019-08-16 12:12:13.680707988 +0800
+@@ -34,7 +34,7 @@
+             _exit(99);
+         } else {
+             com = wl_flatten(wl);
+-            execl("/bin/sh", "sh", "-c", com, 0);
++            execl("@TERMUX_PREFIX@/bin/sh", "sh", "-c", com, 0);
+         }
+     } else {
+         /* XXX Better have all these signals */

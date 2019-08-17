@@ -1,0 +1,25 @@
+--- ngspice-30/src/frontend/parser/complete.c	2018-05-12 05:50:05.000000000 +0800
++++ ngspice-30_mod/src/frontend/parser/complete.c	2019-08-16 12:23:35.107342142 +0800
+@@ -212,14 +212,14 @@
+     if (lcomp == NULL) {
+         dir = ".";
+         lcomp = buf;
+-        if (*buf == cp_til) {   /* User name completion... */
+-            buf++;
+-            while ((pw = getpwent()) != NULL)
+-                if (prefix(buf, pw->pw_name))
+-                    wl = wl_cons(copy(pw->pw_name), wl);
+-            (void) endpwent();
+-            return (wl);
+-        }
++//        if (*buf == cp_til) {   /* User name completion... */
++//            buf++;
++//            while ((pw = getpwent()) != NULL)
++//                if (prefix(buf, pw->pw_name))
++//                    wl = wl_cons(copy(pw->pw_name), wl);
++//            (void) endpwent();
++//            return (wl);
++//        }
+     } else {
+         dir = buf;
+         *lcomp = '\0';

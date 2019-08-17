@@ -1,0 +1,69 @@
+--- ngspice-30/src/frontend/plotting/gnuplot.c	2018-07-30 05:40:01.000000000 +0800
++++ ngspice-30_mod/src/frontend/plotting/gnuplot.c	2019-08-17 19:17:22.480339530 +0800
+@@ -77,13 +77,14 @@
+ 
+     extrange = 0.05 * (ylims[1] - ylims[0]);
+ 
+-    if (!cp_getvar("gnuplot_terminal", CP_STRING, terminal, sizeof(terminal))) {
+-        terminal_type = 1;
+-    } else {
+-        terminal_type = 1;
+-        if (cieq(terminal,"png"))
++/*Ability to output PNG files */
++//    if (!cp_getvar("gnuplot_terminal", CP_STRING, terminal, sizeof(terminal))) {
++//        terminal_type = 1;
++//    } else {
++//        terminal_type = 1;
++//        if (cieq(terminal,"png"))
+             terminal_type = 2;
+-    }
++//    }
+ 
+     if (!cp_getvar("xbrushwidth", CP_NUM, &linewidth, 0))
+         linewidth = 1;
+@@ -132,7 +133,7 @@
+ 
+     /* Set up the file header. */
+ #if !defined(__MINGW32__) && !defined(_MSC_VER)
+-    fprintf(file, "set terminal X11 noenhanced\n");
++    fprintf(file, "set terminal dumb noenhanced\n");
+ #else
+     fprintf(file, "set termoption noenhanced\n");
+ #endif
+@@ -234,21 +235,22 @@
+ 
+     /* do not print an eps or png file if filename start with 'np_' */
+     if (!ciprefix("np_", filename)) {
+-        fprintf(file, "set terminal push\n");
+         if (terminal_type == 1) {
+             fprintf(file, "set terminal postscript eps color noenhanced\n");
+             fprintf(file, "set out \'%s.eps\'\n", filename);
++            fprintf(file, "replot\n");
+         }
+         else {
+             fprintf(file, "set terminal png noenhanced\n");
+             fprintf(file, "set out \'%s.png\'\n", filename);
++            fprintf(file, "replot\n");
++            /* Ability to output SVG files */
++            fprintf(file, "set terminal svg noenhanced\n");
++            fprintf(file, "set out \'%s.svg\'\n", filename);
++            fprintf(file, "replot\n");
+         }
+-        fprintf(file, "replot\n");
+-        fprintf(file, "set term pop\n");
+     }
+ 
+-    fprintf(file, "replot\n");
+-
+     (void) fclose(file);
+ 
+     /* Write out the data and setup arrays */
+@@ -293,7 +295,7 @@
+     _flushall();
+ #else
+     /* for external fcn system() from LINUX environment */
+-    (void) sprintf(buf, "xterm -e gnuplot %s - &", filename_plt);
++    (void) sprintf(buf, "gnuplot %s - &", filename_plt);
+ #endif
+     err = system(buf);
+ 

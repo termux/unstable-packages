@@ -1,0 +1,10 @@
+--- ngspice-30/src/misc/misc_time.c	2018-05-12 05:50:05.000000000 +0800
++++ ngspice-30_mod/src/misc/misc_time.c	2019-08-16 12:12:13.067374683 +0800
+@@ -14,6 +14,7 @@
+ #include <time.h>
+ #endif
+ 
++#undef HAVE_FTIME
+ #ifdef HAVE_GETRUSAGE
+ #  include <sys/types.h>
+ #  include <sys/time.h>
