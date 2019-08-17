@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=2.1.0~beta3
 TERMUX_PKG_SRCURL=https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz
 TERMUX_PKG_SHA256=409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8
 TERMUX_PKG_EXTRA_MAKE_ARGS="amalg PREFIX=$TERMUX_PREFIX"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	# luajit wants same pointer size for host and target build

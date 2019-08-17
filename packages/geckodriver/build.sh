@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=0.24.0
 TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://github.com/mozilla/geckodriver/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=e6f86b3b6411f078c0a762f978c00ee99926463036a68be01d111bd91f25340e
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
 	install -Dm700 \

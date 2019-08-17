@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=2.0.3
 TERMUX_PKG_SRCURL=https://haproxy.org/download/${TERMUX_PKG_VERSION%.*}/src/haproxy-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=aac1ff3e5079997985b6560f46bf265447d0cd841f11c4d77f15942c9fe4b770
 TERMUX_PKG_DEPENDS="liblua, openssl, pcre, zlib"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_BUILD_IN_SRC=true
 
 # USE_PCRE=1 requires libpcreposix which is not available. PCRE
 # support will be disabled for now.

@@ -9,7 +9,7 @@ TERMUX_PKG_SHA256=3d9b94183b19f04dd4317da87beedafd1c947142f3d861ca1f0224e7a75127
 TERMUX_PKG_DEPENDS="libandroid-support, libffi, libgc, libgmp, libltdl, libunistring"
 TERMUX_PKG_BUILD_DEPENDS="libtool"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_type_complex_double=no ac_cv_search_clock_getcpuclockid=false"
-TERMUX_PKG_HOSTBUILD=yes
+TERMUX_PKG_HOSTBUILD=true
 
 termux_step_host_build() {
 	mkdir HOSTBUILDINSTALL
