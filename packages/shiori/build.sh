@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Simple bookmark manager"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.0
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 
 termux_step_make_install() {
