@@ -2,20 +2,16 @@ TERMUX_PKG_HOMEPAGE=https://www.qemu.org
 TERMUX_PKG_DESCRIPTION="A set common files for the QEMU emulators"
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=4.0.0
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL=https://download.qemu.org/qemu-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=13a93dfe75b86734326f8d5b475fde82ec692d5b5a338b4262aeeb6b0fa4e469
+TERMUX_PKG_VERSION=1:3.1.0
+TERMUX_PKG_SRCURL=https://download.qemu.org/qemu-3.1.0.tar.xz
+TERMUX_PKG_SHA256=6a0508df079a0a33c2487ca936a56c12122f105b8a96a44374704bef6c69abfc
 TERMUX_PKG_DEPENDS="attr, capstone, glib, libandroid-shmem, libbz2, libc++, libcap, libgnutls, liblzo, libnettle, libpixman, ncurses, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	if [ $TERMUX_PKG_API_LEVEL -lt 24 ]; then
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0008-fix-syscalls-android5.patch
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0012-implement-lockf.patch
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0013-implement-openpty.patch
-	else
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-7/0008-fix-syscalls-android7.patch
+		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0001-implement-lockf.patch
+		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0002-implement-openpty.patch
 	fi
 }
 
