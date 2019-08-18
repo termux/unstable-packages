@@ -12,6 +12,9 @@ termux_step_pre_configure() {
 	if [ $TERMUX_PKG_API_LEVEL -lt 24 ]; then
 		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0001-implement-lockf.patch
 		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0002-implement-openpty.patch
+		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-5/0011-fix-syscalls.patch
+	else
+		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/android-7/0011-fix-syscalls.patch
 	fi
 }
 
