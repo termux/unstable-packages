@@ -1,0 +1,24 @@
+diff -uNr v-0.1.18/vlib/os/os.v v-0.1.18.mod/vlib/os/os.v
+--- v-0.1.18/vlib/os/os.v	2019-08-17 00:48:07.000000000 +0300
++++ v-0.1.18.mod/vlib/os/os.v	2019-09-09 00:48:03.994946444 +0300
+@@ -8,8 +8,6 @@
+ #include <signal.h>
+ #include <errno.h>
+ 
+-//#include <execinfo.h> // for backtrace_symbols_fd 
+-
+ /* 
+ struct dirent {
+                d_ino int 
+@@ -862,10 +860,6 @@
+ 
+ pub fn print_backtrace() {
+ /* 
+-	# void *buffer[100];
+-	nptrs := 0
+-	# nptrs = backtrace(buffer, 100);
+-	# printf("%d!!\n", nptrs);
+-	# backtrace_symbols_fd(buffer, nptrs, STDOUT_FILENO) ;
++	# printf("backtrace() is not supported on Android.\n");
+ */ 
+ }
