@@ -11,12 +11,3 @@ diff -uNr distcc/src/util.c distcc.mod/src/util.c
  #ifdef HAVE_SYS_RESOURCE_H
  #include <sys/resource.h>
  #endif
-@@ -997,7 +1000,7 @@
-                 if (getsockname(fd, &sockaddr.sa, &l) < 0)
-                         return -errno;
- 
--                if (l < sizeof(sa_family_t))
-+                if ((unsigned int) l < sizeof(sa_family_t))
-                         return -EINVAL;
- 
-                 return sockaddr.sa.sa_family == family;
