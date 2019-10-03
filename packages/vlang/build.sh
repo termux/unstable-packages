@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Simple, fast, safe, compiled language for developing mai
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.1.20
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=("https://github.com/vlang/v/archive/$TERMUX_PKG_VERSION.tar.gz"
                    "https://github.com/vlang/vc/archive/$TERMUX_PKG_VERSION.tar.gz")
 TERMUX_PKG_SHA256=("8102b48b2c82be6be14633e76e71e215aab5221198315436f97be53e1abe1f5d"
@@ -23,5 +24,13 @@ termux_step_make() {
 }
 
 termux_step_make_install() {
-	install -Dm700 v "$TERMUX_PREFIX"/bin/v
+	install -Dm700 v "$TERMUX_PREFIX"/libexec/vlang/v
+	rm -rf "$TERMUX_PREFIX"/libexec/vlang/vlib
+	cp -a vlib "$TERMUX_PREFIX"/libexec/vlang/
+
+	{
+		echo "#!$TERMUX_PREFIX/bin/sh"
+		echo "exec $TERMUX_PREFIX/libexec/vlang/v \"\$@\""
+	} > "$TERMUX_PREFIX"/bin/v
+	chmod 700 "$TERMUX_PREFIX"/bin/v
 }
