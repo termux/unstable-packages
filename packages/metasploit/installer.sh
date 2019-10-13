@@ -17,8 +17,8 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 echo "[*] Downloading Metasploit Framework..."
-mkdir -p $TMPDIR
-rm -f $TMPDIR/metasploit-$MSF_VERSION.tar.gz
+mkdir -p "$TMPDIR"
+rm -f "$TMPDIR/metasploit-$MSF_VERSION.tar.gz"
 curl --fail --retry 3 --location --output "$TMPDIR/metasploit-$MSF_VERSION.tar.gz" \
 	"https://github.com/rapid7/metasploit-framework/archive/$MSF_VERSION.tar.gz"
 
@@ -27,8 +27,8 @@ rm -rf "$PREFIX"/opt/metasploit-framework
 
 echo "[*] Extracting new version of Metasploit Framework..."
 mkdir -p "$PREFIX"/opt/metasploit-framework
-tar zxf --strip-components=1 "$TMPDIR/metasploit-$MSF_VERSION.tar.gz" -C \
-	"$PREFIX"/opt/metasploit-framework
+tar zxf "$TMPDIR/metasploit-$MSF_VERSION.tar.gz" --strip-components=1 \
+	-C "$PREFIX"/opt/metasploit-framework
 
 echo "[*] Installing 'rubygems-update' if necessary..."
 if [ "$(gem list -i rubygems-update 2>/dev/null)" = "false" ]; then
