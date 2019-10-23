@@ -12,6 +12,8 @@ TERMUX_PKG_KEEP_SHARE_DOC=true
 termux_step_configure () {
 	termux_setup_cmake
 	termux_setup_rust
+	cp $TERMUX_PKG_BUILDER_DIR/llvm-config $TERMUX_PREFIX/bin/
+	chmod +x $TERMUX_PREFIX/bin/llvm-config
 	# nightlys don't build with stable
 	rustup install beta-2019-09-25-x86_64-unknown-linux-gnu
 	export	PATH=$HOME/.rustup/toolchains/beta-2019-09-25-x86_64-unknown-linux-gnu/bin:$PATH
