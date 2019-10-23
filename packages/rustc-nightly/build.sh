@@ -12,7 +12,9 @@ TERMUX_PKG_KEEP_SHARE_DOC=true
 termux_step_configure () {
 	termux_setup_cmake
 	termux_setup_rust
+	
 	cp $TERMUX_PKG_BUILDER_DIR/llvm-config $TERMUX_PREFIX/bin/
+	echo "$TERMUX_PKG_BUILDER_DIR"
 	chmod +x $TERMUX_PREFIX/bin/llvm-config
 	# nightlys don't build with stable
 	rustup install beta-2019-09-25-x86_64-unknown-linux-gnu
@@ -46,7 +48,6 @@ termux_step_configure () {
 
 
 termux_step_make_install () {
-	rm $TERMUX_PREFIX/bin/llvm-config
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown 
 	mkdir $TERMUX_PKG_BUILDDIR/install
 	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly; do
@@ -66,7 +67,7 @@ termux_step_make_install () {
                 $TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --uninstall --prefix=$RUST_PREFIX || true
                 $TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --prefix=$RUST_PREFIX
 		done
-	rm -f $TERMUX_PREFIX/lib/libc.so  $TERMUX_PREFIX/lib/libdl.so
+	rm -f $TERMUX_PREFIX/lib/libc.so  $TERMUX_PREFIX/lib/libdl.so $TERMUX_PREFIX/bin/llvm-config
 }
 
 termux_step_post_massage () {
