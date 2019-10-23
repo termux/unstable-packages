@@ -46,7 +46,7 @@ termux_step_configure () {
 
 
 termux_step_make_install () {
-
+	rm $TERMUX_PREFIX/bin/llvm-config
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown 
 	mkdir $TERMUX_PKG_BUILDDIR/install
 	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly; do
