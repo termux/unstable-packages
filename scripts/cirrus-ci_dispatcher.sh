@@ -8,8 +8,8 @@ set -e
 ## Some packages should be excluded from auto builds.
 EXCLUDED_PACKAGES=""
 
-## Some packages are unsupported on Android 5/6.
-ANDROID5_EXCLUDED_PACKAGES="hashcat"
+## Some packages are problematic for Android 5/6.
+ANDROID5_EXCLUDED_PACKAGES="hashcat rustc-nightly"
 
 ###############################################################################
 ##
