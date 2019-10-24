@@ -1,7 +1,10 @@
 container:
   image: xeffyr/termux-advanced-builder:latest
-  cpu: 4
-  memory: 8
+
+  # Maximal configuration is needed for building heavy packages
+  # such as `rust-nightly`.
+  cpu: 8
+  memory: 24
 
 ##
 ##  Perform basic check for errors in build.sh package scripts.
@@ -31,7 +34,7 @@ task:
     - Lint packages
 
   environment:
-    TERMUX_MAKE_PROCESSES: 4
+    TERMUX_MAKE_PROCESSES: 8
     matrix:
       - TERMUX_ARCH: aarch64
         LEGACY_ANDROID: false
