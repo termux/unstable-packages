@@ -2,7 +2,7 @@ container:
   image: xeffyr/termux-advanced-builder:latest
 
   # Maximal configuration is needed for building heavy packages
-  # such as `rust-nightly`.
+  # such as `rustc-nightly`.
   cpu: 8
   memory: 24
 
