@@ -11,6 +11,5 @@ that package is licensed under GNU GPL v2.0.
 
 Following scripts are licensed under GNU GPL v3.0:
 
- * scripts/check-updates.sh
  * scripts/get-modified-packages.sh
  * scripts/package_upload.sh
