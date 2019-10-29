@@ -3,11 +3,12 @@ TERMUX_PKG_DESCRIPTION="Decentralized websites using Bitcoin crypto and BitTorre
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=0.7.1
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/HelloZeroNet/ZeroNet/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=78a27e1687d8e3699a854b77b516c95b30a8ba667f7ebbef0aabf7ec6ec7272d
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_CONFFILES="etc/zeronet.conf"
-TERMUX_PKG_DEPENDS="bash, clang, make, python"
+TERMUX_PKG_DEPENDS="bash, clang, make, pkg-config, python"
 TERMUX_PKG_RECOMMENDS="tor"
 
 termux_step_make_install() {
