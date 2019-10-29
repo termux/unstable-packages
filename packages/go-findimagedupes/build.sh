@@ -15,22 +15,16 @@ termux_step_make() {
 	termux_setup_golang
 
 	export GOPATH=$TERMUX_PKG_BUILDDIR
-	export CGO_CFLAGS="$CFLAGS $CPPFLAGS -I$TERMUX_PREFIX/include/libpng16"
-	export CGO_CXXFLAGS="$CXXFLAGS $CPPFLAGS -I$TERMUX_PREFIX/include/libpng16"
+	export CGO_CFLAGS="$CFLAGS $CPPFLAGS -I$TERMUX_PREFIX/include/libpng16 -D__GLIBC__"
+	export CGO_CXXFLAGS="$CXXFLAGS $CPPFLAGS -I$TERMUX_PREFIX/include/libpng16 -D__GLIBC__"
 	export CGO_LDFLAGS="-L$TERMUX_PREFIX/lib"
 
 	mkdir -p "$GOPATH"/src/gitlab.com/opennota
 	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/gitlab.com/opennota/findimagedupes
 
 	cd "$GOPATH"/src/gitlab.com/opennota/findimagedupes
-	go get -d -v gitlab.com/opennota/findimagedupes
 
-	# Apply dependency patches before compiling.
-	(cd "$GOPATH"/src/gitlab.com/opennota/phash
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/phash-no-sysctl.deppatch
-	)
-
-	go build
+	go build .
 }
 
 termux_step_make_install() {
