@@ -1,4 +1,4 @@
-# Repository for new/unstable packages
+# Repository for new/unstable packages (legacy Android branch)
 
 [![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
 
@@ -10,7 +10,7 @@ available here may have lower quality, be unstable or not work at all.
 
 To enable this package repository run:
 
-```ShellSession
+```
 pkg install unstable-repo
 ```
 
@@ -20,20 +20,18 @@ You can build all packages manually by using provided docker image. The only
 requirements are Linux-based host with Docker installed.
 
 1. Clone this repository:
-	```ShellSession
-	git clone https://github.com/termux/unstable-packages
+	```
+	git clone -b android-5 https://github.com/termux/unstable-packages
 	```
 
 2. Enter build environment (will download docker image if necessary):
-	```ShellSession
+	```
 	cd ./unstable-packages
 	./start-builder.sh
 	```
-	Command shown above will start builder for Android 7 (API level 24). If you
-	need to build package for Android 5, use `./start-builder-legacy.sh`.
 
 3. Choose package you want to build and run:
-	```ShellSession
+	```
 	./build-package.sh -a ${arch} ${package name}
 	```
 	Replace `${arch}` with target CPU architecture and `${package name}` with
@@ -41,6 +39,8 @@ requirements are Linux-based host with Docker installed.
 
 ## Contributing
 
-If you wish to contribute, please take a look on our [contributing guide](./CONTRIBUTING.md).
+No packages accepted for Android 5.
+
+This branch reaches its end-of-life after 01.01.2020.
 
 [termux-packages]: <https://github.com/termux/termux-packages>

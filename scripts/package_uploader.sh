@@ -69,11 +69,7 @@ SCRIPT_EMERG_EXIT=false
 SCRIPT_ERROR_EXIT=false
 
 # Bintray-specific configuration.
-if [ "$(basename "$0")" = "package_uploader_legacy.sh" ]; then
-	BINTRAY_REPO_NAME="unstable-packages-21"
-else
-	BINTRAY_REPO_NAME="unstable-packages-24"
-fi
+BINTRAY_REPO_NAME="unstable-packages-21"
 BINTRAY_REPO_GITHUB="termux/unstable-packages"
 BINTRAY_REPO_DISTRIBUTION="unstable"
 BINTRAY_REPO_COMPONENT="main"

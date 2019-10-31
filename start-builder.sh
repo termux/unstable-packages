@@ -5,16 +5,9 @@ SCRIPT_NAME=$(basename "$0")
 REPOROOT=$(dirname "$(realpath "$0")")
 
 IMAGE_NAME="xeffyr/termux-advanced-builder"
-
-if [ "$SCRIPT_NAME" = "start-builder-legacy.sh" ]; then
-	LOCK_FILE="/tmp/.termux-unstable-builder-legacy.lck"
-	CONTAINER_NAME="termux-unstable-buildenv-legacy"
-	BUILD_ENVIRONMENT="termux-packages-legacy"
-else
-	LOCK_FILE="/tmp/.termux-unstable-builder.lck"
-	CONTAINER_NAME="termux-unstable-buildenv"
-	BUILD_ENVIRONMENT="termux-packages"
-fi
+LOCK_FILE="/tmp/.termux-unstable-builder-legacy.lck"
+CONTAINER_NAME="termux-unstable-buildenv-legacy"
+BUILD_ENVIRONMENT="termux-packages-legacy"
 
 cd "$REPOROOT"
 
