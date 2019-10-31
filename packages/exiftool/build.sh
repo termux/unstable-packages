@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Utility for reading, writing and editing meta informatio
 TERMUX_PKG_LICENSE="Artistic-License-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=11.73
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL="https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-$TERMUX_PKG_VERSION.tar.gz"
 TERMUX_PKG_SHA256=ec2bd102c2a1bace69958fbc400b2615d5e0af96e250946356faa66634c21a95
 TERMUX_PKG_DEPENDS="perl"

@@ -7,6 +7,7 @@ TERMUX_PKG_DESCRIPTION="OpenLDAP server"
 TERMUX_PKG_LICENSE="OpenLDAP"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.4.48
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$TERMUX_PKG_VERSION.tgz
 TERMUX_PKG_SHA256=d9523ffcab5cd14b709fcf3cb4d04e8bc76bb8970113255f372bc74954c6074d
 TERMUX_PKG_DEPENDS="libsasl, libuuid, openssl"

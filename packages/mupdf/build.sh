@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Lightweight PDF and XPS viewer (library only)"
 TERMUX_PKG_LICENSE="AGPL-V3"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.16.1
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://mupdf.com/downloads/archive/mupdf-${TERMUX_PKG_VERSION}-source.tar.xz
 TERMUX_PKG_SHA256=6fe78184bd5208f9595e4d7f92bc8df50af30fbe8e2c1298b581c84945f2f5da
 TERMUX_PKG_DEPENDS="freetype, harfbuzz, jbig2dec, libjpeg-turbo, openjpeg, zlib"
