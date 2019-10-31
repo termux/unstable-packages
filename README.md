@@ -6,6 +6,9 @@ There are located packages which were requested, but not added to the
 [main][termux-packages] Termux repository due to various reasons. Packages
 available here may have lower quality, be unstable or not work at all.
 
+**Warning:** Android 5 branch is reaches its end-of-life after 01.01.2020 and
+legacy binary packages will no longer be available for installation.
+
 ## How to enable this repository
 
 To enable this package repository run:
