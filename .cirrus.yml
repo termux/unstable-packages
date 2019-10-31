@@ -13,21 +13,25 @@ container:
 task:
   name: Lint packages
 
+  auto_cancellation: $CIRRUS_BRANCH != 'master' && $CIRRUS_BRANCH != 'legacy'
+
   timeout_in: 5m
 
-  lint_script: |
+  script: |
     bash ./scripts/lint-packages.sh
 
 ##
 ##  Determine changes in the last push, find modified packages and
-##  build them for aarch64/arm/i686/x86_64 architectures for both
-##  Android API 21 and 24.
+##  build them for aarch64/arm/i686/x86_64 architectures.
 ##
 ##  Built packages are accessible from Cirrus CI web interface.
 ##
 task:
   name: Build packages
 
+  auto_cancellation: $CIRRUS_BRANCH != 'master' && $CIRRUS_BRANCH != 'legacy'
+
+  # 2 hours is a maximal timeout available for free use.
   timeout_in: 120m
 
   depends_on:
@@ -37,21 +41,9 @@ task:
     TERMUX_MAKE_PROCESSES: 8
     matrix:
       - TERMUX_ARCH: aarch64
-        LEGACY_ANDROID: false
-      - TERMUX_ARCH: aarch64
-        LEGACY_ANDROID: true
       - TERMUX_ARCH: arm
-        LEGACY_ANDROID: false
-      - TERMUX_ARCH: arm
-        LEGACY_ANDROID: true
       - TERMUX_ARCH: i686
-        LEGACY_ANDROID: false
-      - TERMUX_ARCH: i686
-        LEGACY_ANDROID: true
       - TERMUX_ARCH: x86_64
-        LEGACY_ANDROID: false
-      - TERMUX_ARCH: x86_64
-        LEGACY_ANDROID: true
 
   # Do not use built-in git client provided by Cirrus as it may
   # cause problems when determining changed files.
@@ -66,19 +58,39 @@ task:
     fi
 
   build_script: |
+    export TERMUX_DEBDIR="/tmp/debs-${TERMUX_ARCH}"
+    ln -s "$TERMUX_DEBDIR" debs
     bash ./scripts/cirrus-ci_dispatcher.sh
 
+  aarch64_debs_cache:
+    folder: "/tmp/debs-aarch64"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-aarch64"
+
+  arm_debs_cache:
+    folder: "/tmp/debs-arm"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-arm"
+
+  i686_debs_cache:
+    folder: "/tmp/debs-i686"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-i686"
+
+  x86-64_debs_cache:
+    folder: "/tmp/debs-x86_64"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-x86_64"
+
   output_artifacts:
-    path: "./termux-packages/debs/*.deb"
+    path: "./debs/*.deb"
 
 ##
-##  When doing release build (branch 'master'), upload built packages
-##  to APT repository on Bintray.
+##  When doing release build, upload built packages to APT repository
+##  on Bintray.
 ##
 task:
-  only_if: $CIRRUS_BRANCH == 'master'
-
   name: Upload packages to Bintray
+
+  only_if: $CIRRUS_BRANCH == 'legacy' || $CIRRUS_BRANCH == 'master'
+
+  auto_cancellation: $CIRRUS_BRANCH != 'master' && $CIRRUS_BRANCH != 'legacy'
 
   timeout_in: 60m
 
@@ -88,9 +100,34 @@ task:
   environment:
     BINTRAY_USERNAME: ENCRYPTED[5977e6c0f069d0bc9be4ed09044d59835767a5c71c541cbe47cd56736cc43f5191a9291bbc3031a9267f0be105651f25]
     BINTRAY_API_KEY: ENCRYPTED[04f4ee0fc194ca2f94959a623388d4c3ae1bf874e8fa876f79b2659fc9e8f6fea952275e97f2d022e43e2ab6c67d1198]
-    matrix:
-      - LEGACY_ANDROID: false
-      - LEGACY_ANDROID: true
 
-  upload_script: |
+  # Do not use built-in git client provided by Cirrus as it may
+  # cause problems when determining changed files.
+  clone_script: |
+    if [[ -z "$CIRRUS_PR" ]]; then
+        git clone --recursive --branch="$CIRRUS_BRANCH" "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+        git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    else
+        git clone --recursive "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+        git fetch origin "pull/$CIRRUS_PR/head:pull/$CIRRUS_PR"
+        git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    fi
+
+  aarch64_debs_cache:
+    folder: "./debs"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-aarch64"
+
+  arm_debs_cache:
+    folder: "./debs"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-arm"
+
+  i686_debs_cache:
+    folder: "./debs"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-i686"
+
+  x86-64_debs_cache:
+    folder: "./debs"
+    fingerprint_script: echo "${CIRRUS_CHANGE_IN_REPO}-x86_64"
+
+  script: |
     bash ./scripts/cirrus-ci_dispatcher.sh --upload
