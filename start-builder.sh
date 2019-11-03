@@ -41,7 +41,7 @@ fi
 	git submodule update --init
 
 	echo "[*] Copying packages to build environment..."
-	for pkg in $(find "$REPOROOT"/packages "$REPOROOT"/manual-packages -mindepth 1 -maxdepth 1 -type d); do
+	for pkg in $(find "$REPOROOT"/packages -mindepth 1 -maxdepth 1 -type d); do
 		if [ ! -d "${REPOROOT}/${BUILD_ENVIRONMENT}/packages/$(basename "$pkg")" ]; then
 			cp -a "$pkg" "${REPOROOT}/${BUILD_ENVIRONMENT}"/packages/
 		else
