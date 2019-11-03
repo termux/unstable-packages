@@ -1,23 +1,20 @@
 TERMUX_PKG_HOMEPAGE=https://www.rust-lang.org
 TERMUX_PKG_DESCRIPTION="Rust compiler and utilities (nightly version)"
-TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib"
+TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
 TERMUX_PKG_VERSION=1.40.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-10-21/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=103d8f8c1e6750feb4baee69d8cd9bafa92f1658ac4a4d2fc9d6ba72efc918ae
-TERMUX_PKG_CONFLICTS="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
-TERMUX_PKG_REPLACES="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
+TERMUX_PKG_REVISION=2
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-11-05/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=a05f626c49c53aae1c4267446cb56f9a5ad7e7f80108f5f8e6361fb1cdb218cb
+#TERMUX_PKG_CONFLICTS="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
+#TERMUX_PKG_REPLACES="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
 	termux_setup_cmake
 	termux_setup_rust
 
-	cp $TERMUX_PKG_BUILDER_DIR/llvm-config $TERMUX_PREFIX/bin/
-	echo "$TERMUX_PKG_BUILDER_DIR"
-	chmod +x $TERMUX_PREFIX/bin/llvm-config
 	# nightlys don't build with stable
 	rustup install beta-2019-09-25-x86_64-unknown-linux-gnu
 	export	PATH=$HOME/.rustup/toolchains/beta-2019-09-25-x86_64-unknown-linux-gnu/bin:$PATH
@@ -49,7 +46,7 @@ termux_step_configure () {
 termux_step_make_install () {
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
 	mkdir $TERMUX_PKG_BUILDDIR/install
-	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly; do
+	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly miri-nightly rustc-dev-nightly clippy-nightly rustfmt-nightly; do
 		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
