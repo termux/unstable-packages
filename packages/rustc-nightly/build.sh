@@ -4,11 +4,13 @@ TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
 TERMUX_PKG_VERSION=1.40.0
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-11-05/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=a05f626c49c53aae1c4267446cb56f9a5ad7e7f80108f5f8e6361fb1cdb218cb
+TERMUX_PKG_REVISION=3
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-11-08/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=6a2e7e68c9acea542616fcccca971c282349537e5d94a928019ee067de1e1713
 #TERMUX_PKG_CONFLICTS="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
 #TERMUX_PKG_REPLACES="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
+TERMUX_PKG_CONFLICTS=rustc-dev-nightly
+TERMUX_PKG_REPLACES=rustc-dev-nightly
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
@@ -46,7 +48,8 @@ termux_step_configure () {
 termux_step_make_install () {
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
 	mkdir $TERMUX_PKG_BUILDDIR/install
-	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly miri-nightly rustc-dev-nightly clippy-nightly rustfmt-nightly; do
+	# clippy-nightly not compiling
+	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly miri-nightly rustc-dev-nightly rustfmt-nightly; do
 		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
