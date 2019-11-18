@@ -11,6 +11,7 @@ TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/elixir-lang/elixir/releases/download/v${TERMUX_PKG_VERSION}/Precompiled.zip
 TERMUX_PKG_SHA256=7468eccd58788bfa7259652b1d8aa497729d2fd59006b302df358ede69862a35
 TERMUX_PKG_DEPENDS="dash, erlang"
+TERMUX_PKG_SUGGESTS="clang, make"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
 termux_step_extract_package() {
