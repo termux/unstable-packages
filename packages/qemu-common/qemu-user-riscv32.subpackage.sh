@@ -1,3 +1,0 @@
-TERMUX_SUBPKG_DESCRIPTION="CPU usermode emulation (riscv32)"
-TERMUX_SUBPKG_DEPEND_ON_PARENT="deps"
-TERMUX_SUBPKG_INCLUDE="bin/qemu-riscv32"
