@@ -4,6 +4,7 @@ TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
 TERMUX_PKG_VERSION=1.41.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-12-17/rustc-nightly-src.tar.xz
 TERMUX_PKG_SHA256=1a22149617e3be27570f25354c41d79683e9450db6d529855bd41d0be3e766cb
 #TERMUX_PKG_CONFLICTS="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
@@ -79,6 +80,7 @@ termux_step_make_install () {
 		mv $TERMUX_PREFIX/lib/libtinfo.so.6.tmp $TERMUX_PREFIX/lib/libtinfo.so.6
 	fi
 	rm $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-9.0.0.so
+	rm $PREFIX/bin/llvm-config
 	
 }
 
