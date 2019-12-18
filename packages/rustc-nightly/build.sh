@@ -3,10 +3,9 @@ TERMUX_PKG_DESCRIPTION="Rust compiler and utilities (nightly version)"
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
-TERMUX_PKG_VERSION=1.40.0
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-11-08/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=6a2e7e68c9acea542616fcccca971c282349537e5d94a928019ee067de1e1713
+TERMUX_PKG_VERSION=1.41.0
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2019-12-17/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=1a22149617e3be27570f25354c41d79683e9450db6d529855bd41d0be3e766cb
 #TERMUX_PKG_CONFLICTS="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
 #TERMUX_PKG_REPLACES="rust-rls-nightly, rust-docs-nightly, rustfmt-nightly"
 TERMUX_PKG_CONFLICTS=rustc-dev-nightly
@@ -18,8 +17,11 @@ termux_step_configure () {
 	termux_setup_rust
 
 	# nightlys don't build with stable
-	rustup install beta-2019-09-25-x86_64-unknown-linux-gnu
-	export	PATH=$HOME/.rustup/toolchains/beta-2019-09-25-x86_64-unknown-linux-gnu/bin:$PATH
+	rustup install beta-2019-12-15-x86_64-unknown-linux-gnu
+	rustup default beta-2019-12-15-x86_64-unknown-linux-gnu 
+	rustup component add rustc-dev
+	rustup target add $CARGO_TARGET_NAME
+	export  PATH=$HOME/.rustup/toolchains/beta-2019-12-15-x86_64-unknown-linux-gnu/bin:$PATH
 	export	RUST_BACKTRACE=1
 	mkdir -p $TERMUX_PREFIX/opt/rust-nightly
 	RUST_PREFIX=$TERMUX_PREFIX/opt/rust-nightly
@@ -38,18 +40,24 @@ termux_step_configure () {
 	# for backtrace-sys
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"
+	# havent checked if this is needed...
+	sed -i 's/$LDFLAGS/@LDFLAGS@/g'  $PREFIX/bin/llvm-config
+	sed -ie "s|@LDFLAGS@|$LDFLAGS|g"  $PREFIX/bin/llvm-config
+	# it won't link with it in TERMUX_PREFIX/lib without breaking other things.
+	cp $PREFIX/lib/libLLVM-9.0.0.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
 	unset CC CXX CPP LD CFLAGS CXXFLAGS CPPFLAGS LDFLAGS PKG_CONFIG AR RANLIB
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libc.so $TERMUX_PREFIX/lib/
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libdl.so $TERMUX_PREFIX/lib/
+		mv $TERMUX_PREFIX/lib/libtinfo.so.6 $TERMUX_PREFIX/lib/libtinfo.so.6.tmp
 	fi
 }
 
 termux_step_make_install () {
-	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
+	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || zsh
 	mkdir $TERMUX_PKG_BUILDDIR/install
-	# clippy-nightly not compiling
-	for tar in rustc-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly miri-nightly rustc-dev-nightly rustfmt-nightly; do
+	# g
+	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly miri-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly; do
 		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
@@ -66,7 +74,12 @@ termux_step_make_install () {
 		$TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --uninstall --prefix=$RUST_PREFIX || true
 		$TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --prefix=$RUST_PREFIX
 	done
-	rm -f $TERMUX_PREFIX/lib/libc.so  $TERMUX_PREFIX/lib/libdl.so $TERMUX_PREFIX/bin/llvm-config
+	if [ $TERMUX_ARCH = "x86_64" ]; then
+		rm -f $TERMUX_PREFIX/lib/libc.so  $TERMUX_PREFIX/lib/libdl.so
+		mv $TERMUX_PREFIX/lib/libtinfo.so.6.tmp $TERMUX_PREFIX/lib/libtinfo.so.6
+	fi
+	rm $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-9.0.0.so
+	
 }
 
 termux_step_post_massage () {
