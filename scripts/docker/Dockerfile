@@ -6,7 +6,7 @@
 ##   docker push xeffyr/termux-advanced-builder
 ##
 
-FROM ubuntu:19.04
+FROM ubuntu:19.10
 
 # Fix locale to avoid warnings:
 ENV LANG en_US.UTF-8
@@ -73,7 +73,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends \
     libtool-bin \
     libunistring-dev \
     libwayland-dev \
-    llvm-8-tools \
+    llvm-9-dev \
     locales \
     lzip \
     m4 \
