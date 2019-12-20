@@ -40,7 +40,7 @@ update_rubygems
 
 echo "[*] Installing 'bundler' if necessary..."
 if [ "$(gem list -i bundler 2>/dev/null)" = "false" ]; then
-	gem install --no-document --verbose bundler
+	gem install --no-document --verbose bundler:1.17.3
 fi
 
 echo "[*] Installing Metasploit dependencies (may take long time)..."
