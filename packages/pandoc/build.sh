@@ -5,6 +5,7 @@ TERMUX_PKG_DESCRIPTION="Universal markup converter"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.9
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/jgm/pandoc/releases/download/$TERMUX_PKG_VERSION/pandoc-${TERMUX_PKG_VERSION}-linux-amd64.tar.gz
 TERMUX_PKG_SHA256=5b3add8a5e7bfd72f742c89d7b6845f2639c594b4ac99ff9b8168624c871f886
 TERMUX_PKG_DEPENDS="qemu-user-x86_64"
@@ -25,4 +26,14 @@ termux_step_make_install() {
 		install -Dm700 "./bin/$file" "$TERMUX_PREFIX/libexec/pandoc/$file"
 		install -Dm600 "./share/man/man1/$file.1.gz" "$TERMUX_PREFIX/share/man/man1/$file.1.gz"
 	done
+}
+
+termux_step_create_debscripts() {
+	cat <<- EOF > ./postinst
+		#!$TERMUX_PREFIX/bin/sh
+		echo
+		echo "Package 'pandoc' uses x86_64 binary running under QEMU."
+		echo "Do not post bug reports about it."
+		echo
+	EOF
 }
