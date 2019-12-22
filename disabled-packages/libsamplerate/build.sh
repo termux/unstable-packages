@@ -1,3 +1,5 @@
+# Requires patching.
+
 TERMUX_PKG_HOMEPAGE=https://github.com/erikd/libsamplerate
 TERMUX_PKG_DESCRIPTION="A library for perfroming sample rate conversion of audio data"
 TERMUX_PKG_LICENSE="BSD"
