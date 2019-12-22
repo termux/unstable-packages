@@ -1,3 +1,5 @@
+# Broken on at least aarch64 (segfault).
+
 TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/a2ps
 TERMUX_PKG_DESCRIPTION="An Any to PostScript filter"
 TERMUX_PKG_LICENSE="GPL-3.0"
