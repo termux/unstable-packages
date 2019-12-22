@@ -38,10 +38,8 @@ fi
 echo "[*] Updating Ruby gems..."
 update_rubygems
 
-echo "[*] Installing 'bundler' if necessary..."
-if [ "$(gem list -i bundler 2>/dev/null)" = "false" ]; then
-	gem install --no-document --verbose bundler
-fi
+echo "[*] Installing 'bundler:1.17.3'..."
+gem install --no-document --verbose bundler:1.17.3
 
 echo "[*] Installing Metasploit dependencies (may take long time)..."
 cd "$PREFIX"/opt/metasploit-framework
