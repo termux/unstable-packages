@@ -1,3 +1,5 @@
+# Fails to build with python 3.8.
+
 TERMUX_PKG_HOMEPAGE=https://electrum.org
 TERMUX_PKG_DESCRIPTION="Electrum is a lightweight Bitcoin wallet."
 TERMUX_PKG_LICENSE="MIT"
