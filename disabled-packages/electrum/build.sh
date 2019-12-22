@@ -12,7 +12,7 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 # asciinema previously contained some files that python packages have in common
 TERMUX_PKG_CONFLICTS="asciinema (<< 1.4.0-1)"
 
-_PYTHON_VERSION=3.7
+_PYTHON_VERSION=3.8
 
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/easy_install
