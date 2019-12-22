@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Encoder/decoder implementation for DEC SIXEL graphics"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=1.8.4
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/saitoha/libsixel/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=4444e278e12ab61225abb1629ff05fb1a410a7f1c8dc4017eaaf3e541ad7ef0e
 TERMUX_PKG_DEPENDS="libcurl, libjpeg-turbo, libpng"
