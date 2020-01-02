@@ -7,6 +7,9 @@ TERMUX_PKG_SRCURL=http://software.calhariz.com/at/at_${TERMUX_PKG_VERSION}.orig.
 TERMUX_PKG_SHA256=aabe6e5cb6dd19fe9fb25c2747492f2db38762b95ea41b86f949609c39fb55c4
 TERMUX_PKG_BUILD_IN_SRC=true
 
+# Force make -j1.
+TERMUX_MAKE_PROCESSES=1
+
 # Setting loadavg_mx to 8.0 as most devices (8 core)
 # do not have loadavg below 5-6.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
