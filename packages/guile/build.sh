@@ -3,13 +3,14 @@ TERMUX_PKG_DESCRIPTION="Portable, embeddable Scheme implementation written in C"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=2.2.6
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://ftp.gnu.org/gnu/guile/guile-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=08c0e7487777740b61cdd97949b69e8a5e2997d8c2fe6c7e175819eb18444506
 TERMUX_PKG_DEPENDS="libandroid-support, libffi, libgc, libgmp, libltdl, libunistring"
 TERMUX_PKG_BUILD_DEPENDS="libtool"
 TERMUX_PKG_BREAKS="guile-dev"
 TERMUX_PKG_REPLACES="guile-dev"
+TERMUX_PKG_CONFLICTS="guile18"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_type_complex_double=no ac_cv_search_clock_getcpuclockid=false ac_cv_func_GC_move_disappearing_link=yes ac_cv_func_GC_is_heap_ptr=yes"
 TERMUX_PKG_HOSTBUILD=true
 
