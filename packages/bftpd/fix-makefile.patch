@@ -1,0 +1,19 @@
+diff -uNr bftpd/Makefile.in bftpd.mod/Makefile.in
+--- bftpd/Makefile.in	2019-07-13 20:01:02.000000000 +0300
++++ bftpd.mod/Makefile.in	2020-01-19 16:54:24.715948852 +0200
+@@ -27,12 +27,12 @@
+ 
+ install: all
+ 	mkdir -p $(DESTDIR)/$(prefix)/sbin
+-	$(INSTALL) -g 0 -m 700 -o 0 bftpd $(DESTDIR)/$(prefix)/sbin
++	$(INSTALL) -m 700 bftpd $(DESTDIR)/$(prefix)/sbin
+ 	mkdir -p $(DESTDIR)/$(mandir)/man8
+-	$(INSTALL) -g 0 -m 644 -o 0 bftpd.8 $(DESTDIR)/$(mandir)/man8
++	$(INSTALL) -m 644 bftpd.8 $(DESTDIR)/$(mandir)/man8
+ 	mkdir -p $(DESTDIR)/$(prefix)/etc
+ 	[ -f $(DESTDIR)/$(prefix)/etc/bftpd.conf ] || \
+-		$(INSTALL) -g 0 -m 600 -o 0 bftpd.conf $(DESTDIR)/$(prefix)/etc
++		$(INSTALL) -m 600 bftpd.conf $(DESTDIR)/$(prefix)/etc
+ 	mkdir -p $(DESTDIR)/$(prefix)/var/log
+ 	touch $(DESTDIR)/$(prefix)/var/log/bftpd.log
+ 	chmod 644 $(DESTDIR)/$(prefix)/var/log/bftpd.log
