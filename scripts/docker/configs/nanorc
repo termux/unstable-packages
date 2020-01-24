@@ -1,7 +1,0 @@
-set casesensitive
-set nowrap
-set smooth
-set suspend
-#set tabstospaces
-set tabsize 4
-include "/usr/share/nano/*.nanorc"
