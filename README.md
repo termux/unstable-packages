@@ -1,5 +1,7 @@
 # Repository for new/unstable packages
 
+[![Packages last build status](https://github.com/termux/unstable-packages/workflows/Packages/badge.svg)](https://github.com/termux/unstable-packages/actions)
+
 [![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
 
 There are located packages which were requested, but not added to the
