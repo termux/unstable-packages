@@ -41,6 +41,11 @@ requirements are Linux-based host with Docker installed.
 
 ## Contributing
 
-If you wish to contribute, please take a look on our [contributing guide](./CONTRIBUTING.md).
+[I](https://github.com/xeffyr) am working on packages in my spare time and probably
+will not be able to process your issues instantly. It would be very helpful if you
+submit a pull request with new packages or bug fixes.
+
+If you wish to contribute, please take a look at Unstable packages [contributing guide](./CONTRIBUTING.md)
+and developer's [wiki pages](https://github.com/termux/termux-packages/wiki).
 
 [termux-packages]: <https://github.com/termux/termux-packages>
