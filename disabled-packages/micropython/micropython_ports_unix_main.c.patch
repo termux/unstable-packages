@@ -1,0 +1,16 @@
+diff -uNr micropython/ports/unix/main.c micropython.mod/ports/unix/main.c
+--- micropython/ports/unix/main.c	2018-09-18 15:16:16.000000000 +0300
++++ micropython.mod/ports/unix/main.c	2018-09-18 16:35:56.233338623 +0300
+@@ -450,11 +450,7 @@
+     char *home = getenv("HOME");
+     char *path = getenv("MICROPYPATH");
+     if (path == NULL) {
+-        #ifdef MICROPY_PY_SYS_PATH_DEFAULT
+-        path = MICROPY_PY_SYS_PATH_DEFAULT;
+-        #else
+-        path = "~/.micropython/lib:/usr/lib/micropython";
+-        #endif
++        path = "~/.micropython/lib";
+     }
+     size_t path_num = 1; // [0] is for current dir (or base dir of the script)
+     if (*path == ':') {
