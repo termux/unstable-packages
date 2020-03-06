@@ -7,8 +7,6 @@ TERMUX_PKG_VERSION=1.43.0
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-03-05/rustc-nightly-src.tar.xz
 TERMUX_PKG_SHA256=aca58a969f12d352e68f3511e72d599e0cd7ef3e639d9fe4da8091fdcba3b205
-TERMUX_PKG_CONFLICTS=rustc-dev-nightly
-TERMUX_PKG_REPLACES=rustc-dev-nightly
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
