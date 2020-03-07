@@ -89,7 +89,7 @@ jobs:
       run: |
         curl -L --output ./ffsend https://github.com/timvisee/ffsend/releases/download/v0.2.58/ffsend-v0.2.58-linux-x64-static
         chmod +x ./ffsend
-        ./ffsend upload debs-${{ matrix.target_arch }}.tar
+        ffsend upload debs-${{ matrix.target_arch }}.tar
     - name: Store *.deb files
       uses: actions/upload-artifact@v1
       with:
