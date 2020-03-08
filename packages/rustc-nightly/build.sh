@@ -86,7 +86,7 @@ termux_step_post_massage () {
 	ln -sf ../opt/rust-nightly/lib/lib*.so .
 	ln -sf $TERMUX_PREFIX/bin/lld $TERMUX_PKG_MASSAGEDIR$RUST_PREFIX/bin/rust-lld
 	if [ $TERMUX_ARCH = "x86_64" ]; then
-		rm lib/libtinfo.so.6
+		rm -f lib/libtinfo.so.6
 	fi
 	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-9.0.1.so
 }
