@@ -8,6 +8,8 @@ There are located packages which were requested, but not added to the
 [main][termux-packages] Termux repository due to various reasons. Packages
 available here may have lower quality, be unstable or not work at all.
 
+**Only for Termux installations on Android 7.0 or higher.**
+
 ## How to enable this repository
 
 To enable this package repository run:
