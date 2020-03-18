@@ -2,12 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://github.com/vlang/v
 TERMUX_PKG_DESCRIPTION="Simple, fast, safe, compiled language for developing maintainable software"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=0.1.20
-TERMUX_PKG_REVISION=4
+TERMUX_PKG_VERSION=0.1.24
 TERMUX_PKG_SRCURL=("https://github.com/vlang/v/archive/$TERMUX_PKG_VERSION.tar.gz"
-                   "https://github.com/vlang/vc/archive/$TERMUX_PKG_VERSION.tar.gz")
-TERMUX_PKG_SHA256=("8102b48b2c82be6be14633e76e71e215aab5221198315436f97be53e1abe1f5d"
-                   "5b4fc1f39c3aef5214a3366e0d514ee2879a2e52a918dc0181df833028a0eb72")
+                   "https://github.com/vlang/vc/archive/f3a3347956a1912bce90e0a2214ad63a86608175.tar.gz")
+TERMUX_PKG_SHA256=("77ed24bf1c3c4eba057ace13bf0fff6fef6d9cdb3c2970f52b4be4582a148e2e"
+                   "c1a4e27e5808ebc4d172a300b5ab40d2840d9ffc11450489ad54e3dd3be43511")
 TERMUX_PKG_DEPENDS="clang"
 TERMUX_PKG_BUILD_IN_SRC=true
 
@@ -15,9 +14,8 @@ termux_step_make() {
 	# Vlang doesn't seems to support cross-compilation so we need only to obtain
 	# the generated C source file and compile it for target.
 	(unset CC CFLAGS CPPFLAGS LDFLAGS;
-		gcc "vc-$TERMUX_PKG_VERSION"/v.c -o v.host -lm
-		./v.host -debug -o v.host.2 compiler
-		mv v.host.2.tmp.c v.c
+		gcc vc-*/v.c -o v.host -lm
+		./v.host -debug -o v.c v.v
 	)
 
 	$CC $CFLAGS $CPPFLAGS v.c -o v -lm
