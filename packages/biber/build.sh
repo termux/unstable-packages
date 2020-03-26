@@ -16,14 +16,12 @@ termux_step_make_install() {
 	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
 		-e "s|@TEXT_BIBTEX_VERSION@|${TEXT_BIBTEX_VERSION}|g" \
 		-e "s|@EXTUTILS_LIBBUILDER_VERSION@|${EXTUTILS_LIBBUILDER_VERSION}|g" \
-		-e "s|@NET_SSLEAY_VERSION@|${NET_SSLEAY_VERSION}|g" \
 		-e "s|@BIBER_VERSION@|${TERMUX_PKG_VERSION}|g" \
 		"$TERMUX_PKG_BUILDER_DIR"/installer.sh \
 		> $TERMUX_PREFIX/opt/biber/termux-biber-install.sh
 	chmod 700 $TERMUX_PREFIX/opt/biber/termux-biber-install.sh
 	install -m600 "$TERMUX_PKG_BUILDER_DIR"/ExtUtils-LibBuilder.diff $TERMUX_PREFIX/opt/biber/
 	install -m600 "$TERMUX_PKG_BUILDER_DIR"/Text-BibTeX.diff $TERMUX_PREFIX/opt/biber/
-	install -m600 "$TERMUX_PKG_BUILDER_DIR"/Net-SSLeay.diff $TERMUX_PREFIX/opt/biber/
 	# Uninstalling all dependencies on uninstall would be annoying, so
 	# lets leave that for the user to deal with..
 }
