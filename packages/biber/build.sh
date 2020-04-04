@@ -3,13 +3,13 @@ TERMUX_PKG_DESCRIPTION="A Unicode-capable BibTeX replacement for biblatex users"
 TERMUX_PKG_LICENSE="Artistic-License-2.0"
 TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
 TERMUX_PKG_VERSION=2.14
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_DEPENDS="perl, libxslt, openssl-tool, make, clang, pkg-config"
 
 EXTUTILS_LIBBUILDER_VERSION=0.08
 TEXT_BIBTEX_VERSION=0.88
-NET_SSLEAY_VERSION=1.88
 
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/opt/biber
