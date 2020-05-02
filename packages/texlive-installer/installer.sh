@@ -53,8 +53,13 @@ esac
 $PREFIX/bin/termux-patch-texlive
 
 echo "[*] Generating format pdflatex with fmtutil"
-
 fmtutil-sys --quiet --byfmt pdflatex
+
+echo "[*] Running updmap"
+updmap-sys --quiet
+
+echo "[*] Setting up symlinks"
+texlinks
 
 echo "[*] All done. Restart the shell or source"
 echo "    $PREFIX/etc/profile.d/texlive.sh"
