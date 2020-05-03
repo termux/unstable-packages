@@ -1,3 +1,15 @@
+diff -u -r ../Electrum-3.3.8/electrum/daemon.py ./electrum/daemon.py
+--- ../Electrum-3.3.8/electrum/daemon.py	2019-07-11 15:08:35.000000000 +0200
++++ ./electrum/daemon.py	2020-05-03 13:46:52.373992401 +0200
+@@ -342,7 +342,7 @@
+ 
+     def init_gui(self, config, plugins):
+         threading.current_thread().setName('GUI')
+-        gui_name = config.get('gui', 'qt')
++        gui_name = config.get('gui', 'text')
+         if gui_name in ['lite', 'classic']:
+             gui_name = 'qt'
+         gui = __import__('electrum.gui.' + gui_name, fromlist=['electrum'])
 --- ../setup.py.orig	2018-11-30 11:31:56.139883356 +0100
 +++ ./setup.py	2018-11-30 11:45:03.329877996 +0100
 @@ -76,7 +76,6 @@
