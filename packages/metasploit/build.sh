@@ -2,14 +2,13 @@ TERMUX_PKG_HOMEPAGE=https://www.metasploit.com/
 TERMUX_PKG_DESCRIPTION="Advanced open-source platform for developing, testing and using exploit code. (installer)"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=5.0.83
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=5.0.88
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
 # Many dependencies specified here are required to build & install
 # ruby gems used by Metasploit.
-TERMUX_PKG_DEPENDS="apr, apr-util, autoconf, bison, clang, coreutils, curl, findutils, git, libffi, libgmp, libiconv, libpcap, libsqlite, libtool, libxml2, libxslt, make, ncurses, ncurses, ncurses-utils, openssl, pkg-config, postgresql, readline, resolv-conf, ruby (>= 2.7.0), tar, termux-elf-cleaner, termux-tools, unzip, wget, zip, zlib"
+TERMUX_PKG_DEPENDS="apr, apr-util, autoconf, bison, clang, coreutils, curl, findutils, git, libffi, libgmp, libiconv, libpcap, libsqlite, libtool, libxml2, libxslt, make, ncurses, ncurses-utils, openssl, pkg-config, postgresql, readline, resolv-conf, ruby (>= 2.7.0), tar, termux-elf-cleaner, termux-tools, unzip, wget, zip, zlib"
 
 termux_step_make_install() {
 	# Installer.
