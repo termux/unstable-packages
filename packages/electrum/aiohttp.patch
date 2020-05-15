@@ -1,0 +1,11 @@
+Build fails with aiohttp 4.0.0a1 at the time of creating this patch
+--- ../requirements.txt.orig	2020-05-15 20:46:55.579397172 +0000
++++ ./contrib/requirements/requirements.txt	2020-05-15 20:47:13.929532422 +0000
+@@ -6,6 +6,6 @@
+ jsonrpclib-pelix
+ qdarkstyle<2.7
+ aiorpcx>=0.18,<0.19
+-aiohttp>=3.3.0
++aiohttp==3.6.2
+ aiohttp_socks
+ certifi
