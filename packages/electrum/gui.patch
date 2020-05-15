@@ -10,9 +10,9 @@ diff -u -r ../Electrum-3.3.8/electrum/daemon.py ./electrum/daemon.py
          if gui_name in ['lite', 'classic']:
              gui_name = 'qt'
          gui = __import__('electrum.gui.' + gui_name, fromlist=['electrum'])
---- ../setup.py.orig	2018-11-30 11:31:56.139883356 +0100
-+++ ./setup.py	2018-11-30 11:45:03.329877996 +0100
-@@ -76,7 +76,6 @@
+--- ./setup.py.orig	2019-07-11 13:08:35.000000000 +0000
++++ ./setup.py	2020-05-15 20:41:30.300333156 +0000
+@@ -67,7 +67,6 @@
      packages=[
          'electrum',
          'electrum.gui',
