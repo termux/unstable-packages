@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Electrum is a lightweight Bitcoin wallet."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
 TERMUX_PKG_VERSION=3.3.8
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_REVISION=3
 TERMUX_PKG_SRCURL=https://download.electrum.org/$TERMUX_PKG_VERSION/Electrum-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=e2adf191847609d5bd850320f647db6347952b170364a463276db27a836400bc
 TERMUX_PKG_DEPENDS="python"
@@ -12,7 +12,7 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 # asciinema previously contained some files that python packages have in common
 TERMUX_PKG_CONFLICTS="asciinema (<< 1.4.0-1)"
 
-_PYTHON_VERSION=3.7
+_PYTHON_VERSION=3.8
 
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/easy_install

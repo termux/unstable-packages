@@ -1,30 +1,45 @@
-diff -uNr Electrum-3.3.6/electrum/daemon.py Electrum-3.3.6.mod/electrum/daemon.py
---- Electrum-3.3.6/electrum/daemon.py	2019-05-16 20:00:49.000000000 +0300
-+++ Electrum-3.3.6.mod/electrum/daemon.py	2019-05-20 01:47:47.246158554 +0300
-@@ -342,7 +342,7 @@
- 
-     def init_gui(self, config, plugins):
-         threading.current_thread().setName('GUI')
--        gui_name = config.get('gui', 'qt')
-+        gui_name = config.get('gui', 'text')
-         if gui_name in ['lite', 'classic']:
-             gui_name = 'qt'
-         gui = __import__('electrum.gui.' + gui_name, fromlist=['electrum'])
-diff -uNr Electrum-3.3.6/electrum/electrum Electrum-3.3.6.mod/electrum/electrum
---- Electrum-3.3.6/electrum/electrum	2019-05-16 20:00:49.000000000 +0300
-+++ Electrum-3.3.6.mod/electrum/electrum	2019-05-20 01:47:47.247158559 +0300
-@@ -40,7 +40,7 @@
+diff -u -r ../Electrum-3.3.8/electrum/electrum ./electrum/electrum
+--- ../Electrum-3.3.8/electrum/electrum	2019-07-11 15:08:35.000000000 +0200
++++ ./electrum/electrum	2020-05-03 13:46:52.373992401 +0200
+@@ -39,7 +39,7 @@
  script_dir = os.path.dirname(os.path.realpath(__file__))
  is_bundle = getattr(sys, 'frozen', False)
  is_local = not is_bundle and os.path.exists(os.path.join(script_dir, "electrum.desktop"))
 -is_android = 'ANDROID_DATA' in os.environ
 +is_android = False
  
- # move this back to gui/kivy/__init.py once plugins are moved
- os.environ['KIVY_DATA_DIR'] = os.path.abspath(os.path.dirname(__file__)) + '/electrum/gui/kivy/data/'
-diff -uNr Electrum-3.3.6/electrum/util.py Electrum-3.3.6.mod/electrum/util.py
---- Electrum-3.3.6/electrum/util.py	2019-05-16 20:00:49.000000000 +0300
-+++ Electrum-3.3.6.mod/electrum/util.py	2019-05-20 01:48:06.973263531 +0300
+ if is_local:  # running from source
+     # developers should probably see all deprecation warnings.
+diff -u -r ../Electrum-3.3.8/electrum/logging.py ./electrum/logging.py
+--- ../Electrum-3.3.8/electrum/logging.py	2019-07-11 15:08:35.000000000 +0200
++++ ./electrum/logging.py	2020-05-03 13:58:44.766701739 +0200
+@@ -232,7 +232,7 @@
+     verbosity_shortcuts = config.get('verbosity_shortcuts')
+     _configure_verbosity(verbosity=verbosity, verbosity_shortcuts=verbosity_shortcuts)
+ 
+-    is_android = 'ANDROID_DATA' in os.environ
++    is_android = False
+     if is_android or not config.get('log_to_file', False):
+         pass  # disable file logging
+     else:
+@@ -255,13 +255,4 @@
+ 
+ 
+ def describe_os_version() -> str:
+-    if 'ANDROID_DATA' in os.environ:
+-        from kivy import utils
+-        if utils.platform is not "android":
+-            return utils.platform
+-        import jnius
+-        bv = jnius.autoclass('android.os.Build$VERSION')
+-        b = jnius.autoclass('android.os.Build')
+-        return "Android {} on {} {} ({})".format(bv.RELEASE, b.BRAND, b.DEVICE, b.DISPLAY)
+-    else:
+-        return platform.platform()
++    return platform.platform()
+diff -u -r ../Electrum-3.3.8/electrum/util.py ./electrum/util.py
+--- ../Electrum-3.3.8/electrum/util.py	2019-07-11 15:08:35.000000000 +0200
++++ ./electrum/util.py	2020-05-03 13:46:52.373992401 +0200
 @@ -305,10 +305,6 @@
              self.running = False
  
@@ -47,15 +62,15 @@ diff -uNr Electrum-3.3.6/electrum/util.py Electrum-3.3.6.mod/electrum/util.py
          return os.path.join(os.environ["HOME"], ".electrum")
      elif "APPDATA" in os.environ:
          return os.path.join(os.environ["APPDATA"], "Electrum")
-diff -uNr Electrum-3.3.6/run_electrum Electrum-3.3.6.mod/run_electrum
---- Electrum-3.3.6/run_electrum	2019-05-16 20:00:49.000000000 +0300
-+++ Electrum-3.3.6.mod/run_electrum	2019-05-20 01:47:47.247158559 +0300
-@@ -40,7 +40,7 @@
+diff -u -r ../Electrum-3.3.8/run_electrum ./run_electrum
+--- ../Electrum-3.3.8/run_electrum	2019-07-11 15:08:35.000000000 +0200
++++ ./run_electrum	2020-05-03 13:46:52.373992401 +0200
+@@ -39,7 +39,7 @@
  script_dir = os.path.dirname(os.path.realpath(__file__))
  is_bundle = getattr(sys, 'frozen', False)
  is_local = not is_bundle and os.path.exists(os.path.join(script_dir, "electrum.desktop"))
 -is_android = 'ANDROID_DATA' in os.environ
 +is_android = False
  
- # move this back to gui/kivy/__init.py once plugins are moved
- os.environ['KIVY_DATA_DIR'] = os.path.abspath(os.path.dirname(__file__)) + '/electrum/gui/kivy/data/'
+ if is_local:  # running from source
+     # developers should probably see all deprecation warnings.
