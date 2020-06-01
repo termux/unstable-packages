@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=http://blog.calhariz.com/tag/at
 TERMUX_PKG_DESCRIPTION="AT and batch delayed command scheduling utility and daemon"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
+TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=3.2.1
 TERMUX_PKG_SRCURL=http://software.calhariz.com/at/at_${TERMUX_PKG_VERSION}.orig.tar.gz
 TERMUX_PKG_SHA256=aabe6e5cb6dd19fe9fb25c2747492f2db38762b95ea41b86f949609c39fb55c4

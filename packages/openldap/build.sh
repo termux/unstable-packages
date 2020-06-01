@@ -5,7 +5,7 @@
 TERMUX_PKG_HOMEPAGE=https://openldap.org
 TERMUX_PKG_DESCRIPTION="OpenLDAP server"
 TERMUX_PKG_LICENSE="OpenLDAP"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
+TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=2.4.49
 TERMUX_PKG_SRCURL=ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$TERMUX_PKG_VERSION.tgz
 TERMUX_PKG_SHA256=e3b117944b4180f23befe87d0dcf47f29de775befbc469dcf4ac3dab3311e56e

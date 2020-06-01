@@ -7,7 +7,7 @@
 TERMUX_PKG_HOMEPAGE=https://hashcat.net/hashcat
 TERMUX_PKG_DESCRIPTION="World's fastest and most advanced password recovery utility"
 TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
+TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=5.1.0
 TERMUX_PKG_REVISION=7
 TERMUX_PKG_SRCURL=https://github.com/hashcat/hashcat/archive/v$TERMUX_PKG_VERSION.tar.gz
