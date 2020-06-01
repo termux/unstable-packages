@@ -13,7 +13,6 @@ termux_step_make() {
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 
 	mkdir -p ./src
-	mv "$TERMUX_PKG_SRCDIR"/vendor/* src/
 	mkdir -p ./src/github.com/gopasspw
 	ln -sf "$TERMUX_PKG_SRCDIR" ./src/github.com/gopasspw/gopass
 
