@@ -19,7 +19,8 @@ fi
 echo "[*] Downloading Metasploit Framework..."
 mkdir -p "$TMPDIR"
 rm -f "$TMPDIR/metasploit-$MSF_VERSION.tar.gz"
-curl --fail --retry 3 --location --output "$TMPDIR/metasploit-$MSF_VERSION.tar.gz" \
+curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
+	--output "$TMPDIR/metasploit-$MSF_VERSION.tar.gz" \
 	"https://github.com/rapid7/metasploit-framework/archive/$MSF_VERSION.tar.gz"
 
 echo "[*] Removing previous version Metasploit Framework..."
