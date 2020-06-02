@@ -8,7 +8,7 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/trustedsec/social-engineer-toolkit
 TERMUX_PKG_DESCRIPTION="The Social-Engineer Toolkit"
 TERMUX_PKG_LICENSE="BSD"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
+TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=7.7.9
 TERMUX_PKG_REVISION=5
 TERMUX_PKG_SRCURL=https://github.com/trustedsec/social-engineer-toolkit/archive/$TERMUX_PKG_VERSION.tar.gz
