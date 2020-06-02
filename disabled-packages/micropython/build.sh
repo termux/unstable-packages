@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=http://micropython.org/
 TERMUX_PKG_DESCRIPTION="Tiny implementation of Python programming language"
 TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
+TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com> @xeffyr"
 TERMUX_PKG_VERSION=1.9.4
 TERMUX_PKG_SRCURL=https://github.com/micropython/micropython/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=9a66205d0ba3dff6dcc98119f104cd59c15855c6c030a190ca02354be52836c1
