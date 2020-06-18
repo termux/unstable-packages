@@ -1,0 +1,469 @@
+From 201ce579ee6d26544e30b4ab7c2ad25bf1bacc7a Mon Sep 17 00:00:00 2001
+From: Faheem Pervez <trippin1@gmail.com>
+Date: Tue, 14 Apr 2020 03:51:05 +0100
+Subject: [PATCH 1/6] The great /tmp path replacement
+
+---
+ auth/credentials/credentials_krb5.c      | 2 +-
+ ctdb/tests/src/porting_tests.c           | 2 +-
+ lib/ldb/tools/ldbedit.c                  | 2 +-
+ lib/param/loadparm.c                     | 4 ++--
+ lib/replace/wscript                      | 6 +++---
+ lib/util/util.c                          | 2 +-
+ nsswitch/winbind_nss_aix.c               | 2 +-
+ source3/client/smbspool_krb5_wrapper.c   | 2 +-
+ source3/lib/smbconf/testsuite.c          | 2 +-
+ source3/modules/vfs_virusfilter.c        | 2 +-
+ source3/modules/vfs_virusfilter_fsav.c   | 2 +-
+ source3/registry/tests/test_regfio.c     | 2 +-
+ source3/rpc_server/srv_pipe.c            | 4 ++--
+ source3/smbd/notifyd/tests.c             | 4 ++--
+ source3/smbd/process.c                   | 2 +-
+ source3/utils/interact.c                 | 2 +-
+ source3/winbindd/winbindd_pam.c          | 4 ++--
+ source4/heimdal/lib/krb5/expand_path.c   | 4 ++--
+ source4/heimdal/lib/krb5/krb5-v4compat.h | 2 +-
+ source4/heimdal/lib/krb5/krb5.h          | 2 +-
+ source4/heimdal/lib/krb5/krb5_locl.h     | 2 +-
+ source4/librpc/tests/binding_string.c    | 4 ++--
+ source4/param/tests/share.c              | 6 +++---
+ testsuite/nsswitch/getgrent_r.c          | 4 ++--
+ testsuite/nsswitch/getpwent_r.c          | 4 ++--
+ testsuite/unittests/test_krb5_samba.c    | 4 ++--
+ third_party/pam_wrapper/pam_wrapper.c    | 2 +-
+ 27 files changed, 40 insertions(+), 40 deletions(-)
+
+diff --git a/auth/credentials/credentials_krb5.c b/auth/credentials/credentials_krb5.c
+index 20e677e..0353d44 100644
+--- a/auth/credentials/credentials_krb5.c
++++ b/auth/credentials/credentials_krb5.c
+@@ -624,7 +624,7 @@ static int cli_credentials_new_ccache(struct cli_credentials *cred,
+ 		must_free_cc_name = true;
+ 
+ 		if (lpcfg_parm_bool(lp_ctx, NULL, "credentials", "krb5_cc_file", false)) {
+-			ccache_name = talloc_asprintf(ccc, "FILE:/tmp/krb5_cc_samba_%u_%p", 
++			ccache_name = talloc_asprintf(ccc, "FILE:@TERMUX_PREFIX@/tmp/krb5_cc_samba_%u_%p",
+ 						      (unsigned int)getpid(), ccc);
+ 		} else {
+ 			ccache_name = talloc_asprintf(ccc, "MEMORY:%p", 
+diff --git a/ctdb/tests/src/porting_tests.c b/ctdb/tests/src/porting_tests.c
+index 8902c34..22128c7 100644
+--- a/ctdb/tests/src/porting_tests.c
++++ b/ctdb/tests/src/porting_tests.c
+@@ -41,7 +41,7 @@ static struct {
+ 	pid_t helper_pid;
+ 	int socket;
+ } globals = {
+-	.socketname = "/tmp/test.sock"
++	.socketname = "@TERMUX_PREFIX@/tmp/test.sock"
+ };
+ 
+ 
+diff --git a/lib/ldb/tools/ldbedit.c b/lib/ldb/tools/ldbedit.c
+index 5b83783..01b1662 100644
+--- a/lib/ldb/tools/ldbedit.c
++++ b/lib/ldb/tools/ldbedit.c
+@@ -218,7 +218,7 @@ static int do_edit(struct ldb_context *ldb, struct ldb_message **msgs1,
+ {
+ 	int fd, ret;
+ 	FILE *f;
+-	char file_template[] = "/tmp/ldbedit.XXXXXX";
++	char file_template[] = "@TERMUX_PREFIX@/tmp/ldbedit.XXXXXX";
+ 	char *cmd;
+ 	struct ldb_ldif *ldif;
+ 	struct ldb_message **msgs2 = NULL;
+diff --git a/lib/param/loadparm.c b/lib/param/loadparm.c
+index 6329128..7b2c9d0 100644
+--- a/lib/param/loadparm.c
++++ b/lib/param/loadparm.c
+@@ -2482,12 +2482,12 @@ void init_printer_values(struct loadparm_context *lp_ctx, TALLOC_CTX *ctx,
+ 
+ 		tmp = lpcfg_parm_string(lp_ctx, NULL, "vlp", "tdbfile");
+ 		if (tmp == NULL) {
+-			tmp = "/tmp/vlp.tdb";
++			tmp = "@TERMUX_PREFIX@/tmp/vlp.tdb";
+ 		}
+ 
+ 		tdbfile = talloc_asprintf(tmp_ctx, "tdbfile=%s", tmp);
+ 		if (tdbfile == NULL) {
+-			tdbfile="tdbfile=/tmp/vlp.tdb";
++			tdbfile="tdbfile=@TERMUX_PREFIX@/tmp/vlp.tdb";
+ 		}
+ 
+ 		tmp = talloc_asprintf(tmp_ctx, "vlp %s print %%p %%s",
+diff --git a/lib/replace/wscript b/lib/replace/wscript
+index ab2b3c0..4a523f4 100644
+--- a/lib/replace/wscript
++++ b/lib/replace/wscript
+@@ -779,8 +779,8 @@ def configure(conf):
+ 
+     conf.CHECK_CODE('''
+                     struct stat st;
+-                    char tpl[20]="/tmp/test.XXXXXX";
+-                    char tpl2[20]="/tmp/test.XXXXXX";
++                    char tpl[51]="@TERMUX_PREFIX@/tmp/test.XXXXXX";
++                    char tpl2[51]="@TERMUX_PREFIX@/tmp/test.XXXXXX";
+                     int fd = mkstemp(tpl);
+                     int fd2 = mkstemp(tpl2);
+                     if (fd == -1) {
+@@ -794,7 +794,7 @@ def configure(conf):
+                     unlink(tpl2);
+                     if (fstat(fd, &st) != 0) exit(1);
+                     if ((st.st_mode & 0777) != 0600) exit(1);
+-                    if (strcmp(tpl, "/tmp/test.XXXXXX") == 0) {
++                    if (strcmp(tpl, "@TERMUX_PREFIX@/tmp/test.XXXXXX") == 0) {
+                           exit(1);
+                     }
+                     if (strcmp(tpl, tpl2) == 0) {
+diff --git a/lib/util/util.c b/lib/util/util.c
+index 0d9ffe5..65a8d58 100644
+--- a/lib/util/util.c
++++ b/lib/util/util.c
+@@ -209,7 +209,7 @@ _PUBLIC_ const char *tmpdir(void)
+ 	char *p;
+ 	if ((p = getenv("TMPDIR")))
+ 		return p;
+-	return "/tmp";
++	return "@TERMUX_PREFIX@/tmp";
+ }
+ 
+ 
+diff --git a/nsswitch/winbind_nss_aix.c b/nsswitch/winbind_nss_aix.c
+index 343809a..5bfa625 100644
+--- a/nsswitch/winbind_nss_aix.c
++++ b/nsswitch/winbind_nss_aix.c
+@@ -63,7 +63,7 @@ static void logit(const char *format, ...)
+ 	if (!debug_enabled) {
+ 		return;
+ 	}
+-	f = fopen("/tmp/WINBIND_DEBUG.log", "a");
++	f = fopen("@TERMUX_PREFIX@/tmp/WINBIND_DEBUG.log", "a");
+ 	if (!f) return;
+ 	va_start(ap, format);
+ 	vfprintf(f, format, ap);
+diff --git a/source3/client/smbspool_krb5_wrapper.c b/source3/client/smbspool_krb5_wrapper.c
+index 6a3e444..606dd69 100644
+--- a/source3/client/smbspool_krb5_wrapper.c
++++ b/source3/client/smbspool_krb5_wrapper.c
+@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	/* Fallback to a FILE ccache */
+-	snprintf(gen_cc, sizeof(gen_cc), "FILE:/tmp/krb5cc_%u", uid);
++	snprintf(gen_cc, sizeof(gen_cc), "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%u", uid);
+ 
+ create_env:
+ 	/*
+diff --git a/source3/lib/smbconf/testsuite.c b/source3/lib/smbconf/testsuite.c
+index 0053f9f..a8f113f 100644
+--- a/source3/lib/smbconf/testsuite.c
++++ b/source3/lib/smbconf/testsuite.c
+@@ -208,7 +208,7 @@ static bool torture_smbconf_txt(void)
+ {
+ 	sbcErr err;
+ 	bool ret = true;
+-	const char *filename = "/tmp/smb.conf.smbconf_testsuite";
++	const char *filename = "@TERMUX_PREFIX@/tmp/smb.conf.smbconf_testsuite";
+ 	struct smbconf_ctx *conf_ctx = NULL;
+ 	TALLOC_CTX *mem_ctx = talloc_stackframe();
+ 
+diff --git a/source3/modules/vfs_virusfilter.c b/source3/modules/vfs_virusfilter.c
+index 12f0364..976fba7 100644
+--- a/source3/modules/vfs_virusfilter.c
++++ b/source3/modules/vfs_virusfilter.c
+@@ -267,7 +267,7 @@ static int virusfilter_vfs_connect(
+ 
+ 	config->quarantine_dir = lp_parm_const_string(
+ 		snum, "virusfilter", "quarantine directory",
+-		tmp ? tmp : "/tmp/.quarantine");
++		tmp ? tmp : "@TERMUX_PREFIX@/tmp/.quarantine");
+ 
+ 	if (tmp != config->quarantine_dir) {
+ 		TALLOC_FREE(tmp);
+diff --git a/source3/modules/vfs_virusfilter_fsav.c b/source3/modules/vfs_virusfilter_fsav.c
+index 240940c..06d7d66 100644
+--- a/source3/modules/vfs_virusfilter_fsav.c
++++ b/source3/modules/vfs_virusfilter_fsav.c
+@@ -23,7 +23,7 @@
+ #ifdef FSAV_DEFAULT_SOCKET_PATH
+ #  define VIRUSFILTER_DEFAULT_SOCKET_PATH	FSAV_DEFAULT_SOCKET_PATH
+ #else
+-#  define VIRUSFILTER_DEFAULT_SOCKET_PATH	"/tmp/.fsav-0"
++#  define VIRUSFILTER_DEFAULT_SOCKET_PATH	"@TERMUX_PREFIX@/tmp/.fsav-0"
+ #endif
+ 
+ /* Default values for module-specific configuration variables */
+diff --git a/source3/registry/tests/test_regfio.c b/source3/registry/tests/test_regfio.c
+index e835e65..d0e7143 100644
+--- a/source3/registry/tests/test_regfio.c
++++ b/source3/registry/tests/test_regfio.c
+@@ -65,7 +65,7 @@ static int setup_context_tempfile(void **state)
+ 	if (ret == 0) {
+ 		test_ctx = talloc_get_type_abort(*state, struct test_ctx);
+ 
+-		test_ctx->tmp_regfile = talloc_strdup(test_ctx, "/tmp/regfio.XXXXXX");
++		test_ctx->tmp_regfile = talloc_strdup(test_ctx, "@TERMUX_PREFIX@/tmp/regfio.XXXXXX");
+ 		assert_non_null(test_ctx->tmp_regfile);
+ 
+ 		test_ctx->tmp_regfile_fd = mkstemp(test_ctx->tmp_regfile);
+diff --git a/source3/rpc_server/srv_pipe.c b/source3/rpc_server/srv_pipe.c
+index 3bc291f..fce469a 100644
+--- a/source3/rpc_server/srv_pipe.c
++++ b/source3/rpc_server/srv_pipe.c
+@@ -75,11 +75,11 @@ static void dump_pdu_region(const char *name, int v,
+ 	for (i = 1; i < 100; i++) {
+ 		if (v != -1) {
+ 			fname = talloc_asprintf(talloc_tos(),
+-						"/tmp/%s_%d.%d.prs",
++						"@TERMUX_PREFIX@/tmp/%s_%d.%d.prs",
+ 						name, v, i);
+ 		} else {
+ 			fname = talloc_asprintf(talloc_tos(),
+-						"/tmp/%s_%d.prs",
++						"@TERMUX_PREFIX@/tmp/%s_%d.prs",
+ 						name, i);
+ 		}
+ 		if (!fname) {
+diff --git a/source3/smbd/notifyd/tests.c b/source3/smbd/notifyd/tests.c
+index 6bcce6a..7766a8c 100644
+--- a/source3/smbd/notifyd/tests.c
++++ b/source3/smbd/notifyd/tests.c
+@@ -66,12 +66,12 @@ int main(int argc, const char *argv[])
+ 			.instance.filter = UINT32_MAX,
+ 			.instance.subdir_filter = UINT32_MAX
+ 		};
+-		char path[64];
++		char path[256];
+ 		size_t len;
+ 		struct iovec iov[2];
+ 		NTSTATUS status;
+ 
+-		len = snprintf(path, sizeof(path), "/tmp%u", i);
++		len = snprintf(path, sizeof(path), "@TERMUX_PREFIX@/tmp%u", i);
+ 
+ 		iov[0].iov_base = &msg;
+ 		iov[0].iov_len = offsetof(struct notify_rec_change_msg, path);
+diff --git a/source3/smbd/process.c b/source3/smbd/process.c
+index 70398b4..6f97d23 100644
+--- a/source3/smbd/process.c
++++ b/source3/smbd/process.c
+@@ -1419,7 +1419,7 @@ static void smb_dump(const char *name, int type, const char *data)
+ 	len = smb_len_tcp(data)+4;
+ 	for (i=1;i<100;i++) {
+ 		fname = talloc_asprintf(talloc_tos(),
+-				"/tmp/%s.%d.%s",
++				"@TERMUX_PREFIX@/tmp/%s.%d.%s",
+ 				name,
+ 				i,
+ 				type ? "req" : "resp");
+diff --git a/source3/utils/interact.c b/source3/utils/interact.c
+index f8fed6d..73a4c54 100644
+--- a/source3/utils/interact.c
++++ b/source3/utils/interact.c
+@@ -76,7 +76,7 @@ int interact_prompt(const char* msg, const char* acc, char def) {
+ 
+ 
+ char* interact_edit(TALLOC_CTX* mem_ctx, const char* str) {
+-	char fname[] = "/tmp/net_idmap_check.XXXXXX";
++	char fname[] = "@TERMUX_PREFIX@/tmp/net_idmap_check.XXXXXX";
+ 	char buf[128];
+ 	char* ret = NULL;
+ 	FILE* file;
+diff --git a/source3/winbindd/winbindd_pam.c b/source3/winbindd/winbindd_pam.c
+index a3d8716..e0a68d8 100644
+--- a/source3/winbindd/winbindd_pam.c
++++ b/source3/winbindd/winbindd_pam.c
+@@ -572,11 +572,11 @@ static const char *generate_krb5_ccache(TALLOC_CTX *mem_ctx,
+ 	if (uid != -1) {
+ 		if (strequal(type, "FILE")) {
+ 			gen_cc = talloc_asprintf(
+-				mem_ctx, "FILE:/tmp/krb5cc_%d", uid);
++				mem_ctx, "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%d", uid);
+ 		}
+ 		if (strequal(type, "WRFILE")) {
+ 			gen_cc = talloc_asprintf(
+-				mem_ctx, "WRFILE:/tmp/krb5cc_%d", uid);
++				mem_ctx, "WRFILE:@TERMUX_PREFIX@/tmp/krb5cc_%d", uid);
+ 		}
+ 		if (strequal(type, "KEYRING")) {
+ 			gen_cc = talloc_asprintf(
+diff --git a/source4/heimdal/lib/krb5/expand_path.c b/source4/heimdal/lib/krb5/expand_path.c
+index 1b46cea..8d97702 100644
+--- a/source4/heimdal/lib/krb5/expand_path.c
++++ b/source4/heimdal/lib/krb5/expand_path.c
+@@ -287,11 +287,11 @@ _expand_temp_folder(krb5_context context, PTYPE param, const char *postfix, char
+     const char *p = NULL;
+ 
+     if (issuid())
+-	p = getenv("TEMP");
++	p = getenv("TMPDIR");
+     if (p)
+ 	*ret = strdup(p);
+     else
+-	*ret = strdup("/tmp");
++	*ret = strdup("@TERMUX_PREFIX@/tmp");
+     if (*ret == NULL)
+ 	return ENOMEM;
+     return 0;
+diff --git a/source4/heimdal/lib/krb5/krb5-v4compat.h b/source4/heimdal/lib/krb5/krb5-v4compat.h
+index 324c8c1..b195137 100644
+--- a/source4/heimdal/lib/krb5/krb5-v4compat.h
++++ b/source4/heimdal/lib/krb5/krb5-v4compat.h
+@@ -108,7 +108,7 @@ struct credentials {
+ #ifdef KRB5_USE_PATH_TOKENS
+ #define TKT_ROOT "%{TEMP}/tkt"
+ #else
+-#define TKT_ROOT "/tmp/tkt"
++#define TKT_ROOT "@TERMUX_PREFIX@/tmp/tkt"
+ #endif
+ #endif
+ 
+diff --git a/source4/heimdal/lib/krb5/krb5.h b/source4/heimdal/lib/krb5/krb5.h
+index 9c0f566..6607fab 100644
+--- a/source4/heimdal/lib/krb5/krb5.h
++++ b/source4/heimdal/lib/krb5/krb5.h
+@@ -351,7 +351,7 @@ struct krb5_cc_ops;
+ #ifdef KRB5_USE_PATH_TOKENS
+ #define KRB5_DEFAULT_CCFILE_ROOT "%{TEMP}/krb5cc_"
+ #else
+-#define KRB5_DEFAULT_CCFILE_ROOT "/tmp/krb5cc_"
++#define KRB5_DEFAULT_CCFILE_ROOT "@TERMUX_PREFIX@/tmp/krb5cc_"
+ #endif
+ 
+ #define KRB5_DEFAULT_CCROOT "FILE:" KRB5_DEFAULT_CCFILE_ROOT
+diff --git a/source4/heimdal/lib/krb5/krb5_locl.h b/source4/heimdal/lib/krb5/krb5_locl.h
+index 49c614d..a17c71c 100644
+--- a/source4/heimdal/lib/krb5/krb5_locl.h
++++ b/source4/heimdal/lib/krb5/krb5_locl.h
+@@ -303,7 +303,7 @@ typedef struct krb5_context_data {
+ } krb5_context_data;
+ 
+ #ifndef KRB5_USE_PATH_TOKENS
+-#define KRB5_DEFAULT_CCNAME_FILE "FILE:/tmp/krb5cc_%{uid}"
++#define KRB5_DEFAULT_CCNAME_FILE "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%{uid}"
+ #else
+ #define KRB5_DEFAULT_CCNAME_FILE "FILE:%{TEMP}/krb5cc_%{uid}"
+ #endif
+diff --git a/source4/librpc/tests/binding_string.c b/source4/librpc/tests/binding_string.c
+index 3ef7b7d..729d386 100644
+--- a/source4/librpc/tests/binding_string.c
++++ b/source4/librpc/tests/binding_string.c
+@@ -127,9 +127,9 @@ static const char *test_strings[] = {
+ 	"ncadg_ip_udp:",
+ 	"308FB580-1EB2-11CA-923B-08002B1075A7@ncacn_np:localhost",
+ 	"308FB580-1EB2-11CA-923B-08002B1075A7@ncacn_ip_tcp:127.0.0.1",
+-	"ncacn_unix_stream:[/tmp/epmapper]",
++	"ncacn_unix_stream:[@TERMUX_PREFIX@/tmp/epmapper]",
+ 	"ncalrpc:[IDENTIFIER]",
+-	"ncacn_unix_stream:[/tmp/epmapper,sign]",
++	"ncacn_unix_stream:[@TERMUX_PREFIX@/tmp/epmapper,sign]",
+ 	"ncacn_ip_tcp:127.0.0.1[75,target_hostname=port75.example.com,target_principal=host/port75.example.com]",
+ 	"ncacn_ip_tcp:127.0.0.1[75,connect,target_hostname=port75.example.com,target_principal=host/port75.example.com,assoc_group_id=0x01234567]",
+ 	"ncacn_ip_tcp:127.0.0.1[75,packet,target_hostname=port75.example.com,target_principal=host/port75.example.com,assoc_group_id=0x01234567]",
+diff --git a/source4/param/tests/share.c b/source4/param/tests/share.c
+index 6d786a8..6576337 100644
+--- a/source4/param/tests/share.c
++++ b/source4/param/tests/share.c
+@@ -50,7 +50,7 @@ static bool test_create(struct torture_context *tctx,
+ 	bool found = false;
+ 	struct share_info inf[] = { 
+ 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
+-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
++		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
+ 	};
+ 	NTSTATUS status;
+ 
+@@ -126,7 +126,7 @@ static bool test_share_remove(struct torture_context *tctx,
+ 	struct share_context *ctx = (struct share_context *)discard_const(tcase_data);
+ 	struct share_info inf[] = { 
+ 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
+-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
++		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
+ 	};
+ 	NTSTATUS status;
+ 
+@@ -149,7 +149,7 @@ static bool test_double_create(struct torture_context *tctx,
+ 	struct share_context *ctx = (struct share_context *)discard_const(tcase_data);
+ 	struct share_info inf[] = { 
+ 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
+-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
++		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
+ 	};
+ 	NTSTATUS status;
+ 
+diff --git a/testsuite/nsswitch/getgrent_r.c b/testsuite/nsswitch/getgrent_r.c
+index 883c897..33936f9 100644
+--- a/testsuite/nsswitch/getgrent_r.c
++++ b/testsuite/nsswitch/getgrent_r.c
+@@ -14,12 +14,12 @@
+ void dump_grent(char *id)
+ {
+     struct group *gr;
+-    char fname[255];
++    char fname[512];
+     FILE *fptr;
+ 
+     /* Open results file */
+ 
+-    sprintf(fname, "/tmp/getgrent_r-%s.out-%d", id, getpid());
++    sprintf(fname, "@TERMUX_PREFIX@/tmp/getgrent_r-%s.out-%d", id, getpid());
+ 
+     if ((fptr = fopen(fname, "w")) == NULL) {
+         fprintf(stderr, "ERROR: could not open file %s: %s\n", fname,
+diff --git a/testsuite/nsswitch/getpwent_r.c b/testsuite/nsswitch/getpwent_r.c
+index 5e77491..6113f85 100644
+--- a/testsuite/nsswitch/getpwent_r.c
++++ b/testsuite/nsswitch/getpwent_r.c
+@@ -14,12 +14,12 @@
+ void dump_pwent(char *id)
+ {
+     struct passwd *pw;
+-    char fname[255];
++    char fname[512];
+     FILE *fptr;
+ 
+     /* Open results file */
+ 
+-    sprintf(fname, "/tmp/getpwent_r-%s.out-%d", id, getpid());
++    sprintf(fname, "@TERMUX_PREFIX@/tmp/getpwent_r-%s.out-%d", id, getpid());
+ 
+     if ((fptr = fopen(fname, "w")) == 0) {
+         fprintf(stderr, "ERROR: could not open file %s: %s\n", fname,
+diff --git a/testsuite/unittests/test_krb5_samba.c b/testsuite/unittests/test_krb5_samba.c
+index 8b7e843..d4fce8a 100644
+--- a/testsuite/unittests/test_krb5_samba.c
++++ b/testsuite/unittests/test_krb5_samba.c
+@@ -37,7 +37,7 @@ static void test_smb_krb5_kt_open(void **state)
+ 	krb5_context context = *state;
+ 	krb5_keytab keytab = NULL;
+ 	krb5_error_code code;
+-	char keytab_template[] = "/tmp/keytab.XXXXXX";
++	char keytab_template[] = "@TERMUX_PREFIX@/tmp/keytab.XXXXXX";
+ 	int fd;
+ 
+ 	fd = mkstemp(keytab_template);
+@@ -59,7 +59,7 @@ static void test_smb_krb5_kt_open_file(void **state)
+ 	krb5_context context = *state;
+ 	krb5_keytab keytab = NULL;
+ 	krb5_error_code code;
+-	char keytab_template[] = "/tmp/keytab.XXXXXX";
++	char keytab_template[] = "@TERMUX_PREFIX@/tmp/keytab.XXXXXX";
+ 	char keytab_file[6 + strlen(keytab_template)];
+ 	int fd;
+ 
+diff --git a/third_party/pam_wrapper/pam_wrapper.c b/third_party/pam_wrapper/pam_wrapper.c
+index 48d2c2a..d96bf01 100644
+--- a/third_party/pam_wrapper/pam_wrapper.c
++++ b/third_party/pam_wrapper/pam_wrapper.c
+@@ -844,7 +844,7 @@ out:
+ 
+ static void pwrap_init(void)
+ {
+-	char tmp_config_dir[] = "/tmp/pam.X";
++	char tmp_config_dir[] = "@TERMUX_PREFIX@/tmp/pam.X";
+ 	size_t len = strlen(tmp_config_dir);
+ 	const char *env;
+ 	struct stat sb;
+-- 
+2.25.1
+

@@ -1,0 +1,35 @@
+From 63a467a95337f7eb1ea5c608c9286e96e3eb79ea Mon Sep 17 00:00:00 2001
+From: Faheem Pervez <trippin1@gmail.com>
+Date: Tue, 19 May 2020 04:58:13 +0100
+Subject: [PATCH 4/6] Skip ftruncate on shares marked as fstype FAT by
+ user
+
+vfat doesn't do sparse files, so creating a file >= 200MB full of actual
+zeros on a slow microSD card takes its sweet time. So much so that Windows
+gives up on trying to copy the file to a FAT share.
+
+It's a known problem, apparently:
+https://lists.samba.org/archive/samba/2008-June/141343.html
+https://www.cnblogs.com/flychown/p/6548021.html
+https://osdn.net/projects/sfnet_routertesting/downloads/ea6900%20patches/samba_009_FAT_fix.patch/
+https://forum.xda-developers.com/android/apps-games/app-samba-filesharing-server-android-t2803452
+---
+ source3/modules/vfs_default.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source3/modules/vfs_default.c b/source3/modules/vfs_default.c
+index 5341c04..b182898 100644
+--- a/source3/modules/vfs_default.c
++++ b/source3/modules/vfs_default.c
+@@ -2665,7 +2665,7 @@ static int vfswrap_ftruncate(vfs_handle_struct *handle, files_struct *fsp, off_t
+ 	   expansion and some that don't! On Linux fat can't do
+ 	   ftruncate extend but ext2 can. */
+ 
+-	result = ftruncate(fsp->fh->fd, len);
++	result = strequal(lp_fstype(SNUM(fsp->conn)), "FAT") ? 0 : ftruncate(fsp->fh->fd, len);
+ 
+ 	/* According to W. R. Stevens advanced UNIX prog. Pure 4.3 BSD cannot
+ 	   extend a file with ftruncate. Provide alternate implementation
+-- 
+2.25.1
+
