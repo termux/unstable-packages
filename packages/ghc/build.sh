@@ -4,14 +4,16 @@ TERMUX_PKG_LICENSE="custom"
 TERMUX_PKG_VERSION=8.10.1
 TERMUX_PKG_SRCURL=http://downloads.haskell.org/~ghc/${TERMUX_PKG_VERSION}/ghc-${TERMUX_PKG_VERSION}-src.tar.xz
 TERMUX_PKG_SHA256=4e3b07f83a266b3198310f19f71e371ebce97c769b14f0d688f4cbf2a2a1edf5
-TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="binutils, clang, iconv, libffi, llvm, ncurses"
+TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_NO_STATICSPLIT=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" --disable-ld-override --build=x86_64-unknown-linux --host=x86_64-unknown-linux"
 
 DYNAMIC_GHC_PROGRAMS=NO
 
 termux_step_pre_configure() {
+	termux_setup_ghc
+
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --target=${TERMUX_HOST_PLATFORM}"
 
 	# After stage 0, cabal passes a host string to the libraries' configure scripts that isn't valid.
