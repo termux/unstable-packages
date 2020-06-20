@@ -87,5 +87,5 @@ jobs:
           if [ -n "$DELETED_PACKAGE_NAMES" ]; then
             ./scripts/package_uploader.sh -d $DELETED_PACKAGE_NAMES
           fi
-          [ -d ./termux-packages/debs ] && ./scripts/package_uploader.sh -p ./termux-packages/debs $PACKAGE_NAMES
+          [ -d ./termux-packages/debs ] && ./scripts/package_uploader.sh -p ./termux-packages/debs $PACKAGE_NAMES || echo "no debs"
         fi
