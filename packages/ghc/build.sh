@@ -31,7 +31,7 @@ termux_step_pre_configure() {
 	GhcStage2HcOpts += -optl-Wl,--enable-new-dtags
 	INTEGER_LIBRARY = integer-simple
 	SplitSections   = YES
-	BuildFlavour         = perf-cross
+	BuildFlavour         = quick-cross
 	HADDOCK_DOCS         = NO
 	BUILD_SPHINX_HTML    = NO
 	BUILD_SPHINX_PS      = NO
