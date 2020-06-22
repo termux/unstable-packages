@@ -1,0 +1,28 @@
+diff -uNr v-0.1.28/Makefile v-0.1.28.mod/Makefile
+--- v-0.1.28/Makefile	2020-06-18 16:57:53.000000000 +0300
++++ v-0.1.28.mod/Makefile	2020-06-22 14:04:54.528835328 +0300
+@@ -52,23 +52,16 @@
+ 	./v.exe self
+ endif
+ else
+-	$(CC) $(CFLAGS) -g -std=gnu11 -w -o v $(VC)/$(VCFILE) $(LDFLAGS) -lm -lpthread
++	$(CC) $(CFLAGS) -g -std=gnu11 -w -o v $(VC)/$(VCFILE) $(LDFLAGS) -lm
+ ifdef ANDROID
+ 	chmod 755 v
+ endif
+ 
+-ifdef prod
+-	./v -prod self
+-else
+-	./v self
+-endif
+-
+ ifndef ANDROID
+ 	$(MAKE) modules
+ endif
+ endif
+ 	@echo "V has been successfully built"
+-	@./v -version
+ 
+ #clean: clean_tmp
+ #git clean -xf
