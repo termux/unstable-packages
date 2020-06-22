@@ -12,9 +12,32 @@ stty -echo -icanon time 0 min 0 intr undef quit undef susp undef
 trap 'while read -r; do true; done; stty sane;' EXIT
 
 if [ "$(id -u)" = "0" ]; then
-	echo "[!] Do not install Termux packages as root :)"
+	echo "[!] Sorry but I won't let you to install this package as root."
 	exit 1
 fi
+
+FOLD_COLUMNS=45
+if [[ $COLUMNS =~ ([[:digit:]]) ]] && ((COLUMNS < FOLD_COLUMNS)); then
+	FOLD_COLUMNS=$COLUMNS
+fi
+
+echo
+echo "======= TERMUX METASPLOIT DISCLAIMER ======="
+{
+	echo
+	echo "Metasploit Framework and its dependencies are being sideloaded.  That solution makes package potentially unstable.  We do not guarantee compatibility of installed Ruby modules with our Ruby interpreter version and general compatibility with Android OS."
+	echo
+	echo "It is highly recommended to have a stable Internet connection and clean Termux environment with up-to-date packages before installing Metasploit."
+	echo
+	echo "Package is intended to be used by experienced users.  Do not ask Termux developers about how to use Metasploit, we won't do so and generally are not helping anyone with topics related to hacking."
+	echo
+	echo "Installation will be started in 5 seconds, thanks for attention."
+	echo
+} | fold -s -w "$FOLD_COLUMNS"
+echo "============================================"
+echo
+
+sleep 5
 
 echo "[*] Downloading Metasploit Framework..."
 mkdir -p "$TMPDIR"
