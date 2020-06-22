@@ -10,7 +10,9 @@ available here may have lower quality, be unstable or not work at all.
 
 **Only for Termux installations on Android 7.0 or higher.**
 
-**Issue reporting is disabled: unstable package means that it is known to be problematic.**
+**Issue reporting is disabled!** Post issues to https://github.com/termux/termux-packages/issues
+instead and remember that packages in unstable repository are known to
+have problems which may not be fixed now.
 
 ## How to enable this repository
 
