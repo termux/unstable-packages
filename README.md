@@ -71,6 +71,7 @@ Here is a list of available packages with some information about their usability
 | enscript          |             |             | Tries to use 'lpr' utility.                      |
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
 | fetchmail         |             |             | fetchmailconf requires tkinter in python2.       |
+| ghc               |             |             | Works on AArch64 and x86_64. Need more testing.  |
 | gitflow-avh       |             |             | Requires dependency list fix.                    |
 | gopass            |             |             | Reports problems with GPG key generation.        |
 | guile18           |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
@@ -83,14 +84,15 @@ Here is a list of available packages with some information about their usability
 | libisofs          |             |             |                                                  |
 | libopenfec        |             |             | Not tested.                                      |
 | libsixel          |             |             | Not tested.                                      |
-| metasploit        |             |             | Uses external Ruby modules and sideloading.   |
+| metasploit        |             |             | Uses external Ruby modules and sideloading.      |
 | nmh               |             |             | Not tested.                                      |
 | openldap          |             |             | Not tested.                                      |
 | pandoc            |             |             | Not native binary. Relies on QEMU.               |
 | racket            |             |             |                                                  |
 | rapidjson         |             |             | Not tested.                                      |
 | restic-server     |             |             | Not tested.                                      |
-| rustc-nightly     |             |             | Nightly branch of Rust. |
+| rustc-nightly     |             |             | Nightly branch of Rust.                          |
+| samba             |             | preferable  | smbd CPU usage may go to 100%. Hardcoded root account. |
 | shtool            |             |             | Not tested.                                      |
 | smalltalk         |             |             |                                                  |
 | srelay            |             |             |                                                  |
