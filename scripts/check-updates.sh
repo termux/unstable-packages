@@ -44,6 +44,8 @@ translate_package_name() {
 	local translated_name
 
 	case "$1" in
+		distcc) translated_name="/hidden/";;
+		docopt) translated_name="/hidden/";;
 		guile18) translated_name="/hidden/";;
 		rustc-nightly) translated_name="rust";;
 		zeronet) translated_name="/hidden/";;
