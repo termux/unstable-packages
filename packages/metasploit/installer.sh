@@ -31,13 +31,13 @@ echo "======= TERMUX METASPLOIT DISCLAIMER ======="
 	echo
 	echo "Package is intended to be used by experienced users.  Do not ask Termux developers about how to use Metasploit, we won't do so and generally are not helping anyone with topics related to hacking."
 	echo
-	echo "Installation will be started in 5 seconds, thanks for attention."
+	echo "Installation will be started in 10 seconds, thanks for attention."
 	echo
 } | fold -s -w "$FOLD_COLUMNS"
 echo "============================================"
 echo
 
-sleep 5
+sleep 10
 
 echo "[*] Downloading Metasploit Framework..."
 mkdir -p "$TMPDIR"
