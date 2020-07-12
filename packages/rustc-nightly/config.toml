@@ -35,7 +35,7 @@ backtrace-on-ice = true
 #crt-static = true
 
 [target.x86_64-unknown-linux-gnu]
-llvm-config = "/usr/bin/llvm-config-9"
+llvm-config = "/usr/bin/llvm-config-10"
 
 [target.@RUST_TARGET_TRIPLE@]
 cc = "@TERMUX_HOST_PLATFORM@-clang"
