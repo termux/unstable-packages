@@ -1,7 +1,0 @@
-#!@TERMUX_PREFIX@/bin/sh
-##
-## seautomate requires execution from setoolkit installation directory.
-##
-
-cd @TERMUX_PREFIX@/opt/setoolkit
-exec python ./seautomate "$@"
