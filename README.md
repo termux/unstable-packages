@@ -65,6 +65,7 @@ Here is a list of available packages with some information about their usability
 | at                |             |             |                                                  |
 | atomvm            |             |             | As its readme states: AtomVM is still in its early stages. |
 | bftpd             |             |             | Not tested.                                      |
+| biber             |             |             | Sideloaded.                                      |
 | ccls              |             |             | Not tested.                                      |
 | cppcheck          |             |             | Not tested.                                      |
 | distcc            |             |             | Not tested.                                      |
@@ -86,6 +87,7 @@ Here is a list of available packages with some information about their usability
 | libisofs          |             |             |                                                  |
 | libopenfec        |             |             | Not tested.                                      |
 | libsixel          |             |             | Not tested.                                      |
+| libtd             |             |             |                                                  |
 | metasploit        |             |             | Uses external Ruby modules and sideloading.      |
 | nmh               |             |             | Not tested.                                      |
 | openldap          |             |             | Not tested.                                      |
@@ -102,6 +104,7 @@ Here is a list of available packages with some information about their usability
 | surfraw           |             |             | Needs fix for hardcoded paths.                   |
 | tcc               |             |             | No support for generation of PIE executables.    |
 | telegram-cli      |             |             | May crash under certain conditions.              |
+| texlive-installer |             |             |                                                  |
 | vlang             |             |             | Not tested.                                      |
 | yara              |             |             | Always exits with `error: 31`.                   |
 | zeronet           |             |             | Uses external python modules.                    |
