@@ -112,12 +112,10 @@ These packages are excluded from main source tree. Some of them may be available
 
 - **a2ps** - segmentation fault on AArch64 for unknown reason.
 
-- **geckodriver** - useless without 'firefox' package.
+- **geckodriver** - requires Firefox package which is not available for Termux.
 
 - **micropython** - requires update & build fix.
 
 - **roc** - doesn't support CI autobuilds as requires Pulseaudio build directory.
 
-- **setoolkit** - completely unusable due to portability issues and hard relying on external utilities.
-
-- **shiori** - compilation error with Go 1.13.
+- **shiori** - no longer maintained, compilation error with Go 1.13+.
