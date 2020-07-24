@@ -62,16 +62,17 @@ Here is a list of available packages with some information about their usability
 
 | Package           | Is stable ? | Need root ? | Notes                                            |
 |:------------------|:-----------:|:-----------:|:-------------------------------------------------|
-| at                |             |             |                                                  |
+| at                | X           |             |                                                  |
 | atomvm            |             |             | As its readme states: AtomVM is still in its early stages. |
-| bftpd             |             |             | Not tested.                                      |
+| bftpd             |             |             | Needs patches in order to be usable on rootless Termux. |
 | biber             |             |             | Sideloaded.                                      |
 | ccls              |             |             | Not tested.                                      |
 | cppcheck          |             |             | Not tested.                                      |
+| cups              |             |             | When trying to add a printer, it hangs and CPU usage goes to 100%. |
 | distcc            |             |             | Not tested.                                      |
-| docopt            |             |             | Not tested.                                      |
+| docopt            | X           |             |                                                  |
 | electrum          |             |             | Uses external python modules.                    |
-| enscript          |             |             | Tries to use 'lpr' utility.                      |
+| enscript          |             |             |                                                  |
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
 | fetchmail         |             |             | fetchmailconf requires tkinter in python2.       |
 | ghc               |             |             | Works on AArch64 and x86_64. Need more testing.  |
