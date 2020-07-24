@@ -3,9 +3,10 @@ TERMUX_PKG_DESCRIPTION="AT and batch delayed command scheduling utility and daem
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=3.2.1
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=http://software.calhariz.com/at/at_${TERMUX_PKG_VERSION}.orig.tar.gz
 TERMUX_PKG_SHA256=aabe6e5cb6dd19fe9fb25c2747492f2db38762b95ea41b86f949609c39fb55c4
+TERMUX_PKG_SUGGESTS="termux-services"
 TERMUX_PKG_BUILD_IN_SRC=true
 
 # Force make -j1.
@@ -25,6 +26,8 @@ ac_cv_path_SENDMAIL=$TERMUX_PREFIX/bin/sendmail
 TERMUX_PKG_RM_AFTER_INSTALL="
 share/man/man5
 "
+
+TERMUX_PKG_SERVICE_SCRIPT=("atd" "mkdir -p $TERMUX_PREFIX/var/run && exec atd")
 
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
