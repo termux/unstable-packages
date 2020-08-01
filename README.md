@@ -108,7 +108,7 @@ Here is a list of available packages with some information about their usability
 | texlive-installer |             |             |                                                  |
 | vlang             |             |             | Not tested.                                      |
 | yara              |             |             | Always exits with `error: 31`.                   |
-| zeronet           |             |             | Uses external python modules.                    |
+| zeronet           |             |             | Uses external python modules. Installation failure. |
 
 ### Disabled packages
 
