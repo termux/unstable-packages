@@ -19,10 +19,6 @@ stty -echo -icanon time 0 min 0 intr undef quit undef susp undef
 # Use trap to unlock terminal at exit.
 trap 'while read -r; do true; done; stty sane;' EXIT
 
-echo "[*] Installing cpanm..."
-
-cpan install App::cpanminus
-
 echo "[*] Downloading and patching troublesome dependencies..."
 
 cd $TMPDIR
@@ -35,7 +31,7 @@ fi
 tar -xf ExtUtils-LibBuilder-${EXTUTILS_LIBBUILDER_VERSION}.tar.gz
 cd ExtUtils-LibBuilder-${EXTUTILS_LIBBUILDER_VERSION}
 patch -Np1 -i $PREFIX/opt/biber/ExtUtils-LibBuilder.diff
-cpanm .
+cpan install .
 
 cd ..
 
@@ -47,7 +43,7 @@ else
 fi
 tar -xf Text-BibTeX-${TEXT_BIBTEX_VERSION}.tar.gz && cd Text-BibTeX-${TEXT_BIBTEX_VERSION}
 patch -Np1 -i $PREFIX/opt/biber/Text-BibTeX.diff
-cpanm .
+cpan install .
 
 cd ..
 
