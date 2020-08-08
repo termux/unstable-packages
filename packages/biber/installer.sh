@@ -56,7 +56,7 @@ else
 	rm -rf biber-${BIBER_VERSION}
 fi
 tar -xf biber-${BIBER_VERSION}.tar.gz && cd biber-${BIBER_VERSION}
-cpanm .
+cpan install .
 
 cd ..
 
