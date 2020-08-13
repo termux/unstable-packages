@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="The slightly more awesome standard unix password manager
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.9.2
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/gopasspw/gopass/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=d1da878ca9abaf1edf4d09f81bf3173430fbc74a9006e278d1f3383160bb9096
 TERMUX_PKG_DEPENDS="git, gnupg"
