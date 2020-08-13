@@ -1,10 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://www.samba.org/
 TERMUX_PKG_DESCRIPTION="SMB/CIFS fileserver"
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_VERSION=4.12.5
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=4.12.6
 TERMUX_PKG_SRCURL=https://download.samba.org/pub/samba/samba-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=54b41cc6378acae20dd155ba55d78ff171875c2eaa3f05f87b485d3d6891b815
+TERMUX_PKG_SHA256=02289bb5e5538780e7b1d1cf6f040195cc75ea229dc28a9a1cb16a0608af6cec
 TERMUX_PKG_DEPENDS="libbsd, libcap, libcrypt, libgnutls, libiconv, libicu, libpopt, libtalloc, libtirpc, ncurses, openssl, readline, zlib"
 TERMUX_PKG_BUILD_DEPENDS="e2fsprogs"
 TERMUX_PKG_BUILD_IN_SRC=true
