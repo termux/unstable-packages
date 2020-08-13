@@ -24,3 +24,8 @@ termux_step_make_install() {
 	install -Dm644 srelay.passwd "${TERMUX_PREFIX}/etc/srelay.passwd"
 	install -Dm644 srelay.8 "${TERMUX_PREFIX}/share/man/man8/srelay.8"
 }
+
+termux_step_install_license() {
+	install -Dm600 -t "$TERMUX_PREFIX/share/doc/srelay" \
+		"$TERMUX_PKG_BUILDER_DIR"/LICENSE.txt
+}
