@@ -1,7 +1,5 @@
 ##
-##  1. Requires OpenCL support in your OS.
-##
-##  2. Not available for Android 5 & 6.
+##  Requires OpenCL support in your OS.
 ##
 
 TERMUX_PKG_HOMEPAGE=https://hashcat.net/hashcat
@@ -28,4 +26,9 @@ termux_step_post_make_install() {
 		"$TERMUX_PREFIX"/bin/hashcat
 	sed -i "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 		"$TERMUX_PREFIX"/bin/hashcat
+}
+
+termux_step_install_license() {
+	install -Dm600 -t "$TERMUX_PREFIX/share/doc/hashcat" \
+		"$TERMUX_PKG_SRCDIR"/docs/license.txt
 }
