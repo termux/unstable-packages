@@ -75,7 +75,7 @@ Here is a list of available packages with some information about their usability
 | enscript          |             |             |                                                  |
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
 | fetchmail         |             |             | fetchmailconf requires tkinter in python2.       |
-| ghc               |             |             | Works on AArch64 and x86_64. Need more testing.  |
+| ghc               |             |             | Build failre.                                    |
 | gitflow-avh       |             |             | Requires dependency list fix.                    |
 | gopass            |             |             | Reports problems with GPG key generation.        |
 | guile18           |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
