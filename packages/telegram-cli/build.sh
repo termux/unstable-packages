@@ -7,6 +7,7 @@ TERMUX_PKG_REVISION=13
 TERMUX_PKG_DEPENDS="libconfig, libevent, libjansson, openssl, readline, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-liblua"
 TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_SKIP_SRC_EXTRACT=true
 
 termux_step_get_source() {
 	mkdir -p "$TERMUX_PKG_SRCDIR"
