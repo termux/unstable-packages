@@ -13,3 +13,8 @@ termux_step_host_build() {
         cmake "-DCMAKE_BUILD_TYPE=Release" "$TERMUX_PKG_SRCDIR"
         cmake --build . --target prepare_cross_compiling
 }
+
+termux_step_post_make_install() {
+	# Fix rebuilds without ./clean.sh.
+	rm -rf $TERMUX_PKG_HOSTBUILD_DIR
+}
