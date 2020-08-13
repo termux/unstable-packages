@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="The Reliable, High Performance TCP/HTTP Load Balancer"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=2.1.7
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=http://www.haproxy.org/download/${TERMUX_PKG_VERSION:0:3}/src/haproxy-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=392e6cf18e75fe7e166102e8c4512942890a0b5ae738f6064faab4687f60a339
 TERMUX_PKG_DEPENDS="liblua, openssl, pcre, zlib"
