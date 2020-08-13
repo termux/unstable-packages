@@ -43,3 +43,10 @@ termux_step_create_debscripts() {
 	} > ./postrm
 	chmod 755 ./postrm
 }
+
+termux_step_install_license() {
+	install -Dm600 -t "$TERMUX_PREFIX/share/doc/metasploit" \
+		"$TERMUX_PKG_BUILDER_DIR"/COPYING.txt \
+		"$TERMUX_PKG_BUILDER_DIR"/LICENSE-MSF.txt \
+		"$TERMUX_PKG_BUILDER_DIR"/LICENSE-GEMS.txt
+}
