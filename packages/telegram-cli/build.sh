@@ -8,7 +8,7 @@ TERMUX_PKG_DEPENDS="libconfig, libevent, libjansson, openssl, readline, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-liblua"
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_extract_package() {
+termux_step_get_source() {
 	mkdir -p "$TERMUX_PKG_SRCDIR"
 	cd "$TERMUX_PKG_SRCDIR"
 	git clone https://github.com/vysheng/tg
