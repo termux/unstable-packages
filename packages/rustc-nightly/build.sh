@@ -4,8 +4,9 @@ TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
 TERMUX_PKG_VERSION=1.47.0
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-07-26/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=a6302d7e2b31af93dac782de7ab21fa7dfc60268e367e08fb759ddc9fc25cab0
+TERMUX_PKG_REVISION=1
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-08-27/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=65cdecbeac26c1b8f4a4ce0122ea404c7d5ef000cd1425e7718433e041fe9f3e
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
@@ -55,8 +56,7 @@ termux_step_make_install () {
 	fi
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
 	mkdir $TERMUX_PKG_BUILDDIR/install
-	# miri-nightly not working.
-	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly; do
+	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly miri-nightly; do
 		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
