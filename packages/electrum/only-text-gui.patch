@@ -1,5 +1,5 @@
-diff -u -r ../Electrum-3.3.8/electrum/daemon.py ./electrum/daemon.py
---- ../Electrum-3.3.8/electrum/daemon.py	2019-07-11 15:08:35.000000000 +0200
+diff -u -r ../Electrum-4.0.2/electrum/daemon.py ./electrum/daemon.py
+--- ../Electrum-4.0.2/electrum/daemon.py	2019-07-11 15:08:35.000000000 +0200
 +++ ./electrum/daemon.py	2020-05-03 13:46:52.373992401 +0200
 @@ -342,7 +342,7 @@
  
@@ -10,9 +10,9 @@ diff -u -r ../Electrum-3.3.8/electrum/daemon.py ./electrum/daemon.py
          if gui_name in ['lite', 'classic']:
              gui_name = 'qt'
          gui = __import__('electrum.gui.' + gui_name, fromlist=['electrum'])
---- ./setup.py.orig	2019-07-11 13:08:35.000000000 +0000
-+++ ./setup.py	2020-05-15 20:41:30.300333156 +0000
-@@ -67,7 +67,6 @@
+--- ./setup.py.orig	2000-11-11 12:11:11.000000000 +0100
++++ ./setup.py	2020-09-07 20:42:26.406766373 +0200
+@@ -73,7 +73,6 @@
      packages=[
          'electrum',
          'electrum.gui',

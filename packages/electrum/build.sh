@@ -2,11 +2,10 @@ TERMUX_PKG_HOMEPAGE=https://electrum.org
 TERMUX_PKG_DESCRIPTION="Electrum is a lightweight Bitcoin wallet."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
-TERMUX_PKG_VERSION=3.3.8
-TERMUX_PKG_REVISION=5
+TERMUX_PKG_VERSION=4.0.3
 TERMUX_PKG_SRCURL=https://download.electrum.org/$TERMUX_PKG_VERSION/Electrum-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=e2adf191847609d5bd850320f647db6347952b170364a463276db27a836400bc
-TERMUX_PKG_DEPENDS="python"
+TERMUX_PKG_SHA256=8f1a4d9e8623fcbd9e4ed9966c4744da51b6a148ddfacf5c97dfeffe9f0b0961
+TERMUX_PKG_DEPENDS="python, libsecp256k1"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 # asciinema previously contained some files that python packages have in common
@@ -18,11 +17,13 @@ TERMUX_PKG_RM_AFTER_INSTALL="
 bin/easy_install
 bin/qr
 bin/chardetect
+bin/qdarkstyle
 bin/easy_install-${_PYTHON_VERSION}
 lib/python${_PYTHON_VERSION}/site-packages/easy-install.pth
 lib/python${_PYTHON_VERSION}/site-packages/site.py
 lib/python${_PYTHON_VERSION}/site-packages/setuptools.pth
 lib/python${_PYTHON_VERSION}/site-packages/electrum/gui/qt
+lib/python${_PYTHON_VERSION}/site-packages/helpdev-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/attrs-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/PySocks-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/dnspython-*-py${_PYTHON_VERSION}.egg
@@ -38,6 +39,7 @@ lib/python${_PYTHON_VERSION}/site-packages/async_timeout-*-py${_PYTHON_VERSION}.
 lib/python${_PYTHON_VERSION}/site-packages/certifi-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/yarl-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/QDarkStyle-*-py${_PYTHON_VERSION}.egg
+lib/python${_PYTHON_VERSION}/site-packages/QtPy-*-py${_PYTHON_VERSION}.egg
 lib/python${_PYTHON_VERSION}/site-packages/aiohttp-*-py${_PYTHON_VERSION}-*.egg
 lib/python${_PYTHON_VERSION}/site-packages/multidict-*-py${_PYTHON_VERSION}-*.egg
 lib/python${_PYTHON_VERSION}/site-packages/protobuf-*-py${_PYTHON_VERSION}-*.egg
@@ -67,5 +69,5 @@ termux_step_post_massage () {
 
 termux_step_create_debscripts () {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
-	echo "pip3 install aiohttp_socks aiorpcx requests qrcode pyaes protobuf pbkdf2 jsonrpclib-pelix ecdsa dnspython PySocks qdarkstyle==2.5.4 typing" >> postinst
+	echo "pip3 install 'pyaes>=0.1a1' 'ecdsa>=0.14' 'qrcode' 'protobuf>=3.12' 'dnspython<2.0' 'qdarkstyle<2.9' 'aiorpcx>=0.18,<0.19' 'aiohttp>=3.3.0,<4.0.0' 'aiohttp_socks>=0.3' 'certifi' 'bitstring' 'attrs>=19.2.0'" >> postinst
 }
