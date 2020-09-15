@@ -17,6 +17,7 @@ termux_step_configure () {
 	rustup target add $CARGO_TARGET_NAME
 	export  PATH=$HOME/.rustup/toolchains/beta-2020-09-10-x86_64-unknown-linux-gnu/bin:$PATH
 	export	RUST_BACKTRACE=1
+	rm $HOME/.rustup/toolchains/1* -rf
 	mkdir -p $TERMUX_PREFIX/opt/rust-nightly
 	RUST_PREFIX=$TERMUX_PREFIX/opt/rust-nightly
 	export PATH=$TERMUX_PKG_TMPDIR/bin:$PATH
