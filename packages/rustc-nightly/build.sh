@@ -45,33 +45,43 @@ termux_step_configure () {
 }
 
 termux_step_make_install () {
-	if [ $TERMUX_ARCH = "x86_64" ]; then
+#	if [ $TERMUX_ARCH = "x86_64" ]; then
 		mv $TERMUX_PREFIX ${TERMUX_PREFIX}a
-		../src/x.py dist cargo  --host x86_64-unknown-linux-gnu
-		../src/x.py dist rls  --host x86_64-unknown-linux-gnu
-		../src/x.py dist rust-analyzer  --host x86_64-unknown-linux-gnu
-		../src/x.py dist rustfmt  --host x86_64-unknown-linux-gnu
+		../src/x.py dist --stage 1 cargo  --host x86_64-unknown-linux-gnu
+		../src/x.py dist --stage 1 rls  --host x86_64-unknown-linux-gnu
+		../src/x.py dist --stage 1 rust-analyzer  --host x86_64-unknown-linux-gnu
+		../src/x.py dist --stage 1 rustfmt  --host x86_64-unknown-linux-gnu
+		../src/x.py dist --stage 1 miri --host x86_64-unknown-linux-gnu
 		mv ${TERMUX_PREFIX}a ${TERMUX_PREFIX}
-	fi
-	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
-	mkdir $TERMUX_PKG_BUILDDIR/install
+#	fi
 	
+	rm ../src/src/llvm-project -rf
+	rm build/dist/* 
+	rm build/tmp -rf
+
+	../src/x.py dist --stage 1 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
+	mkdir $TERMUX_PKG_BUILDDIR/install
+	rm build/dist/*.gz
+	rm ../src -rf 
 	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly miri-nightly; do
-		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
+		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.xz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --prefix=$RUST_PREFIX
+		rm $TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME -rf 
 	done
 
-	tar -xf $TERMUX_PKG_BUILDDIR/build/dist/rust-src-nightly.tar.gz -C $TERMUX_PKG_BUILDDIR/install
+	tar -xf $TERMUX_PKG_BUILDDIR/build/dist/rust-src-nightly.tar.xz -C $TERMUX_PKG_BUILDDIR/install
 	$TERMUX_PKG_BUILDDIR/install/rust-src-nightly/install.sh --uninstall --prefix=$RUST_PREFIX || true
 	$TERMUX_PKG_BUILDDIR/install/rust-src-nightly/install.sh --prefix=$RUST_PREFIX
+	rm $TERMUX_PKG_BUILDDIR/install/rust-src-nightly
 	WASM=wasm32-unknown-unknown
 	for tar in rust-std-nightly rust-analysis-nightly; do
-		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$WASM.tar.gz -C $TERMUX_PKG_BUILDDIR/install
+		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$WASM.tar.xz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --uninstall --prefix=$RUST_PREFIX || true
 		$TERMUX_PKG_BUILDDIR/install/$tar-$WASM/install.sh --prefix=$RUST_PREFIX
+		rm $TERMUX_PKG_BUILDDIR/install/$tar-$WASM -rf
 	done
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		rm -f $TERMUX_PREFIX/lib/libc.so  $TERMUX_PREFIX/lib/libdl.so
@@ -82,6 +92,10 @@ termux_step_make_install () {
 
 termux_step_post_massage () {
 	rm $TERMUX_PKG_MASSAGEDIR/$RUST_PREFIX/lib/rustlib/{components,rust-installer-version,install.log,uninstall.sh}
+	if [ $TERMUX_ARCH = "x86_64" ]; then
+                rm -f $TERMUX_PKG_MASSAGEDIR/lib/libtinfo.so.6
+        fi
+
 	mkdir -p $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/etc/profile.d
 	mkdir -p $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib
 	echo "#!$TERMUX_PREFIX/bin/sh" > $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/etc/profile.d/rust-nightly.sh
@@ -91,9 +105,6 @@ termux_step_post_massage () {
 	cd $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib
 	ln -sf ../opt/rust-nightly/lib/lib*.so .
 	ln -sf $TERMUX_PREFIX/bin/lld $TERMUX_PKG_MASSAGEDIR$RUST_PREFIX/bin/rust-lld
-	if [ $TERMUX_ARCH = "x86_64" ]; then
-		rm -f lib/libtinfo.so.6
-	fi
 	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-10.0.1.so
 }
 termux_step_create_debscripts () {
