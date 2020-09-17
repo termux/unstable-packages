@@ -3,9 +3,9 @@ TERMUX_PKG_DESCRIPTION="Rust compiler and utilities (nightly version)"
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
-TERMUX_PKG_VERSION=1.48.0
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-09-13/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=8d3bc5d5ac2b9a38c5a00384c92f8168fe741388d826425b936ba65e6515ed52
+TERMUX_PKG_VERSION=1.47.0
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-07-26/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=a6302d7e2b31af93dac782de7ab21fa7dfc60268e367e08fb759ddc9fc25cab0
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
@@ -13,9 +13,9 @@ termux_step_configure () {
 	termux_setup_rust
 
 	# nightlys don't build with stable
-	rustup install beta-2020-09-10-x86_64-unknown-linux-gnu
+	rustup install beta-2020-07-16-x86_64-unknown-linux-gnu
 	rustup target add $CARGO_TARGET_NAME
-	export  PATH=$HOME/.rustup/toolchains/beta-2020-09-10-x86_64-unknown-linux-gnu/bin:$PATH
+	export  PATH=$HOME/.rustup/toolchains/beta-2020-07-16-x86_64-unknown-linux-gnu/bin:$PATH
 	export	RUST_BACKTRACE=1
 	mkdir -p $TERMUX_PREFIX/opt/rust-nightly
 	RUST_PREFIX=$TERMUX_PREFIX/opt/rust-nightly
@@ -55,8 +55,8 @@ termux_step_make_install () {
 	fi
 	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
 	mkdir $TERMUX_PKG_BUILDDIR/install
-	
-	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly miri-nightly; do
+	# miri-nightly not working.
+	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly; do
 		tar -xf $TERMUX_PKG_BUILDDIR/build/dist/$tar-$CARGO_TARGET_NAME.tar.gz -C $TERMUX_PKG_BUILDDIR/install
 		# uninstall previous version
 		$TERMUX_PKG_BUILDDIR/install/$tar-$CARGO_TARGET_NAME/install.sh --uninstall --prefix=$RUST_PREFIX || true
