@@ -3,7 +3,8 @@ TERMUX_PKG_DESCRIPTION="Telegram messenger CLI"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.4.1
-TERMUX_PKG_DEPENDS="libconfig, libevent, libjansson, openssl, readline, zlib, lua"
+TERMUX_PKG_DEPENDS="libconfig, libevent, libjansson, openssl, readline, zlib"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-liblua"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_HOSTBUILD=true
@@ -19,7 +20,7 @@ termux_step_get_source() {
 
 termux_step_host_build() {
 	cp -rf $TERMUX_PKG_SRCDIR/* ./
-	./configure
+	./configure --disable-liblua
 	make bin/generate
 	make bin/tl-parser
 }
