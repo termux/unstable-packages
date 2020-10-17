@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://electrum.org
 TERMUX_PKG_DESCRIPTION="Electrum is a lightweight Bitcoin wallet."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
-TERMUX_PKG_VERSION=4.0.3
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=4.0.4
 TERMUX_PKG_SRCURL=https://download.electrum.org/$TERMUX_PKG_VERSION/Electrum-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=8f1a4d9e8623fcbd9e4ed9966c4744da51b6a148ddfacf5c97dfeffe9f0b0961
+TERMUX_PKG_SHA256=bb56e1770c2022e70f885e48f42c64927e61bdc38b925daa8e1a85fbb82cac0d
 TERMUX_PKG_DEPENDS="python, libsecp256k1"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
@@ -55,7 +54,9 @@ termux_step_make_install () {
 	rm -rf $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/electrum
 	rm -rf $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/Electrum-${TERMUX_PKG_VERSION}-py${_PYTHON_VERSION}.egg*
 	export PYTHONPATH=$TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/
-	python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX
+	YARL_NO_EXTENSIONS=1 MULTIDICT_NO_EXTENSIONS=1 \
+		CFLAGS=-I$TERMUX_PREFIX/include/python${_PYTHON_VERSION} \
+		python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX
 }
 
 termux_step_post_massage () {
@@ -70,5 +71,5 @@ termux_step_post_massage () {
 
 termux_step_create_debscripts () {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
-	echo "pip3 install 'pyaes>=0.1a1' 'ecdsa>=0.14' 'qrcode' 'protobuf>=3.12' 'dnspython<2.0' 'qdarkstyle<2.9' 'aiorpcx>=0.18,<0.19' 'aiohttp>=3.3.0,<4.0.0' 'aiohttp_socks>=0.3' 'certifi' 'bitstring' 'attrs>=19.2.0'" >> postinst
+	echo "pip3 install 'ecdsa>=0.14' 'qrcode' 'protobuf>=3.12' 'dnspython<2.0' 'qdarkstyle<2.9' 'aiorpcx>=0.18,<0.19' 'aiohttp>=3.3.0,<4.0.0' 'aiohttp_socks>=0.3' 'certifi' 'bitstring' 'attrs>=19.2.0' 'pycryptodomex'" >> postinst
 }
