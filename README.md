@@ -105,7 +105,7 @@ Here is a list of available packages with some information about their usability
 | surfraw           |             |             | Needs fix for hardcoded paths.                   |
 | tcc               |             |             | No support for generation of PIE executables.    |
 | telegram-cli      |             |             | May crash under certain conditions.              |
-| texlive-installer |             |             |                                                  |
+| texlive-installer |             |             | Updates of infra packages changes settings, breaking texlive |
 | vlang             |             |             | Not tested.                                      |
 | yara              |             |             | Always exits with `error: 31`.                   |
 | zeronet           |             |             | Uses external python modules. Installation failure. |
