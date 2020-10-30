@@ -5,15 +5,15 @@
    unix password sync = no
    pam password change = no
    obey pam restrictions = no
-   passwd program = /system/bin/true
-   add user script = /system/bin/true
-   add group script = /system/bin/true
-   add user to group script = /system/bin/true
-   add machine script = /system/bin/true
-   delete user script = /system/bin/true
-   delete user from group script = /system/bin/true
-   delete group script = /system/bin/true
-   rename user script = /system/bin/true
+   passwd program = @TERMUX_PREFIX@/bin/true
+   add user script = @TERMUX_PREFIX@/bin/true
+   add group script = @TERMUX_PREFIX@/bin/true
+   add user to group script = @TERMUX_PREFIX@/bin/true
+   add machine script = @TERMUX_PREFIX@/bin/true
+   delete user script = @TERMUX_PREFIX@/bin/true
+   delete user from group script = @TERMUX_PREFIX@/bin/true
+   delete group script = @TERMUX_PREFIX@/bin/true
+   rename user script = @TERMUX_PREFIX@/bin/true
    name resolve order = lmhosts host bcast
    bind interfaces only = yes
    interfaces = 127.0.0.0/8 wlan0
@@ -34,7 +34,7 @@
    host msdfs = no
    dns proxy = no
    allow dns updates = disabled
-   dns update command = /system/bin/false
+   dns update command = @TERMUX_PREFIX@/bin/false
    server services = smb
    dcerpc endpoint servers = rpcecho
 
@@ -76,7 +76,7 @@
    map readonly = no
    map system = no
 
-   ;log file = /data/data/com.termux/files/usr/var/log/samba/log.%m
+   ;log file = @TERMUX_PREFIX@/var/log/samba/log.%m
    ;log level = 0
    max log size = 50
    ;logging = syslog
@@ -91,9 +91,9 @@
    disable spoolss = yes
    show add printer wizard = no
    max print jobs = 0
-   lpq command = /system/bin/false
-   lprm command = /system/bin/false
-   print command = /system/bin/false
+   lpq command = @TERMUX_PREFIX@/bin/false
+   lprm command = @TERMUX_PREFIX@/bin/false
+   print command = @TERMUX_PREFIX@/bin/false
 
 #============================ Share Definitions ==============================
 ; remember to run termux-setup-storage first

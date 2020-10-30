@@ -8,7 +8,7 @@
 global
     maxconn     20000
     log         127.0.0.1 local0
-    pidfile     /data/data/com.termux/files/usr/var/run/haproxy.pid
+    pidfile     @TERMUX_PREFIX@/var/run/haproxy.pid
     daemon
 
 frontend  main

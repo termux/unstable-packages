@@ -128,7 +128,9 @@ EOF
 
 	./buildtools/bin/waf install --jobs="$TERMUX_MAKE_PROCESSES"
 
-	install -Dm600 "$TERMUX_PKG_BUILDER_DIR/smb.conf.example" "$TERMUX_PREFIX/share/doc/samba/smb.conf.example"
+	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
+		"$TERMUX_PKG_BUILDER_DIR/smb.conf.example.in" \
+		> "$TERMUX_PREFIX/share/doc/samba/smb.conf.example"
 }
 
 termux_step_post_massage() {
