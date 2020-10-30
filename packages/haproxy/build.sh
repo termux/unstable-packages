@@ -43,8 +43,10 @@ termux_step_post_make_install() {
 			"$TERMUX_PREFIX/bin/$contrib"
 	done
 
-	install -Dm600 "$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg \
-		"$TERMUX_PREFIX"/etc/haproxy/haproxy.cfg
+	mkdir -p "$TERMUX_PREFIX"/etc/haproxy
+	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
+		"$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg.in \
+		> "$TERMUX_PREFIX"/etc/haproxy/haproxy.cfg
 
 	mkdir -p "$TERMUX_PREFIX"/share/haproxy/examples/errorfiles
 	install -m600 examples/*.cfg "$TERMUX_PREFIX"/share/haproxy/examples/

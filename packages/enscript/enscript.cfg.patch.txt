@@ -5,7 +5,7 @@
  
  # Library path.  Let's use built-in default.
 -# LibraryPath:
-+LibraryPath: /data/data/com.termux/files/usr/share/enscript
++LibraryPath: @TERMUX_PREFIX@/share/enscript
  
  # How wrapped lines are marked in printout.  Possible values are: `none',
  # `plus', `box' and `arrow'.  As a default, we do not mark them.
