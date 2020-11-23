@@ -1,7 +1,7 @@
-diff -uNr haproxy-1.9.5/Makefile haproxy-1.9.5.mod/Makefile
---- haproxy-1.9.5/Makefile	2019-03-19 15:40:44.000000000 +0200
-+++ haproxy-1.9.5.mod/Makefile	2019-03-27 15:36:22.262501763 +0200
-@@ -127,10 +127,10 @@
+diff -uNr haproxy-2.3.1/Makefile haproxy-2.3.1.mod/Makefile
+--- haproxy-2.3.1/Makefile	2020-11-13 20:20:03.000000000 +0000
++++ haproxy-2.3.1.mod/Makefile	2020-11-23 13:37:28.797578825 +0000
+@@ -134,10 +134,10 @@
  
  #### Installation options.
  DESTDIR =
@@ -14,13 +14,13 @@ diff -uNr haproxy-1.9.5/Makefile haproxy-1.9.5.mod/Makefile
 +DOCDIR = $(PREFIX)/share/doc/haproxy
  
  #### TARGET system
- # Use TARGET=<target_name> to optimize for a specifc target OS among the
-@@ -154,7 +154,7 @@
+ # Use TARGET=<target_name> to optimize for a specific target OS among the
+@@ -161,7 +161,7 @@
+ ARCH =
  
  #### Toolchain options.
- # GCC is normally used both for compiling and linking.
--CC = gcc
-+CC ?= gcc
+-CC = cc
++CC ?= cc
  LD = $(CC)
  
  #### Debug flags (typically "-g").
