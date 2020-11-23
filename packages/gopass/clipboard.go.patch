@@ -1,12 +1,12 @@
-diff -uNr gopass-1.8.4/pkg/clipboard/clipboard.go gopass-1.8.4.mod/pkg/clipboard/clipboard.go
---- gopass-1.8.4/pkg/clipboard/clipboard.go	2018-12-26 19:16:38.000000000 +0200
-+++ gopass-1.8.4.mod/pkg/clipboard/clipboard.go	2019-01-30 14:46:13.327735051 +0200
-@@ -14,7 +14,7 @@
+diff -uNr gopass-1.10.1/internal/clipboard/clipboard.go gopass-1.10.1.mod/internal/clipboard/clipboard.go
+--- gopass-1.10.1/internal/clipboard/clipboard.go	2020-08-25 18:44:13.000000000 +0000
++++ gopass-1.10.1.mod/internal/clipboard/clipboard.go	2020-11-23 12:21:48.258938819 +0000
+@@ -16,7 +16,7 @@
  
  var (
  	// ErrNotSupported is returned when the clipboard is not accessible
--	ErrNotSupported = fmt.Errorf("WARNING: No clipboard available. Install xsel or xclip or use -p to print to console")
-+	ErrNotSupported = fmt.Errorf("WARNING: No clipboard available. Install termux-api or use -p to print to console")
+-	ErrNotSupported = fmt.Errorf("WARNING: No clipboard available. Install xsel or xclip or use -f to print to console")
++	ErrNotSupported = fmt.Errorf("WARNING: No clipboard available. Install termux-api or use -f to print to console")
  )
  
  // CopyTo copies the given data to the clipboard and enqueues automatic
