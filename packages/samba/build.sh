@@ -20,7 +20,7 @@ termux_step_make_install() {
 	local _auth_modules='auth_server,auth_netlogond,auth_script'
 	local _pdb_modules='pdb_tdbsam,pdb_smbpasswd,pdb_wbc_sam'
 	local _vfs_modules='vfs_fake_perms,!vfs_recycle,!vfs_btrfs,!vfs_glusterfs_fuse'
-	_vfs_modules+=',!vfs_virusfilter,!vfs_linux_xfs_sgid,!vfs_shell_snap,!vfs_expand_msdfs'
+	_vfs_modules+=',!vfs_virusfilter,!vfs_linux_xfs_sgid,!vfs_shell_snap,!vfs_expand_msdfs,!vfs_snapper'
 	_vfs_modules+=',!vfs_default_quota,!vfs_audit,!vfs_extd_audit,!vfs_full_audit'
 	_vfs_modules+=',!vfs_worm,!vfs_time_audit,!vfs_media_harmony,!vfs_unityed_media,!vfs_shadow_copy,!vfs_shadow_copy2'
 
