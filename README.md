@@ -14,10 +14,21 @@ available here may have lower quality, be unstable or not work at all.
 instead and remember that packages in unstable repository are known to
 have problems which may not be fixed now.
 
+***
+
+**@termux is looking for help with fixing issues, adding new packages and maintaining
+existing ones. It would be very helpful if you submit a pull request with new packages
+or bug fixes.**
+
+If you wish to contribute, please take a look at Unstable packages [contributing guide](./CONTRIBUTING.md)
+and developer's [wiki pages](https://github.com/termux/termux-packages/wiki).
+
+***
+
 ## How to enable this repository
 
-To enable this package repository run:
-
+Repository is not enabled in Termux by default. Enable it with this command to be
+able to install its packages:
 ```
 pkg install unstable-repo
 ```
@@ -44,17 +55,6 @@ requirements are Linux-based host with Docker installed.
 	```
 	Replace `${arch}` with target CPU architecture and `${package name}` with
 	package name you want to build.
-
-## Contributing
-
-[I](https://github.com/xeffyr) am working on packages in my spare time and probably
-will not be able to process your issues instantly. It would be very helpful if you
-submit a pull request with new packages or bug fixes.
-
-If you wish to contribute, please take a look at Unstable packages [contributing guide](./CONTRIBUTING.md)
-and developer's [wiki pages](https://github.com/termux/termux-packages/wiki).
-
-[termux-packages]: <https://github.com/termux/termux-packages>
 
 ## Status of packages
 
@@ -123,3 +123,5 @@ These packages are excluded from main source tree. Some of them may be available
 - **roc** - doesn't support CI autobuilds as requires Pulseaudio build directory.
 
 - **shiori** - no longer maintained, compilation error with Go 1.13+.
+
+[termux-packages]: <https://github.com/termux/termux-packages>
