@@ -1,4 +1,4 @@
-# Repository for new/unstable packages
+# Repository for unstable packages
 
 [![Packages last build status](https://github.com/termux/unstable-packages/workflows/Packages/badge.svg)](https://github.com/termux/unstable-packages/actions)
 
