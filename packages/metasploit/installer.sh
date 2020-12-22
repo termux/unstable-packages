@@ -62,8 +62,8 @@ fi
 echo "[*] Updating Ruby gems..."
 update_rubygems
 
-echo "[*] Installing 'bundler:1.17.3'..."
-gem install --no-document --verbose bundler:1.17.3
+echo "[*] Installing 'bundler'..."
+gem install --no-document --verbose bundler
 
 echo "[*] Installing Metasploit dependencies (may take long time)..."
 cd "$PREFIX"/opt/metasploit-framework
