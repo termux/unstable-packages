@@ -3,9 +3,9 @@ TERMUX_PKG_DESCRIPTION="Rust compiler and utilities (nightly version)"
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
-TERMUX_PKG_VERSION=1.47.0
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-07-26/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=a6302d7e2b31af93dac782de7ab21fa7dfc60268e367e08fb759ddc9fc25cab0
+TERMUX_PKG_VERSION=1.50.0
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-12-23/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=b98c9b0ccc6a1c0bb894e7591a5f4acaed520b1082d47fd95b4c2ef9df4ce1b5
 TERMUX_PKG_KEEP_SHARE_DOC=true
 
 termux_step_configure () {
@@ -13,9 +13,9 @@ termux_step_configure () {
 	termux_setup_rust
 
 	# nightlys don't build with stable
-	rustup install beta-2020-07-16-x86_64-unknown-linux-gnu
+	rustup install beta-2020-11-18-x86_64-unknown-linux-gnu
 	rustup target add $CARGO_TARGET_NAME
-	export  PATH=$HOME/.rustup/toolchains/beta-2020-07-16-x86_64-unknown-linux-gnu/bin:$PATH
+	export  PATH=$HOME/.rustup/toolchains/beta-2020-11-18-x86_64-unknown-linux-gnu/bin:$PATH
 	export	RUST_BACKTRACE=1
 	mkdir -p $TERMUX_PREFIX/opt/rust-nightly
 	RUST_PREFIX=$TERMUX_PREFIX/opt/rust-nightly
@@ -35,7 +35,7 @@ termux_step_configure () {
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"
 	# it won't link with it in TERMUX_PREFIX/lib without breaking other things.
-	cp $PREFIX/lib/libLLVM-10.0.1.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
+	cp $PREFIX/lib/libLLVM-11.0.0.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
 	unset CC CXX CPP LD CFLAGS CXXFLAGS CPPFLAGS LDFLAGS PKG_CONFIG AR RANLIB
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libc.so $TERMUX_PREFIX/lib/
@@ -53,7 +53,8 @@ termux_step_make_install () {
 		../src/x.py dist rustfmt  --host x86_64-unknown-linux-gnu
 		mv ${TERMUX_PREFIX}a ${TERMUX_PREFIX}
 	fi
-	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown
+        ../src/x.py build --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || zsh
+	../src/x.py dist --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || zsh
 	mkdir $TERMUX_PKG_BUILDDIR/install
 	# miri-nightly not working.
 	for tar in rustc-nightly rustc-dev-nightly rust-docs-nightly rust-std-nightly rust-analysis-nightly cargo-nightly rls-nightly rustc-dev-nightly rustfmt-nightly clippy-nightly; do
@@ -94,7 +95,7 @@ termux_step_post_massage () {
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		rm -f lib/libtinfo.so.6
 	fi
-	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-10.0.1.so
+	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-11.0.0.so
 }
 termux_step_create_debscripts () {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
