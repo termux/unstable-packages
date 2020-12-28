@@ -7,6 +7,7 @@ TERMUX_PKG_VERSION=1.50.0
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-12-23/rustc-nightly-src.tar.xz
 TERMUX_PKG_SHA256=b98c9b0ccc6a1c0bb894e7591a5f4acaed520b1082d47fd95b4c2ef9df4ce1b5
 TERMUX_PKG_KEEP_SHARE_DOC=true
+TERMUX_PKG_REVISION=1
 
 termux_step_configure () {
 	termux_setup_cmake
@@ -97,6 +98,7 @@ termux_step_post_massage () {
 	cd $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib
 	ln -sf ../opt/rust-nightly/lib/lib*.so .
 	ln -sf $TERMUX_PREFIX/bin/lld $TERMUX_PKG_MASSAGEDIR$RUST_PREFIX/bin/rust-lld
+	rm -f ../bin/llvm-dwp
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		rm -f lib/libtinfo.so.6
 	fi
