@@ -49,6 +49,8 @@ our repositories:
 
 - Packages must NOT duplicate functionality of the already present ones.
 
+- Packages must NOT be phishing or pentesting tools.
+
 Also we will reject any requests for low-quality packages, simple utilities consisting
 of one-file scripts and scripts which automate use of existing packages.
 
