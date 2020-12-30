@@ -89,7 +89,6 @@ Here is a list of available packages with some information about their usability
 | libopenfec        |             |             | Not tested.                                      |
 | libsixel          |             |             | Not tested.                                      |
 | libtd             |             |             |                                                  |
-| metasploit        |             |             | Uses external Ruby modules and sideloading.      |
 | nmh               |             |             | Not tested.                                      |
 | openldap          |             |             | Not tested.                                      |
 | pandoc            |             |             | Not native binary. Relies on QEMU.               |
@@ -101,7 +100,6 @@ Here is a list of available packages with some information about their usability
 | shtool            |             |             | Not tested.                                      |
 | smalltalk         |             |             |                                                  |
 | srelay            |             |             |                                                  |
-| sqlmap            |             |             | Not tested.                                      |
 | surfraw           |             |             | Needs fix for hardcoded paths.                   |
 | tcc               |             |             | No support for generation of PIE executables.    |
 | telegram-cli      |             |             | May crash under certain conditions.              |
