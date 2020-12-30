@@ -62,7 +62,6 @@ Here is a list of available packages with some information about their usability
 
 | Package           | Is stable ? | Need root ? | Notes                                            |
 |:------------------|:-----------:|:-----------:|:-------------------------------------------------|
-| at                | X           |             |                                                  |
 | atomvm            |             |             | As its readme states: AtomVM is still in its early stages. |
 | bftpd             |             |             | Needs patches in order to be usable on rootless Termux. |
 | biber             |             |             | Sideloaded.                                      |
@@ -70,7 +69,6 @@ Here is a list of available packages with some information about their usability
 | cppcheck          |             |             | Not tested.                                      |
 | cups              |             |             | When trying to add a printer, it hangs and CPU usage goes to 100%. |
 | distcc            |             |             | Not tested.                                      |
-| docopt            | X           |             |                                                  |
 | electrum          |             |             | Uses external python modules.                    |
 | enscript          |             |             |                                                  |
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
