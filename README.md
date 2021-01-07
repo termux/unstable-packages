@@ -79,7 +79,6 @@ Here is a list of available packages with some information about their usability
 | guile18           |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
 | guile             |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
 | haproxy           |             |             | Not tested.                                      |
-| hashcat           |             |             | May crash OS. May not find own OpenCL directory. |
 | jigdo             |             |             | Not tested.                                      |
 | libburn           |             |             |                                                  |
 | libisoburn        |             |             | Reports sizeof(off_t) is too small for 32bit installations. Same goes for libburn and libisofs. |
