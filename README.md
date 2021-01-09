@@ -117,6 +117,5 @@ These packages are excluded from main source tree. Some of them may be available
 
 - **roc** - doesn't support CI autobuilds as requires Pulseaudio build directory.
 
-- **shiori** - no longer maintained, compilation error with Go 1.13+.
 
 [termux-packages]: <https://github.com/termux/termux-packages>
