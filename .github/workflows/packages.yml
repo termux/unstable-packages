@@ -1,6 +1,9 @@
-name: Packages (release)
+name: Packages
 
 on:
+  pull_request:
+    paths:
+    - 'packages/**'
   push:
     branches:
     - master
@@ -9,21 +12,10 @@ on:
 
 jobs:
   build:
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    # When using in YOUR OWN repositories, change
-    # variable BINTRAY_USERNAME to appropriate value.
-    #
-    # Bintray API key should be set through Github configuration
-    # menu of your repository (see "Secrets"). Create
-    # a new one with name 'BINTRAY_API_KEY'.
     env:
       ANDROID_HOME: "/opt/termux/android-sdk"
       NDK: "/opt/termux/android-ndk"
-      BINTRAY_USERNAME: xeffyr
-      BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-      BINTRAY_GPG_SUBJECT: xeffyr
-      BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
     strategy:
       matrix:
         target_arch: [aarch64, arm, i686, x86_64]
@@ -77,15 +69,9 @@ jobs:
         # Remove trailing spaces.
         PACKAGE_NAMES=$(sed 's/[[:blank:]]*$//' <<< "$PACKAGE_NAMES")
         DELETED_PACKAGE_NAMES=$(sed 's/[[:blank:]]*$//' <<< "$DELETED_PACKAGE_NAMES")
-        # Process packages in this way:
-        #  1. Build modified packages.
-        #  2. If package was removed from Git, then delete it from hosting.
-        #  3. Upload built packages to hosting.
+        # Build packages.
+        # TODO: upload packages to Github Actions artifacts storage.
         if [ -n "$PACKAGE_NAMES" ]; then
           ./scripts/lint-packages.sh $(echo "$PACKAGE_NAMES" | grep -P '^[a-zA-Z0-9]' | awk '{ print "./packages/"$0"/build.sh" }')
           ./start-builder.sh ./build-package.sh -a ${{ matrix.target_arch }} -I $PACKAGE_NAMES
-          if [ -n "$DELETED_PACKAGE_NAMES" ]; then
-            ./scripts/package_uploader.sh -d $DELETED_PACKAGE_NAMES
-          fi
-          [ -d ./termux-packages/debs ] && ./scripts/package_uploader.sh -p ./termux-packages/debs $PACKAGE_NAMES || echo "no debs"
         fi
