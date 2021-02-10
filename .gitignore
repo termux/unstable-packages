@@ -8,9 +8,10 @@
 *.so.*
 
 # Built packages.
-/debs/
-/deb-packages/
+/debs/*
+/deb-packages/*
 *.deb
+!/debs/.placeholder
 
 # Logs.
 *.log
