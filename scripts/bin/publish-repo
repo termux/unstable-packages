@@ -58,7 +58,7 @@ IPFS_NEW_CID=$(ipfs add --recursive --nocopy --quieter "/srv/apt/aptly-root/publ
 
 if [ -n "$IPFS_NEW_CID" ]; then
 	echo "[*] Unpinning older hash..."
-	ipfs pin rm /ipns/k51qzi5uqu5dgu3homski160l4t4bmp52vb6dbgxb5bda90rewnwg64wnkwxj4 || true
+	ipfs pin rm /ipns/k51qzi5uqu5dj05z8mr958kwvrg7a0wqouj5nnoo5uqu1btnsljvpznfaav9nk || true
 	echo
 
 	echo "[*] Registering updated repository root in IPNS..."
