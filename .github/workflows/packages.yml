@@ -30,7 +30,7 @@ jobs:
           liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual ruby
         sudo apt autoremove -yq
         sudo rm -rf /usr/local
-    - name: Build and upload to Bintray
+    - name: Build packages
       run: |
         BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
         OLD_COMMIT=$(jq --raw-output .commits[0].id "$GITHUB_EVENT_PATH")

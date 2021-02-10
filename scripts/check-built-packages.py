@@ -46,7 +46,7 @@ def check_manifest(arch, manifest):
             parts = line.decode().split(':', 1)
             current_package[parts[0].strip()] = parts[1].strip()
 
-for arch in ['all', 'aarch64', 'arm', 'i686', 'x86_64']:
-    manifest_url = f'https://dl.bintray.com/xeffyr/unstable-packages/dists/unstable/main/binary-{arch}/Packages'
+for arch in ['aarch64', 'arm', 'i686', 'x86_64']:
+    manifest_url = f'https://ipfs.io/ipns/k51qzi5uqu5dj05z8mr958kwvrg7a0wqouj5nnoo5uqu1btnsljvpznfaav9nk/dists/unstable/main/binary-{arch}/Packages'
     with urllib.request.urlopen(manifest_url) as manifest:
         check_manifest(arch, manifest)
