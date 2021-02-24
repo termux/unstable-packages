@@ -3,20 +3,19 @@ TERMUX_PKG_DESCRIPTION="Rust compiler and utilities (nightly version)"
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
-TERMUX_PKG_VERSION=1.50.0
-TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2020-12-23/rustc-nightly-src.tar.xz
-TERMUX_PKG_SHA256=b98c9b0ccc6a1c0bb894e7591a5f4acaed520b1082d47fd95b4c2ef9df4ce1b5
+TERMUX_PKG_VERSION=1.52.0
+TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2021-02-24/rustc-nightly-src.tar.xz
+TERMUX_PKG_SHA256=80536b0050fc83cdffedf617bac0fd23dc60081adc00648b90404e1a14baba18
 TERMUX_PKG_KEEP_SHARE_DOC=true
-TERMUX_PKG_REVISION=1
 
 termux_step_configure () {
 	termux_setup_cmake
 	termux_setup_rust
 	
 	# nightlys don't build with stable
-	rustup install beta-2020-11-18-x86_64-unknown-linux-gnu
+	rustup install beta-2021-02-14-x86_64-unknown-linux-gnu
 	rustup target add $CARGO_TARGET_NAME
-	export  PATH=$HOME/.rustup/toolchains/beta-2020-11-18-x86_64-unknown-linux-gnu/bin:$PATH
+	export  PATH=$HOME/.rustup/toolchains/beta-2021-02-14-x86_64-unknown-linux-gnu/bin:$PATH
 	export	RUST_BACKTRACE=1
 	mkdir -p $TERMUX_PREFIX/opt/rust-nightly
 	RUST_PREFIX=$TERMUX_PREFIX/opt/rust-nightly
@@ -36,7 +35,7 @@ termux_step_configure () {
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"
 	# it won't link with it in TERMUX_PREFIX/lib without breaking other things.
-	cp $PREFIX/lib/libLLVM-11.0.0.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
+	cp $PREFIX/lib/libLLVM-11.1.0.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
 	unset CC CXX CPP LD CFLAGS CXXFLAGS CPPFLAGS LDFLAGS PKG_CONFIG AR RANLIB
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libc.so $TERMUX_PREFIX/lib/
@@ -102,7 +101,7 @@ termux_step_post_massage () {
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		rm -f lib/libtinfo.so.6
 	fi
-	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-11.0.0.so
+	rm	$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-11.1.0.so
 }
 termux_step_create_debscripts () {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
