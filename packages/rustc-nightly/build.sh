@@ -4,6 +4,7 @@ TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@its-pointless"
 TERMUX_PKG_VERSION=1.52.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/2021-02-24/rustc-nightly-src.tar.xz
 TERMUX_PKG_SHA256=80536b0050fc83cdffedf617bac0fd23dc60081adc00648b90404e1a14baba18
 TERMUX_PKG_KEEP_SHARE_DOC=true
