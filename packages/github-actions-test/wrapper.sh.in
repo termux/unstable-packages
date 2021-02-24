@@ -1,2 +1,0 @@
-#!@TERMUX_PREFIX@/bin/sh
-exec @TERMUX_PREFIX@/bin/qemu-x86_64 @TERMUX_PREFIX@/libexec/pandoc/@BINARY@ "$@"
