@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Library to pack up hard disk files and directories into 
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.5.4
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=http://files.libburnia-project.org/releases/libisofs-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=aaa0ed80a7501979316f505b0b017f29cba0ea5463b751143bad2c360215a88e
 TERMUX_PKG_DEPENDS="libiconv, zlib"

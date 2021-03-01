@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Simple, fast, safe, compiled language for developing mai
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=0.1.29
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/vlang/v/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=5111d04663d8454c9e8bcbd7e3544dcbd6abc54eb5034e31649417af6e8418a6
 TERMUX_PKG_DEPENDS="clang"
