@@ -71,7 +71,6 @@ Here is a list of available packages with some information about their usability
 | enscript          |             |             |                                                  |
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
 | fetchmail         |             |             | fetchmailconf requires tkinter in python2.       |
-| ghc               |             |             | Build failre.                                    |
 | gitflow-avh       |             |             | Requires dependency list fix.                    |
 | gopass            |             |             | Reports problems with GPG key generation.        |
 | guile18           |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
@@ -110,6 +109,8 @@ These packages are excluded from main source tree. Some of them may be available
 - **a2ps** - segmentation fault on AArch64 for unknown reason.
 
 - **geckodriver** - requires Firefox package which is not available for Termux.
+
+- **ghc** - can't be compiled with latest NDK as supports only LLVM 9.
 
 - **micropython** - requires update & build fix.
 
