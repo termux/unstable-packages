@@ -22,11 +22,13 @@ termux_step_configure() {
 }
 
 termux_step_make() {
-	./configure --prefix="/tmp/tcc.host" --cpu="${TERMUX_ARCH}"
-
-	make -j $TERMUX_MAKE_PROCESSES tcc
-	mv -f tcc tcc.host
-	make distclean
+	(
+		unset CC CFLAGS LDFLAGS
+		./configure --prefix="/tmp/tcc.host" --cpu="${TERMUX_ARCH}"
+		make -j $TERMUX_MAKE_PROCESSES tcc
+		mv -f tcc tcc.host
+		make distclean
+	)
 
 	./configure \
 		--prefix="$TERMUX_PREFIX" \
