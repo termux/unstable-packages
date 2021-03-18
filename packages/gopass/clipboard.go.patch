@@ -1,7 +1,8 @@
-diff -uNr gopass-1.10.1/internal/clipboard/clipboard.go gopass-1.10.1.mod/internal/clipboard/clipboard.go
---- gopass-1.10.1/internal/clipboard/clipboard.go	2020-08-25 18:44:13.000000000 +0000
-+++ gopass-1.10.1.mod/internal/clipboard/clipboard.go	2020-11-23 12:21:48.258938819 +0000
-@@ -16,7 +16,7 @@
+diff --git a/pkg/clipboard/clipboard.go b/pkg/clipboard/clipboard.go
+index 937d5d3e..b6670dfe 100644
+--- a/pkg/clipboard/clipboard.go
++++ b/pkg/clipboard/clipboard.go
+@@ -14,7 +14,7 @@ import (
  
  var (
  	// ErrNotSupported is returned when the clipboard is not accessible
