@@ -7,7 +7,7 @@ TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/gopasspw/gopass/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=1e3d7ad389a8462256ff7e439de1fbed8012c38ec33bded63b11af74f0525279
 TERMUX_PKG_DEPENDS="git, gnupg"
-TERMUX_PKG_SUGGESTS="termux-api"
+TERMUX_PKG_SUGGESTS="termux-api, openssh"
 
 termux_step_make() {
 	termux_setup_golang
