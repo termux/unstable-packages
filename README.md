@@ -72,7 +72,6 @@ Here is a list of available packages with some information about their usability
 | fdroidcl          |             |             | Some functionality relies on ADB.                |
 | fetchmail         |             |             | fetchmailconf requires tkinter in python2.       |
 | gitflow-avh       |             |             | Requires dependency list fix.                    |
-| gopass            |             |             | Reports problems with GPG key generation.        |
 | guile18           |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
 | guile             |             |             | Is https://github.com/termux/termux-packages/issues/3360 still applicable ? |
 | haproxy           |             |             | Not tested.                                      |
