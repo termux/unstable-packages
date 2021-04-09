@@ -84,7 +84,7 @@ Here is a list of available packages with some information about their usability
 | libtd             |             |             |                                                  |
 | nmh               |             |             | Not tested.                                      |
 | openldap          |             |             | Not tested.                                      |
-| pandoc            |             |             | Not native binary. Relies on QEMU.               |
+| pandoc            |             |             | Third-party precompiled binaries.                |
 | racket            |             |             |                                                  |
 | rapidjson         |             |             | Not tested.                                      |
 | restic-server     |             |             | Not tested.                                      |
