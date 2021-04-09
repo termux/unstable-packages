@@ -1,34 +1,34 @@
-# Note: pandoc binary is not native and executed under QEMU.
-
 TERMUX_PKG_HOMEPAGE=https://pandoc.org/
 TERMUX_PKG_DESCRIPTION="Universal markup converter"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
-TERMUX_PKG_VERSION=2.11.4
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/jgm/pandoc/releases/download/$TERMUX_PKG_VERSION/pandoc-${TERMUX_PKG_VERSION}-linux-amd64.tar.gz
-TERMUX_PKG_SHA256=b15ce6009ab833fb51fc472bf8bb9683cd2bd7f8ac948f3ddeb6b8f9a366d69a
-TERMUX_PKG_DEPENDS="qemu-user-x86_64"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION=2.13
+TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
 
 termux_step_make_install() {
-	sed \
-		-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
-		-e "s|@BINARY@|pandoc|g" \
-		"$TERMUX_PKG_BUILDER_DIR/wrapper.sh.in" \
-			> "$TERMUX_PREFIX/bin/pandoc"
-	chmod 700 "$TERMUX_PREFIX/bin/pandoc"
-	install -Dm700 "./bin/pandoc" "$TERMUX_PREFIX/libexec/pandoc/pandoc"
-	install -Dm600 "./share/man/man1/pandoc.1.gz" "$TERMUX_PREFIX/share/man/man1/pandoc.1.gz"
-}
+	local srcurl
+	local sha256
 
-termux_step_create_debscripts() {
-	cat <<- EOF > ./postinst
-		#!$TERMUX_PREFIX/bin/sh
-		echo
-		echo "Package 'pandoc' uses x86_64 binary running under QEMU."
-		echo "Do not post bug reports about it."
-		echo
-	EOF
+	case "$TERMUX_ARCH" in
+		aarch64)
+			srcurl="https://github.com/jgm/pandoc/releases/download/${TERMUX_PKG_VERSION}/pandoc-${TERMUX_PKG_VERSION}-linux-arm64.tar.gz"
+			sha256="4f87bfe8a0a626ad0e17d26d42e99a1c0ed7d369cca00366c1b3d97525f57db5"
+			;;
+		x86_64)
+			srcurl="https://github.com/jgm/pandoc/releases/download/${TERMUX_PKG_VERSION}/pandoc-${TERMUX_PKG_VERSION}-linux-amd64.tar.gz"
+			sha256="7404aa88a6eb9fbb99d9803b80170a3a546f51959230cc529c66a2ce6b950d4c"
+			;;
+		*)
+			termux_error_exit "Unsupported arch: $TERMUX_ARCH"
+			;;
+	esac
+
+	termux_download "$srcurl" "pandoc-${TERMUX_PKG_VERSION}.tar.gz" "$sha256"
+	tar xf "pandoc-${TERMUX_PKG_VERSION}.tar.gz"
+	cd "pandoc-${TERMUX_PKG_VERSION}"
+
+	install -Dm700 "./bin/pandoc" "$TERMUX_PREFIX/bin/pandoc"
+	install -Dm600 "./share/man/man1/pandoc.1.gz" "$TERMUX_PREFIX/share/man/man1/pandoc.1.gz"
 }
