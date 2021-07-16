@@ -32,17 +32,6 @@ termux_step_make() {
 }
 
 termux_step_post_make_install() {
-	for contrib in halog iprange ip6range; do
-		make -C "contrib/$contrib" \
-			CC="$CC"
-			SBINDIR="$TERMUX_PREFIX/bin" \
-			OPTIMIZE= \
-			CFLAGS="$CFLAGS $CPPFLAGS" \
-			LDFLAGS="$LDFLAGS"
-		install -Dm700 "contrib/$contrib/$contrib" \
-			"$TERMUX_PREFIX/bin/$contrib"
-	done
-
 	mkdir -p "$TERMUX_PREFIX"/etc/haproxy
 	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
 		"$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg.in \
