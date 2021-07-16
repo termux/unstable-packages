@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.haproxy.org/
 TERMUX_PKG_DESCRIPTION="The Reliable, High Performance TCP/HTTP Load Balancer"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
-TERMUX_PKG_VERSION=2.3.10
+TERMUX_PKG_VERSION=2.4.2
 TERMUX_PKG_SRCURL=http://www.haproxy.org/download/${TERMUX_PKG_VERSION:0:3}/src/haproxy-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=9946e0cfc83f29072b3431e37246221cf9d4a9d28a158c075714d345266f4f35
+TERMUX_PKG_SHA256=edf9788f7f3411498e3d7b21777036b4dc14183e95c8e2ce7577baa0ea4ea2aa
 TERMUX_PKG_DEPENDS="liblua53, openssl, pcre, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 
@@ -32,17 +32,6 @@ termux_step_make() {
 }
 
 termux_step_post_make_install() {
-	for contrib in halog iprange ip6range; do
-		make -C "contrib/$contrib" \
-			CC="$CC"
-			SBINDIR="$TERMUX_PREFIX/bin" \
-			OPTIMIZE= \
-			CFLAGS="$CFLAGS $CPPFLAGS" \
-			LDFLAGS="$LDFLAGS"
-		install -Dm700 "contrib/$contrib/$contrib" \
-			"$TERMUX_PREFIX/bin/$contrib"
-	done
-
 	mkdir -p "$TERMUX_PREFIX"/etc/haproxy
 	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
 		"$TERMUX_PKG_BUILDER_DIR"/haproxy.cfg.in \
