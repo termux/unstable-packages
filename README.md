@@ -4,26 +4,12 @@
 
 [![Powered by FossHost](./.github/static/powered-by-fosshost.png)](https://fosshost.org)
 
-There are located packages which were requested, but not added to the
-[main][termux-packages] Termux repository due to various reasons. Packages
-available here may have lower quality, be unstable or not work at all.
+There are located packages which were requested, but not added to the [main][termux-packages] Termux repository due to various reasons. Packages available here may have lower quality, be unstable or not work at all. Report issues to https://github.com/termux/termux-packages/issues.
 
-**Only for Termux installations on Android 7.0 or higher.**
-
-**Issue reporting is disabled!** Post issues to https://github.com/termux/termux-packages/issues
-instead and remember that packages in unstable repository are known to
-have problems which may not be fixed now.
-
-***
-
-**@termux is looking for help with fixing issues, adding new packages and maintaining
-existing ones. It would be very helpful if you submit a pull request with new packages
-or bug fixes.**
-
-If you wish to contribute, please take a look at Unstable packages [contributing guide](./CONTRIBUTING.md)
-and developer's [wiki pages](https://github.com/termux/termux-packages/wiki).
-
-***
+**Donate in cryptocurrency ([TRX](https://tron.network/trx?lng=en) or TRC-10 tokens)**:
+```
+TM5LFhqwBd9VNXCxCwNerEuQbYu4RnsniH
+```
 
 ## How to enable this repository
 
