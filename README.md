@@ -2,7 +2,7 @@
 
 [![Packages last build status](https://github.com/termux/unstable-packages/workflows/Packages/badge.svg)](https://github.com/termux/unstable-packages/actions)
 
-[![Powered by FossHost](./.github/static/powered-by-fosshost.png)](https://fosshost.org)
+<img src=".github/static/powered-by-fosshost.png" alt="Powered by FossHost" width="128px"></img>
 
 There are located packages which were requested, but not added to the [main][termux-packages] Termux repository due to various reasons. Packages available here may have lower quality, be unstable or not work at all. Report issues to https://github.com/termux/termux-packages/issues.
 
@@ -10,6 +10,8 @@ There are located packages which were requested, but not added to the [main][ter
 ```
 TM5LFhqwBd9VNXCxCwNerEuQbYu4RnsniH
 ```
+
+<img src=".github/static/donation-tronlink-qr.jpg" alt="TM5LFhqwBd9VNXCxCwNerEuQbYu4RnsniH" width="128px"></img>
 
 ## How to enable this repository
 
